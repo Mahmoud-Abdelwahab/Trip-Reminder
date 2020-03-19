@@ -9,12 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
-        <activity android:name=".NavigationDrawer"
+
+        <activity android:name=".Views.NavigationDrawerView"
             android:theme="@style/AppTheme.NoActionBar">
-=======
-        <activity android:name=".View.Login.LoginView">
->>>>>>> 36be90e88b92335621926bccc8774df174c91a41
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
