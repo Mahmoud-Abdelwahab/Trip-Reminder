@@ -13,6 +13,6 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("Hello Git");
         System.out.println("Hello ’ِMahmoud");
         System.out.println("mahmoud Abdelwahab");
-        ٍSystem.out.println("Allah Akbar");
+        System.out.println("Allah Akbar");
     }
 }
