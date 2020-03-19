@@ -5,9 +5,13 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     android:fitsSystemWindows="true"
     tools:context=".NavigationDrawer"
     tools:openDrawer="start">
+=======
+    tools:context=".View.Login.LoginView">
+>>>>>>> 36be90e88b92335621926bccc8774df174c91a41
 
     <LinearLayout
         android:layout_width="match_parent"
