@@ -3,5 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#37ABFF"
-    tools:context=".Views.UpcomingFragmentView" />
+    android:background="#FFFFFF"
+    tools:context=".Views.UpcomingFragmentView">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/Upcoming_RecyclarView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</FrameLayout>
