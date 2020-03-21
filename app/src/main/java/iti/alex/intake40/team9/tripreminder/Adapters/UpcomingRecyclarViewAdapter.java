@@ -22,6 +22,8 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 import iti.alex.intake40.team9.tripreminder.Models.FloatingItem;
 import iti.alex.intake40.team9.tripreminder.POJO.Trip;
 import iti.alex.intake40.team9.tripreminder.R;
@@ -30,14 +32,15 @@ import iti.alex.intake40.team9.tripreminder.Views.NavigationDrawerView;
 import iti.alex.intake40.team9.tripreminder.Views.UpcomingFragmentView;
 
 public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRecyclarViewAdapter.MyViewHolder>  {
-    private Trip[] trips;
+    public ArrayList<Trip> trips=new ArrayList<Trip>();
     Context context;
+    MyViewHolder holder;
+    private static final int CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084;
 
 
 
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        private static final int CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084;
         private TextView title;
         private TextView startPoint;
         private TextView endPoint;
@@ -62,51 +65,6 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
             start=v.findViewById(R.id.Start);
             showNotes=v.findViewById(R.id.showNotes);
             popupMenu=(Button)v.findViewById(R.id.Popup_Menu);
-
-
-            //Buttons listeners
-
-            start.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(start.getContext())) {
-
-
-                        //If the draw over permission is not available open the settings screen
-                        //to grant the permission.
-                        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                                Uri.parse("package:" + start.getContext().getPackageName()));
-                        ((Activity)start.getContext()).startActivityForResult(intent, CODE_DRAW_OVER_OTHER_APP_PERMISSION);
-                    } else {
-                        start.getContext().startService(new Intent(start.getContext(), FloatingItem.class));
-                        ((Activity)start.getContext()).finish();
-                    }
-                }
-            });
-
-            showNotes.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(showNotes.getContext());
-                    builder.setTitle("Notes");
-                    String[] animals = {"horse", "cow", "camel", "sheep", "goat"};
-                    builder.setItems(animals, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            switch (which) {
-                                case 0: // horse
-                                case 1: // cow
-                                case 2: // camel
-                                case 3: // sheep
-                                case 4: // goat
-                            }
-                        }
-                    });
-
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                }
-            });
 
             popupMenu.setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.M)
@@ -152,7 +110,7 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
     }
 
 
-    public UpcomingRecyclarViewAdapter(Trip[] values,Context context) {
+    public UpcomingRecyclarViewAdapter(ArrayList<Trip> values, Context context) {
 
         this.trips = values;
         this.context=context;
@@ -166,23 +124,69 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View v =inflater.inflate(R.layout.upcoming_cell,parent,false);
         MyViewHolder vh = new MyViewHolder(v);
+
         return vh;
     }
 
 
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.title.setText(trips[position].getTripName());
-        holder.startPoint.setText(trips[position].getStatus());
-        holder.endPoint.setText(trips[position].getStatus());
-        holder.date.setText(trips[position].getStatus());
-        holder.time.setText(trips[position].getStatus());
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
+        this.holder=holder;
+        holder.title.setText(trips.get(position).getTripName());
+        holder.startPoint.setText(trips.get(position).getStatus());
+        holder.endPoint.setText(trips.get(position).getStatus());
+        holder.date.setText(trips.get(position).getStatus());
+        holder.time.setText(trips.get(position).getStatus());
+        holder.start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(UpcomingRecyclarViewAdapter.this.holder.start.getContext())) {
+
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                            Uri.parse("package:" +UpcomingRecyclarViewAdapter.this.holder.start.getContext().getPackageName()));
+                    ((Activity)UpcomingRecyclarViewAdapter.this.holder.start.getContext()).startActivityForResult(intent, CODE_DRAW_OVER_OTHER_APP_PERMISSION);
+                } else {
+                    UpcomingRecyclarViewAdapter.this.holder.start.getContext().startService(new Intent(UpcomingRecyclarViewAdapter.this.holder.start.getContext(), FloatingItem.class));
+                    ((Activity)UpcomingRecyclarViewAdapter.this.holder.start.getContext()).finish();
+                }
+                trips.remove(position);
+                UpcomingRecyclarViewAdapter.this.notifyDataSetChanged();
+            }
+        });
+
+
+        holder.showNotes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(UpcomingRecyclarViewAdapter.this.holder.start.getContext());
+                builder.setTitle("Notes");
+                String[] animals = {"horse", "cow", "camel", "sheep", "goat"};
+                builder.setItems(animals, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0: // horse
+                            case 1: // cow
+                            case 2: // camel
+                            case 3: // sheep
+                            case 4: // goat
+                        }
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
     }
 
 
     @Override
     public int getItemCount() {
-        return trips.length;
+        return trips.size();
     }
 }
