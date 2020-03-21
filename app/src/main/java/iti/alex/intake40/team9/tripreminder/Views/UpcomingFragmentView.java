@@ -6,13 +6,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import iti.alex.intake40.team9.tripreminder.POJO.Trip;
-import iti.alex.intake40.team9.tripreminder.Presenters.UpcomingRecyclarViewAdapter;
+import iti.alex.intake40.team9.tripreminder.Adapters.UpcomingRecyclarViewAdapter;
 import iti.alex.intake40.team9.tripreminder.R;
 
 /**
@@ -38,7 +37,7 @@ public class UpcomingFragmentView extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(layoutManager);
-        adapter = new UpcomingRecyclarViewAdapter(trips);
+        adapter = new UpcomingRecyclarViewAdapter(trips,this.getContext());
         rv.setAdapter(adapter);
 
 
