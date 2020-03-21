@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="50dp"
+    tools:context=".Views.AddNoteFragmentView" >
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Add Your Note Here"
+        android:textColor="#FCFCFC"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/list"
+        app:layout_constraintTop_toBottomOf="@+id/list" />
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.067" />
+
+    <EditText
+        android:id="@+id/Note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:shadowColor="#000000"
+        android:text="Name"
+        android:textColor="#000000"
+        android:textColorHighlight="#000000"
+        android:textColorHint="#000000"
+        android:textColorLink="#000000"
+        app:layout_constraintStart_toStartOf="@+id/list"
+        app:layout_constraintTop_toBottomOf="@+id/list" />
+
+    <Button
+        android:id="@+id/AddNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="108dp"
+        android:layout_marginLeft="108dp"
+        android:layout_marginTop="28dp"
+        android:background="@null"
+        android:clickable="true"
+        android:drawableLeft="@drawable/ic_note_add_black_24dp"
+        android:foreground="?selectableItemBackground"
+        android:text="Add Note"
+        app:layout_constraintStart_toStartOf="@+id/Note"
+        app:layout_constraintTop_toBottomOf="@+id/Note" />
+</androidx.constraintlayout.widget.ConstraintLayout>
