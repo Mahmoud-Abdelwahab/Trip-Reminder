@@ -1,7 +1,13 @@
-package iti.alex.intake40.team9.tripreminder.Presenters;
+package iti.alex.intake40.team9.tripreminder.Adapters;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.Settings;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -13,15 +19,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
-import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
+import iti.alex.intake40.team9.tripreminder.Models.FloatingItem;
 import iti.alex.intake40.team9.tripreminder.POJO.Trip;
 import iti.alex.intake40.team9.tripreminder.R;
+import iti.alex.intake40.team9.tripreminder.Views.AddNoteFragmentView;
+import iti.alex.intake40.team9.tripreminder.Views.NavigationDrawerView;
 import iti.alex.intake40.team9.tripreminder.Views.UpcomingFragmentView;
 
 public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRecyclarViewAdapter.MyViewHolder>  {
-    private Trip[] trips;
+    public ArrayList<Trip> trips=new ArrayList<Trip>();
+    Context context;
+    MyViewHolder holder;
+    private static final int CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084;
 
 
 
@@ -38,11 +52,10 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
         Button showNotes;
 
         public View layout;
-
+        Context context;
         public MyViewHolder(final View v) {
             super(v);
             layout = v;
-
             title=v.findViewById(R.id.item_title);
             startPoint=v.findViewById(R.id.start_point_details);
             endPoint=v.findViewById(R.id.end_point_details);
@@ -53,37 +66,17 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
             showNotes=v.findViewById(R.id.showNotes);
             popupMenu=(Button)v.findViewById(R.id.Popup_Menu);
 
-            //Buttons listeners
-
-            start.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //Enter Start Code Here
-                    Toast.makeText(MyViewHolder.this.popupMenu.getContext(), "Start",
-                            Toast.LENGTH_LONG).show();
-                }
-            });
-
-            showNotes.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //Enter Shownotes Code Here
-                    Toast.makeText(MyViewHolder.this.popupMenu.getContext(), "ShowNotes",
-                            Toast.LENGTH_LONG).show();
-                }
-            });
-
             popupMenu.setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.M)
                 @Override
                 public void onClick(View t) {
-                    PopupMenu popupMenu = new PopupMenu(MyViewHolder.this.popupMenu.getContext(),v.findViewById(R.id.Popup_Menu));
+                    final PopupMenu popupMenu = new PopupMenu(MyViewHolder.this.popupMenu.getContext(),v.findViewById(R.id.Popup_Menu));
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()) {
                                 case R.id.Add_Notes:
-                                    //Enter AddNotes Code Here;
+                                    ((FragmentActivity)MyViewHolder.this.popupMenu.getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new AddNoteFragmentView()).addToBackStack( "tag" ).commit();
                                     Toast.makeText(MyViewHolder.this.popupMenu.getContext(), "AddNotes",
                                             Toast.LENGTH_LONG).show();
                                     return true;
@@ -117,9 +110,10 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
     }
 
 
-    public UpcomingRecyclarViewAdapter(Trip[] values) {
+    public UpcomingRecyclarViewAdapter(ArrayList<Trip> values, Context context) {
 
         this.trips = values;
+        this.context=context;
 
     }
 
@@ -130,23 +124,69 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View v =inflater.inflate(R.layout.upcoming_cell,parent,false);
         MyViewHolder vh = new MyViewHolder(v);
+
         return vh;
     }
 
 
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.title.setText(trips[position].getTripName());
-        holder.startPoint.setText(trips[position].getStatus());
-        holder.endPoint.setText(trips[position].getStatus());
-        holder.date.setText(trips[position].getStatus());
-        holder.time.setText(trips[position].getStatus());
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
+        this.holder=holder;
+        holder.title.setText(trips.get(position).getTripName());
+        holder.startPoint.setText(trips.get(position).getStatus());
+        holder.endPoint.setText(trips.get(position).getStatus());
+        holder.date.setText(trips.get(position).getStatus());
+        holder.time.setText(trips.get(position).getStatus());
+        holder.start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(UpcomingRecyclarViewAdapter.this.holder.start.getContext())) {
+
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                            Uri.parse("package:" +UpcomingRecyclarViewAdapter.this.holder.start.getContext().getPackageName()));
+                    ((Activity)UpcomingRecyclarViewAdapter.this.holder.start.getContext()).startActivityForResult(intent, CODE_DRAW_OVER_OTHER_APP_PERMISSION);
+                } else {
+                    UpcomingRecyclarViewAdapter.this.holder.start.getContext().startService(new Intent(UpcomingRecyclarViewAdapter.this.holder.start.getContext(), FloatingItem.class));
+                    ((Activity)UpcomingRecyclarViewAdapter.this.holder.start.getContext()).finish();
+                }
+                trips.remove(position);
+                UpcomingRecyclarViewAdapter.this.notifyDataSetChanged();
+            }
+        });
+
+
+        holder.showNotes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(UpcomingRecyclarViewAdapter.this.holder.start.getContext());
+                builder.setTitle("Notes");
+                String[] animals = {"horse", "cow", "camel", "sheep", "goat"};
+                builder.setItems(animals, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0: // horse
+                            case 1: // cow
+                            case 2: // camel
+                            case 3: // sheep
+                            case 4: // goat
+                        }
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
     }
 
 
     @Override
     public int getItemCount() {
-        return trips.length;
+        return trips.size();
     }
 }

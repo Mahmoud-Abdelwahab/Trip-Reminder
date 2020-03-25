@@ -7,16 +7,19 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import iti.alex.intake40.team9.tripreminder.Models.FloatingItem;
 import iti.alex.intake40.team9.tripreminder.R;
 
 public class NavigationDrawerView extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+    private static final int CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084;
     DrawerLayout drawer;
 
     protected void onCreate (Bundle savedInstanceState){
@@ -69,5 +72,23 @@ public class NavigationDrawerView extends AppCompatActivity implements Navigatio
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CODE_DRAW_OVER_OTHER_APP_PERMISSION) {
+            //Check if the permission is granted or not.
+            if (resultCode == RESULT_OK) {
+                startService(new Intent(this, FloatingItem.class));
+                finish();
+            } else { //Permission is not available
+                Toast.makeText(this,
+                        "Draw over other app permission not available. Closing the application",
+                        Toast.LENGTH_SHORT).show();
+
+                finish();
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

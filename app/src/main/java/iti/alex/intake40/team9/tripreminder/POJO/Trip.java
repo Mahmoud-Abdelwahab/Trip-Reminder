@@ -8,17 +8,15 @@ public class Trip {
     private String tripName;
     private TripLocation startPoint;
     private TripLocation endPoint;
-    private TripTime triptime;
-    private TripDate tripdate;
+    private TripCalender calender;
     private ArrayList<TripNote> notes;
     private String status;
 
-    public Trip(String tripName, TripLocation startPoint, TripLocation endPoint, TripTime triptime, TripDate tripdate, ArrayList<TripNote> notes, String status) {
+    public Trip(String tripName, TripLocation startPoint, TripLocation endPoint,TripCalender calender, ArrayList<TripNote> notes, String status) {
         this.tripName = tripName;
         this.startPoint = startPoint;
         this.endPoint = endPoint;
-        this.triptime = triptime;
-        this.tripdate = tripdate;
+        this.calender=calender;
         this.notes = notes;
         this.status = status;
     }
@@ -40,13 +38,6 @@ public class Trip {
         this.endPoint = endPoint;
     }
 
-    public void setTriptime(TripTime triptime) {
-        this.triptime = triptime;
-    }
-
-    public void setTripdate(TripDate tripdate) {
-        this.tripdate = tripdate;
-    }
 
     public void setNotes(ArrayList<TripNote> notes) {
         this.notes = notes;
@@ -69,13 +60,7 @@ public class Trip {
         return endPoint;
     }
 
-    public TripTime getTriptime() {
-        return triptime;
-    }
 
-    public TripDate getTripdate() {
-        return tripdate;
-    }
 
     public ArrayList<TripNote> getNotes() {
         return notes;
