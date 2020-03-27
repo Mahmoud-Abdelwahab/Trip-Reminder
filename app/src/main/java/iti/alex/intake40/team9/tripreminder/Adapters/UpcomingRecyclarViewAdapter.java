@@ -41,7 +41,7 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
 
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView title;
+        private TextView tripName;
         private TextView startPoint;
         private TextView endPoint;
         private TextView date;
@@ -56,7 +56,7 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
         public MyViewHolder(final View v) {
             super(v);
             layout = v;
-            title=v.findViewById(R.id.item_title);
+            tripName=v.findViewById(R.id.item_title);
             startPoint=v.findViewById(R.id.start_point_details);
             endPoint=v.findViewById(R.id.end_point_details);
             date=v.findViewById(R.id.date_details);
@@ -133,11 +133,11 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         this.holder=holder;
-        holder.title.setText(trips.get(position).getTripName());
-        holder.startPoint.setText(trips.get(position).getStatus());
-        holder.endPoint.setText(trips.get(position).getStatus());
-        holder.date.setText(trips.get(position).getStatus());
-        holder.time.setText(trips.get(position).getStatus());
+        holder.tripName.setText(trips.get(position).getTripName());
+        holder.startPoint.setText(trips.get(position).getStartPoint());
+        holder.endPoint.setText(trips.get(position).getEndPoint());
+        holder.date.setText(trips.get(position).getDate());
+        holder.time.setText(trips.get(position).getTime());
         holder.start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
