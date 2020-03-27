@@ -14,11 +14,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import iti.alex.intake40.team9.tripreminder.POJO.TripNote;
 import iti.alex.intake40.team9.tripreminder.R;
 
 /**
