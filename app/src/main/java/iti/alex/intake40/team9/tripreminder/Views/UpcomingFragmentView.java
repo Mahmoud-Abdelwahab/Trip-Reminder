@@ -6,13 +6,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 import iti.alex.intake40.team9.tripreminder.POJO.Trip;
-import iti.alex.intake40.team9.tripreminder.Presenters.UpcomingRecyclarViewAdapter;
+import iti.alex.intake40.team9.tripreminder.Adapters.UpcomingRecyclarViewAdapter;
 import iti.alex.intake40.team9.tripreminder.R;
 
 /**
@@ -22,7 +23,7 @@ public class UpcomingFragmentView extends Fragment {
     RecyclerView rv;
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager mgr;
-    Trip[]trips={new Trip("Hello","When I became"),new Trip("Mahmoud","When I became"),new Trip("Ali","When I became"),new Trip("Hamdy","When I became Very Close"),new Trip("Tamer","When I became"),new Trip("Samir","When I became"),new Trip("Ahmed","When I became"),new Trip("Ali","When I became") };
+    private ArrayList<Trip> trips=new ArrayList<Trip>();
     public UpcomingFragmentView() {
         // Required empty public constructor
     }
@@ -31,6 +32,10 @@ public class UpcomingFragmentView extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        trips.add(new Trip("Hello","When I became"));
+        trips.add(new Trip("Mahmoud","When I became"));
+        trips.add(new Trip("Ali","When I became"));
+        new Trip("Tamer","When I became");
         View v = inflater.inflate(R.layout.fragment_upcoming, container, false);
         rv=v.findViewById(R.id.Upcoming_RecyclarView);
         rv.setHasFixedSize(false);
@@ -38,8 +43,9 @@ public class UpcomingFragmentView extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(layoutManager);
-        adapter = new UpcomingRecyclarViewAdapter(trips);
+        adapter = new UpcomingRecyclarViewAdapter(trips,this.getContext());
         rv.setAdapter(adapter);
+
 
 
 

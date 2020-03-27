@@ -1,13 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     tools:context=".Views.UpcomingFragmentView">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_trip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="37dp"
+        android:background="#FFFFFF"
+        app:backgroundTint="#C81E2F"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_add" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/Upcoming_RecyclarView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</FrameLayout>
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="-24dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <ImageView
+        android:id="@+id/iv_no_trips_upcoming"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_android_circle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.6" />
+
+    <TextView
+        android:id="@+id/tv_no_trips_upcoming"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:text="No upcoming trips"
+        android:textColor="#C1C1C1"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_no_trips_upcoming"
+        app:layout_constraintEnd_toEndOf="@id/iv_no_trips_upcoming"
+        app:layout_constraintStart_toStartOf="@id/iv_no_trips_upcoming" />
+</androidx.constraintlayout.widget.ConstraintLayout>

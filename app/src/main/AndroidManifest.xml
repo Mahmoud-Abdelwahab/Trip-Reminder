@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="iti.alex.intake40.team9.tripreminder">
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
 
     <application
         android:allowBackup="true"
@@ -9,20 +11,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Views.RegisterationView"></activity>
+
+        <activity android:name=".Views.RegisterationView" />
         <activity android:name=".Views.LoginView" />
         <activity
             android:name=".Views.SplashView"
             android:theme="@style/AppTheme.Launcher">
-            <intent-filter>
+		<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+	</activity>
+        <service
+            android:name=".Models.FloatingItem"
+            android:enabled="true"
+            android:exported="true"></service>
+
         <activity
             android:name=".Views.NavigationDrawerView"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
     </application>
 
 </manifest>
