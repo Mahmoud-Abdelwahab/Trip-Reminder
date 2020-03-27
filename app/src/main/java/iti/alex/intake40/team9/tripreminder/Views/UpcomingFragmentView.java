@@ -12,18 +12,21 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import iti.alex.intake40.team9.tripreminder.Contracts.IUpcomingFragment.UpcomingFragmentContract;
 import iti.alex.intake40.team9.tripreminder.POJO.Trip;
 import iti.alex.intake40.team9.tripreminder.Adapters.UpcomingRecyclarViewAdapter;
+import iti.alex.intake40.team9.tripreminder.Presenters.UpcomingFragmentPresenter;
 import iti.alex.intake40.team9.tripreminder.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UpcomingFragmentView extends Fragment {
+public class UpcomingFragmentView extends Fragment implements UpcomingFragmentContract.IUpcomingFragmentView {
     RecyclerView rv;
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager mgr;
     private ArrayList<Trip> trips=new ArrayList<Trip>();
+    private UpcomingFragmentPresenter upcomingFragmentPresenter;
     public UpcomingFragmentView() {
         // Required empty public constructor
     }
@@ -32,10 +35,8 @@ public class UpcomingFragmentView extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        trips.add(new Trip("Hello","When I became"));
-        trips.add(new Trip("Mahmoud","When I became"));
-        trips.add(new Trip("Ali","When I became"));
-        new Trip("Tamer","When I became");
+        upcomingFragmentPresenter=new UpcomingFragmentPresenter(this);
+        upcomingFragmentPresenter.getTrips();
         View v = inflater.inflate(R.layout.fragment_upcoming, container, false);
         rv=v.findViewById(R.id.Upcoming_RecyclarView);
         rv.setHasFixedSize(false);
@@ -50,5 +51,10 @@ public class UpcomingFragmentView extends Fragment {
 
 
         return v;
+    }
+
+    @Override
+    public void onDataReceived(ArrayList<Trip> trips) {
+        this.trips=trips;
     }
 }
