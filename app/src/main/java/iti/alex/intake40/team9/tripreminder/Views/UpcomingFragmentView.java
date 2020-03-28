@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -25,6 +27,8 @@ public class UpcomingFragmentView extends Fragment implements UpcomingFragmentCo
     RecyclerView rv;
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager mgr;
+    ImageView emptyStateImage;
+    TextView emptyStateText;
     private ArrayList<Trip> trips=new ArrayList<Trip>();
     private UpcomingFragmentPresenter upcomingFragmentPresenter;
     public UpcomingFragmentView() {
@@ -39,6 +43,13 @@ public class UpcomingFragmentView extends Fragment implements UpcomingFragmentCo
         upcomingFragmentPresenter.getTrips();
         View v = inflater.inflate(R.layout.fragment_upcoming, container, false);
         rv=v.findViewById(R.id.Upcoming_RecyclarView);
+        emptyStateImage=v.findViewById(R.id.no_trips_image);
+        emptyStateText=v.findViewById(R.id.no_trips_text);
+        if(trips.size()!=0)
+        {
+            emptyStateImage.setVisibility(v.GONE);
+            emptyStateText.setVisibility(v.GONE);
+        }
         rv.setHasFixedSize(false);
         mgr=new LinearLayoutManager(getActivity());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
