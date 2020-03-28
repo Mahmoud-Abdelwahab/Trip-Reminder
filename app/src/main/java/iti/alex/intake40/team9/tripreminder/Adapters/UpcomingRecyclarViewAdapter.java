@@ -66,46 +66,6 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
             showNotes=v.findViewById(R.id.showNotes);
             popupMenu=(Button)v.findViewById(R.id.Popup_Menu);
 
-            popupMenu.setOnClickListener(new View.OnClickListener() {
-                @RequiresApi(api = Build.VERSION_CODES.M)
-                @Override
-                public void onClick(View t) {
-                    final PopupMenu popupMenu = new PopupMenu(MyViewHolder.this.popupMenu.getContext(),v.findViewById(R.id.Popup_Menu));
-                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-                            switch (item.getItemId()) {
-                                case R.id.Add_Notes:
-                                    ((FragmentActivity)MyViewHolder.this.popupMenu.getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new AddNoteFragmentView()).addToBackStack( "tag" ).commit();
-                                    Toast.makeText(MyViewHolder.this.popupMenu.getContext(), "AddNotes",
-                                            Toast.LENGTH_LONG).show();
-                                    return true;
-                                case R.id.Edit:
-                                    //Enter Edit Code Here;
-                                    Toast.makeText(MyViewHolder.this.popupMenu.getContext(), "Edit",
-                                            Toast.LENGTH_LONG).show();
-                                    return true;
-                                case R.id.Delete:
-                                    //Enter Delete Code Here;
-                                    Toast.makeText(MyViewHolder.this.popupMenu.getContext(), "Delete",
-                                            Toast.LENGTH_LONG).show();
-                                    return true;
-                                case R.id.Cancel:
-                                    //Enter Cancel Code Here;
-                                    Toast.makeText(MyViewHolder.this.popupMenu.getContext(), "Cancel",
-                                            Toast.LENGTH_LONG).show();
-                                    return true;
-                                default:
-                                    return false;
-                            }
-                        }
-                    });
-                    popupMenu.inflate(R.menu.popup_menu);
-                    popupMenu.setGravity(Gravity.LEFT);
-                    popupMenu.show();
-
-                }
-            });
         }
     }
 
@@ -130,6 +90,7 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         this.holder=holder;
@@ -163,8 +124,11 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(UpcomingRecyclarViewAdapter.this.holder.start.getContext());
                 builder.setTitle("Notes");
-                String[] animals = {"horse", "cow", "camel", "sheep", "goat"};
-                builder.setItems(animals, new DialogInterface.OnClickListener() {
+                ArrayList<String> notes = trips.get(position).getNotes();
+                //String[] notesArray = new String[notes.size()];
+
+                String [] notesArray = notes.toArray(new String[notes.size()]);
+                builder.setItems(notesArray, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
@@ -182,8 +146,60 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
             }
         });
 
+        final PopupMenu popupMenu = new PopupMenu(UpcomingRecyclarViewAdapter.this.holder.popupMenu.getContext(),UpcomingRecyclarViewAdapter.this.holder.layout.findViewById(R.id.Popup_Menu));
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.Add_Notes:
+                        AddNoteFragmentView addNoteFragmentView= new AddNoteFragmentView();
+                        ((FragmentActivity)UpcomingRecyclarViewAdapter.this.holder.popupMenu.getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,addNoteFragmentView).addToBackStack( "tag" ).commit();
+                        Toast.makeText(UpcomingRecyclarViewAdapter.this.holder.popupMenu.getContext(), "AddNotes",
+                                Toast.LENGTH_LONG).show();
+
+                        return true;
+                    case R.id.Edit:
+                        //Enter Edit Code Here;
+                        Toast.makeText(UpcomingRecyclarViewAdapter.this.holder.popupMenu.getContext(), "Edit",
+                                Toast.LENGTH_LONG).show();
+                        return true;
+                    case R.id.Delete:
+                        //Enter Delete Code Here;
+                        Toast.makeText(UpcomingRecyclarViewAdapter.this.holder.popupMenu.getContext(), "Delete",
+                                Toast.LENGTH_LONG).show();
+                        return true;
+                    case R.id.Cancel:
+                        //Enter Cancel Code Here;
+                        Toast.makeText(UpcomingRecyclarViewAdapter.this.holder.popupMenu.getContext(), "Cancel",
+                                Toast.LENGTH_LONG).show();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+        popupMenu.inflate(R.menu.popup_menu);
+        popupMenu.setGravity(Gravity.LEFT);
+
+        holder.popupMenu.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View t) {
+
+                popupMenu.show();
+
+            }
+        });
+
     }
 
+    public void updateTripList (ArrayList<String> notes,int posisiton)
+    {
+        Trip trip = trips.get(posisiton);
+        trip.setNotes(notes);
+        trips.set(posisiton,trip);
+
+    }
 
     @Override
     public int getItemCount() {
