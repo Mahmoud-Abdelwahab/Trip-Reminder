@@ -14,9 +14,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 
 import java.util.ArrayList;
 
+import iti.alex.intake40.team9.tripreminder.Adapters.UpcomingRecyclarViewAdapter;
+import iti.alex.intake40.team9.tripreminder.POJO.Trip;
 import iti.alex.intake40.team9.tripreminder.R;
 
 /**
@@ -27,8 +30,8 @@ public class AddNoteFragmentView extends Fragment {
     private ArrayList<String> notes=new ArrayList<String>();
     ArrayAdapter adapter;
     EditText note;
-    public AddNoteFragmentView() {
 
+    public AddNoteFragmentView() {
     }
 
 
@@ -39,9 +42,6 @@ public class AddNoteFragmentView extends Fragment {
         final ListView lstview=v.findViewById(R.id.list);
         note =v.findViewById(R.id.Note);
         Button addNote=v.findViewById(R.id.AddNote);
-        notes.add("Hello");
-        notes.add("Hello");
-        notes.add("Hello");
         adapter = new ArrayAdapter(this.getContext(),android.R.layout.simple_list_item_1,notes);
         addNote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,4 +70,6 @@ public class AddNoteFragmentView extends Fragment {
         });
         return v;
     }
+
+
 }
