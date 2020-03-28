@@ -7,7 +7,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -18,9 +17,10 @@ import com.google.android.material.navigation.NavigationView;
 import iti.alex.intake40.team9.tripreminder.Models.FloatingItem;
 import iti.alex.intake40.team9.tripreminder.R;
 
-public class NavigationDrawerView extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class NavigationDrawerView extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private static final int CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084;
     DrawerLayout drawer;
+    private UpcomingFragmentView upcomingFragmentView;
 
     protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -56,7 +56,8 @@ public class NavigationDrawerView extends AppCompatActivity implements Navigatio
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.nav_upcoming:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new UpcomingFragmentView()).commit();
+                upcomingFragmentView=new UpcomingFragmentView();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,upcomingFragmentView).commit();
                 break;
             case R.id.nav_history:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HistoryFragmentView()).commit();
@@ -91,4 +92,6 @@ public class NavigationDrawerView extends AppCompatActivity implements Navigatio
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+
+
 }
