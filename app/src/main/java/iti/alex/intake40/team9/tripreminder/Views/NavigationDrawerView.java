@@ -67,8 +67,8 @@ public class NavigationDrawerView extends AppCompatActivity implements Navigatio
                         Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_logout:
-                Toast.makeText(this, "This is Logout Button!",
-                        Toast.LENGTH_LONG).show();
+                Intent i = new Intent(this, LoginView.class);
+                startActivity(i);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
