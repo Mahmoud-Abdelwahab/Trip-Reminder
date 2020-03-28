@@ -152,7 +152,7 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.Add_Notes:
-                        AddNoteFragmentView addNoteFragmentView= new AddNoteFragmentView();
+                        AddNoteFragmentView addNoteFragmentView= new AddNoteFragmentView(position);
                         ((FragmentActivity)UpcomingRecyclarViewAdapter.this.holder.popupMenu.getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,addNoteFragmentView).addToBackStack( "tag" ).commit();
                         Toast.makeText(UpcomingRecyclarViewAdapter.this.holder.popupMenu.getContext(), "AddNotes",
                                 Toast.LENGTH_LONG).show();
