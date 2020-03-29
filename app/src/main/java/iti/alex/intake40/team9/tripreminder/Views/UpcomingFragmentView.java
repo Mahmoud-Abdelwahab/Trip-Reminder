@@ -45,7 +45,7 @@ public class UpcomingFragmentView extends Fragment implements UpcomingFragmentCo
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        upcomingFragmentPresenter=new UpcomingFragmentPresenter(this);
+        upcomingFragmentPresenter=new UpcomingFragmentPresenter(this,UpcomingFragmentView.this.getContext());
         upcomingFragmentPresenter.getTrips();
         View v = inflater.inflate(R.layout.fragment_upcoming, container, false);
         rv=v.findViewById(R.id.Upcoming_RecyclarView);
