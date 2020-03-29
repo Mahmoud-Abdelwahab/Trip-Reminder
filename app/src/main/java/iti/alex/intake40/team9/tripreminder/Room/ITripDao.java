@@ -1,0 +1,33 @@
+package iti.alex.intake40.team9.tripreminder.Room;
+
+import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
+import androidx.room.Query;
+import androidx.room.Update;
+
+import java.util.List;
+
+@Dao
+public interface ITripDao {
+    @Insert()
+    public void addContact(TripModel tripModel);
+
+    @Delete()
+    public void deleteContact(TripModel tripModel);
+
+    @Update()
+    public void updateContact(TripModel tripModel);
+
+
+    @Query("select * from TripModel")
+    public List<TripModel> getTripList();
+
+    @Query("select * from TripModel where trip_id == :trip_id  ")
+    public TripModel getContact(int trip_id);
+
+
+    @Query("select * from TripModel where trip_history == :trip_history  ")
+    public TripModel getHistory(Boolean trip_history);
+
+}

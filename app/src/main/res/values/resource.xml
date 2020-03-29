@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="repetition_array">
+        <item></item>
+        <item>Repeated</item>
+        <item>No Reptition</item>
+
+    </string-array>
+
+    <string-array name="rounded_array">
+        <item></item>
+        <item>One Way</item>
+        <item>Two Way </item>
+
+    </string-array>
+
+    <string-array name="importance">
+        <item></item>
+        <item>Normal</item>
+        <item>Important</item>
+        <item>Very important</item>
+    </string-array>
+
+</resources>

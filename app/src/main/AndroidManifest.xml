@@ -2,14 +2,34 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="iti.alex.intake40.team9.tripreminder">
 
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.ACTION_MANAGE_OVERLAY_PERMISSION" />
+
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.Login.LoginView">
+        <activity android:name=".View.ActivityDialog.MyDialogeActivity" android:theme="@style/Theme.AppCompat.Dialog.Alert"></activity>
+        <activity android:name=".View.NewTripView.NewTrip" >  </activity>
+        <activity android:name=".View.Login.LoginView" />
+
+        <service
+            android:name=".Models.FloatingItem"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name=".Views.NavigationDrawerView"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
