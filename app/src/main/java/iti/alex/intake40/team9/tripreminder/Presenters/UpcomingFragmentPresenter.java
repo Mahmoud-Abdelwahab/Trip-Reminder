@@ -1,5 +1,7 @@
 package iti.alex.intake40.team9.tripreminder.Presenters;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 
 import iti.alex.intake40.team9.tripreminder.Contracts.IUpcomingFragment.UpcomingFragmentContract;
@@ -11,10 +13,13 @@ public class UpcomingFragmentPresenter implements UpcomingFragmentContract.IUpco
     UpcomingFragmentContract.IUpcomingFragmentModel iUpcomingFragmentModel;
     UpcomingFragmentContract.IUpcomingFragmentView iUpcomingFragmentView;
     ArrayList<Trip> trips=new ArrayList<Trip>();
+    Context context;
 
-    public UpcomingFragmentPresenter(UpcomingFragmentView upcomingFragmentView) {
-        iUpcomingFragmentModel=new UpcomingFragmentModel();
+    public UpcomingFragmentPresenter(UpcomingFragmentView upcomingFragmentView , Context context) {
+        this.context=context;
+        iUpcomingFragmentModel=new UpcomingFragmentModel(this.context);
         iUpcomingFragmentView=upcomingFragmentView;
+
     }
 
     @Override
