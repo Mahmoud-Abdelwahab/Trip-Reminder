@@ -25,12 +25,11 @@
         <activity android:name=".Views.LoginView" />
         <activity
             android:name=".Views.SplashView"
-            android:theme="@style/AppTheme.Launcher">
-		<intent-filter>
+            android:theme="@style/AppTheme.Launcher"/>
+
 
         <activity android:name=".View.ActivityDialog.MyDialogeActivity" android:theme="@style/Theme.AppCompat.Dialog.Alert"></activity>
-        <activity android:name=".View.NewTripView.NewTrip" >  </activity>
-        <activity android:name=".View.Login.LoginView" />
+        <activity android:name=".View.NewTripView.NewTrip" />
 
         <service
             android:name=".Models.FloatingItem"
@@ -52,11 +51,8 @@
             android:enabled="true"
             android:exported="true"></service>
 
-        <activity
-            android:name=".Views.NavigationDrawerView"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
+
+
     </application>
 
 </manifest>
