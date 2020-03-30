@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="iti.alex.intake40.team9.tripreminder">
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.SET_ALARM" />
@@ -29,7 +29,13 @@
 
 
         <activity android:name=".View.ActivityDialog.MyDialogeActivity" android:theme="@style/Theme.AppCompat.Dialog.Alert"></activity>
-        <activity android:name=".View.NewTripView.NewTrip" />
+        <activity android:name=".View.NewTripView.NewTrip" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name=".Models.FloatingItem"
@@ -40,19 +46,35 @@
             android:name=".Views.NavigationDrawerView"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 	</activity>
+
+        <receiver
+            android:name=".Presenter.NewTripPresenter.AlarmReciever"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="iti.alex.intake40.team9.AlarmReciever" />
+
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".Presenter.NewTripPresenter.AlarmServiceDialog"
+            android:enabled="true"
+            android:exported="true" />
+
+
+
+
         <service
             android:name=".Models.FloatingItem"
             android:enabled="true"
             android:exported="true"></service>
 
 
-
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="API_KEY "/>
     </application>
 
 </manifest>

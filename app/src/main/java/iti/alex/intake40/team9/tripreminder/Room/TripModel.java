@@ -25,7 +25,7 @@ public class TripModel {
         @ColumnInfo(name = "trip_endPoint")
         private String endPoint;
         @ColumnInfo(name = "trip_dateTime")
-        private String dateTime;
+        private Long dateTime;
         @Nullable
         @ColumnInfo(name = "trip_repetition")
         private String repetition;
@@ -79,11 +79,11 @@ public class TripModel {
                 this.endPoint = endPoint;
         }
 
-        public String getDateTime() {
+        public Long getDateTime() {
                 return dateTime;
         }
 
-        public void setDateTime(String dateTime) {
+        public void setDateTime(Long dateTime) {
                 this.dateTime = dateTime;
         }
 
@@ -129,7 +129,7 @@ public class TripModel {
 
 
 
-        public TripModel(@NonNull int id, String title, String startPoint, String endPoint, String dateTime, String repetition, String rounded,   @Nullable List<String> notes,   @Nullable String importance, Boolean history) {
+        public TripModel(@NonNull int id, String title, String startPoint, String endPoint, Long dateTime, String repetition, String rounded,   @Nullable List<String> notes,   @Nullable String importance, Boolean history) {
                 this.id = id;
                 this.title = title;
                 this.startPoint = startPoint;

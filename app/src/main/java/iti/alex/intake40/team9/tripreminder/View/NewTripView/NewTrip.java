@@ -29,42 +29,42 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import iti.alex.intake40.team9.tripreminder.Presenter.NewTripPresenter.BaseAlarm;
-import iti.alex.intake40.team9.tripreminder.Presenter.NewTripPresenter.SettingCalendar;
 import iti.alex.intake40.team9.tripreminder.Presenter.NewTripPresenter.NewTripPresnter;
 import iti.alex.intake40.team9.tripreminder.R;
 import iti.alex.intake40.team9.tripreminder.Room.TripModel;
 import iti.alex.intake40.team9.tripreminder.autocomplete.PlaceAutoSuggestAdapter;
 
 public class NewTrip extends AppCompatActivity {
-  String rep;
-  String roun;
-    @BindView(R.id.autoComp_From)
-    AutoCompleteTextView autoCompFrom;
-    @BindView(R.id.roundSpiner)
-    Spinner roundSpiner;
-    @BindView(R.id.autoComp_To)
-    AutoCompleteTextView autoCompTo;
-    @BindView(R.id.repeatSpinner)
-    Spinner repeatSpinner;
-    @BindView(R.id.addBtn)
-    Button addBtn;
-    @BindView(R.id.dateTime)
-    ImageView dateTime;
+    String rep;
+    String roun;
     @BindView(R.id.titleTxt)
     EditText titleTxt;
+    @BindView(R.id.fromAuto)
+    AutoCompleteTextView fromAuto;
+    @BindView(R.id.toAuto)
+    AutoCompleteTextView toAuto;
+    @BindView(R.id.rep)
+    Spinner repetiton;
+    @BindView(R.id._round)
+    Spinner Round;
+    @BindView(R.id._imp)
+    Spinner Imp;
+    @BindView(R.id.datePicker)
+    ImageView date_time;
+    @BindView(R.id.addBtn)
+    Button addBtn;
+
     private NewTripPresnter newTripPresnter;
     private static final int MY_PERMISSIONS_REQUEST_WRITE_SETTINGS = 1001;
-    public  static Boolean isRepeated = false;
-    Spinner repetition;
-    Spinner rounded;
+    public static Boolean isRepeated = false;
+
     TimePickerDialog timePickerDialog;
     DatePickerDialog datePickerDialog;
     Context context;
-
-
+    BaseAlarm baseAlarm ;
 
     public static Calendar myCalendar;
-//    public static  int pendinIntentID ;
+    //    public static  int pendinIntentID ;
     List<Integer> alaramID;
 
     @Override
@@ -72,14 +72,21 @@ public class NewTrip extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_trip);
         ButterKnife.bind(this);
+ baseAlarm = new BaseAlarm(getApplicationContext());
+        setFromAutoComplete();
+        setToAutoComplete();
 
-        initalizeSpinners();
+
+
+
+
+
+
         newTripPresnter = new NewTripPresnter(this);
         alaramID = new ArrayList<Integer>();
 
         context = getBaseContext();
         myCalendar = Calendar.getInstance();
-
 
 
 
@@ -90,26 +97,31 @@ public class NewTrip extends AppCompatActivity {
             public void onClick(View v) {
                 TripModel tripe = new TripModel();
                 tripe.setTitle(titleTxt.getText().toString());
-               int  pendingID = (int) System.currentTimeMillis();
-                tripe.setId(pendingID);
-                tripe.setStartPoint(autoCompFrom.toString());
-                tripe.setEndPoint(autoCompTo.toString());
+
+                tripe.setStartPoint(fromAuto.getText().toString());
+                tripe.setEndPoint(toAuto.getText().toString());
                 tripe.setNotes(null); // add note ----------->>>>
-                tripe.setRepetition(repetition.getSelectedItem().toString());
+                tripe.setRepetition(repetiton.getSelectedItem().toString());
 
-                tripe.setRounded(rounded.getSelectedItem().toString());
+                tripe.setRounded(Round.getSelectedItem().toString());
+                tripe.setImportance(Imp.getSelectedItem().toString());
                 tripe.setHistory(false);
-                tripe.setDateTime(myCalendar.getTimeInMillis()+"");
-                 new BaseAlarm(getApplicationContext()).setAlarm(myCalendar ,pendingID );
+                long millis = myCalendar.getTimeInMillis() ;
+                tripe.setDateTime(millis);
+
+                Log.i("object " , "datatime "+tripe.getDateTime() +" state " + tripe.getStartPoint()
+                 +" end point " + tripe.getEndPoint());
+
+                baseAlarm.setAlarm(tripe);
 
 
-                newTripPresnter.addNewTrip(tripe);
+               newTripPresnter.addNewTrip(tripe);
             }
         });
 
 
         // ///////////////////// data time    /////////
-        dateTime.setOnClickListener(new View.OnClickListener() {
+        date_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 newTripPresnter.showDateTimePicker();
@@ -141,7 +153,7 @@ public class NewTrip extends AppCompatActivity {
 //    });
 
 
-    ////////////////////////  Cancel   /////////////
+        ////////////////////////  Cancel   /////////////
 //    findViewById(R.id.cancelBtn).
 //
 //    setOnClickListener(new View.OnClickListener() {
@@ -152,13 +164,7 @@ public class NewTrip extends AppCompatActivity {
 //    });
 
 
-
-        setFromAutoComplete();
-        setToAutoComplete();
-
-
-
-}
+    }
 
 
 //    public  void cancelAlarm(){
@@ -230,44 +236,6 @@ public class NewTrip extends AppCompatActivity {
 //    }
 
 
-    void initalizeSpinners() {
-//        repetition = (Spinner) findViewById(R.id.repeatSpinner);
-// Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.repetition_array, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
-        repeatSpinner.setAdapter(adapter);
-
-
-//        rounded = (Spinner) findViewById(R.id.roundSpiner);
-// Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
-                R.array.rounded_array, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
-        roundSpiner.setAdapter(adapter);
-
-
-    }
-
-    private   String getRepetion(){
-
-       repeatSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-           @Override
-           public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-              rep = parent.getItemAtPosition(position).toString();
-           }
-
-           @Override
-           public void onNothingSelected(AdapterView<?> parent) {
-
-           }
-       });
-         return rep;
-    }
 
 //    @Override
 //    public void getCalendar(Calendar calendar) {
@@ -276,37 +244,32 @@ public class NewTrip extends AppCompatActivity {
 //    }
 
 
+    public void setFromAutoComplete() {
 
+//        final AutoCompleteTextView autoCompleteTextView = findViewById(R.id.fromAuto);
 
-    public  void setFromAutoComplete()
-    {
+        fromAuto.setAdapter(new PlaceAutoSuggestAdapter(this, android.R.layout.simple_list_item_1));
 
-        final AutoCompleteTextView autoCompleteTextView=findViewById(R.id.autoComp_From);
-
-        autoCompleteTextView.setAdapter(new PlaceAutoSuggestAdapter(this,android.R.layout.simple_list_item_1));
-
-        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        fromAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("Address : ",autoCompleteTextView.getText().toString());
-                LatLng latLng=getLatLngFromAddress(autoCompleteTextView.getText().toString());
-                if(latLng!=null) {
+                Log.d("Address : ", fromAuto.getText().toString());
+                LatLng latLng = getLatLngFromAddress(fromAuto.getText().toString());
+                if (latLng != null) {
                     Log.d("Lat Lng : ", " " + latLng.latitude + " " + latLng.longitude);
-                    Address address=getAddressFromLatLng(latLng);
-                    if(address!=null) {
+                    Address address = getAddressFromLatLng(latLng);
+                    if (address != null) {
                         Log.d("Address : ", "" + address.toString());
-                        Log.d("Address Line : ",""+address.getAddressLine(0));
-                        Log.d("Phone : ",""+address.getPhone());
-                        Log.d("Pin Code : ",""+address.getPostalCode());
-                        Log.d("Feature : ",""+address.getFeatureName());
-                        Log.d("More : ",""+address.getLocality());
+                        Log.d("Address Line : ", "" + address.getAddressLine(0));
+                        Log.d("Phone : ", "" + address.getPhone());
+                        Log.d("Pin Code : ", "" + address.getPostalCode());
+                        Log.d("Feature : ", "" + address.getFeatureName());
+                        Log.d("More : ", "" + address.getLocality());
+                    } else {
+                        Log.d("Adddress", "Address Not Found");
                     }
-                    else {
-                        Log.d("Adddress","Address Not Found");
-                    }
-                }
-                else {
-                    Log.d("Lat Lng","Lat Lng Not Found");
+                } else {
+                    Log.d("Lat Lng", "Lat Lng Not Found");
                 }
 
             }
@@ -315,81 +278,73 @@ public class NewTrip extends AppCompatActivity {
     }
 
 
+    public void setToAutoComplete() {
 
-     public  void setToAutoComplete()
-     {
+//        final AutoCompleteTextView autoCompleteTextView = findViewById(R.id.toAuto);
 
-         final AutoCompleteTextView autoCompleteTextView=findViewById(R.id.autoComp_To);
+        toAuto.setAdapter(new PlaceAutoSuggestAdapter(this, android.R.layout.simple_list_item_1));
 
-         autoCompleteTextView.setAdapter(new PlaceAutoSuggestAdapter(this,android.R.layout.simple_list_item_1));
+        toAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("Address : ", toAuto.getText().toString());
+                LatLng latLng = getLatLngFromAddress(toAuto.getText().toString());
+                if (latLng != null) {
+                    Log.d("Lat Lng : ", " " + latLng.latitude + " " + latLng.longitude);
+                    Address address = getAddressFromLatLng(latLng);
+                    if (address != null) {
+                        Log.d("Address : ", "" + address.toString());
+                        Log.d("Address Line : ", "" + address.getAddressLine(0));
+                        Log.d("Phone : ", "" + address.getPhone());
+                        Log.d("Pin Code : ", "" + address.getPostalCode());
+                        Log.d("Feature : ", "" + address.getFeatureName());
+                        Log.d("More : ", "" + address.getLocality());
+                    } else {
+                        Log.d("Adddress", "Address Not Found");
+                    }
+                } else {
+                    Log.d("Lat Lng", "Lat Lng Not Found");
+                }
 
-         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-             @Override
-             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                 Log.d("Address : ",autoCompleteTextView.getText().toString());
-                 LatLng latLng=getLatLngFromAddress(autoCompleteTextView.getText().toString());
-                 if(latLng!=null) {
-                     Log.d("Lat Lng : ", " " + latLng.latitude + " " + latLng.longitude);
-                     Address address=getAddressFromLatLng(latLng);
-                     if(address!=null) {
-                         Log.d("Address : ", "" + address.toString());
-                         Log.d("Address Line : ",""+address.getAddressLine(0));
-                         Log.d("Phone : ",""+address.getPhone());
-                         Log.d("Pin Code : ",""+address.getPostalCode());
-                         Log.d("Feature : ",""+address.getFeatureName());
-                         Log.d("More : ",""+address.getLocality());
-                     }
-                     else {
-                         Log.d("Adddress","Address Not Found");
-                     }
-                 }
-                 else {
-                     Log.d("Lat Lng","Lat Lng Not Found");
-                 }
+            }
+        });
 
-             }
-         });
-
-     }
+    }
 
 
-    private LatLng getLatLngFromAddress(String address){
+    private LatLng getLatLngFromAddress(String address) {
 
-        Geocoder geocoder=new Geocoder(this);
+        Geocoder geocoder = new Geocoder(this);
         List<Address> addressList;
 
         try {
             addressList = geocoder.getFromLocationName(address, 1);
-            if(addressList!=null){
-                Address singleaddress=addressList.get(0);
-                LatLng latLng=new LatLng(singleaddress.getLatitude(),singleaddress.getLongitude());
+            if (addressList != null) {
+                Address singleaddress = addressList.get(0);
+                LatLng latLng = new LatLng(singleaddress.getLatitude(), singleaddress.getLongitude());
                 return latLng;
-            }
-            else{
+            } else {
                 return null;
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
 
     }
 
-    private Address getAddressFromLatLng(LatLng latLng){
-        Geocoder geocoder=new Geocoder(this);
+    private Address getAddressFromLatLng(LatLng latLng) {
+        Geocoder geocoder = new Geocoder(this);
         List<Address> addresses;
         try {
             addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 5);
-            if(addresses!=null){
-                Address address=addresses.get(0);
+            if (addresses != null) {
+                Address address = addresses.get(0);
                 return address;
-            }
-            else{
+            } else {
                 return null;
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

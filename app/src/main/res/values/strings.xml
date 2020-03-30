@@ -13,6 +13,14 @@
     <string name="confirm_password">Confirm Password...</string>
     <string name="register_now">Register</string>
 
-
-
+    <string name="trip_title">YaRab</string>
+    <string name="loc_from">From</string>
+    <string name="Loc_to">To</string>
+    <string name="date_time">Data : Time </string>
+    <string name="repetition">Repetition</string>
+    <string name="rounded">Rounded</string>
+    <string name="importance">Importance</string>
+    <string name="note">Note</string>
+    <string name="add_trip"> Add Trip </string>
+    <string name="api_key">changeme</string>
 </resources>

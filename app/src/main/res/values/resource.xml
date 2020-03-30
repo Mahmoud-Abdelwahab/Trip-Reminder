@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="repetition_array">
+    <string-array name="rep_array">
         <item></item>
-        <item>Repeated</item>
-        <item>No Reptition</item>
+        <item>Weakly</item>
+        <item>Monthly</item>
 
     </string-array>
 
-    <string-array name="rounded_array">
+    <string-array name="ron_array">
         <item></item>
         <item>One Way</item>
         <item>Two Way </item>
 
     </string-array>
 
-    <string-array name="importance">
+    <string-array name="imp_array">
         <item></item>
         <item>Normal</item>
         <item>Important</item>

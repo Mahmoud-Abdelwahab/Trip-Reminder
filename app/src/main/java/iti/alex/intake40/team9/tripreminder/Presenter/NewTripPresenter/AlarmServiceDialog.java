@@ -28,7 +28,7 @@ public class AlarmServiceDialog extends Service {
     }
 
     private static final String CHANNEL_ID ="myCannel" ;
-    MediaPlayer myPlayer;
+//    MediaPlayer myPlayer;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -69,11 +69,12 @@ public class AlarmServiceDialog extends Service {
                 PendingIntent pIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
                 Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                        .setContentTitle("Example Service")
-                        .setContentText("Done")
+                        .setContentTitle("Fakarny")
+                        .setContentText("Remember Your Trip ! ")
                         .setSmallIcon(R.drawable.ic_notifications_active_black_24dp)
                         .setContentIntent(pIntent)
                         .build();
+
 
                 startForeground(1, notification);
                 Intent dialogIntent = new Intent(this, MyDialogeActivity.class);
@@ -114,7 +115,7 @@ public class AlarmServiceDialog extends Service {
 
     @Override
     public void onDestroy() {
-        myPlayer.stop();
+//        myPlayer.stop();
     }
 
     private  void ChannedNotification(){
