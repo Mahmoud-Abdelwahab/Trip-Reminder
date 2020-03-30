@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import iti.alex.intake40.team9.tripreminder.Contracts.IUpcomingFragment.UpcomingFragmentContract;
 import iti.alex.intake40.team9.tripreminder.POJO.Trip;
@@ -35,7 +36,7 @@ public class UpcomingFragmentView extends Fragment implements UpcomingFragmentCo
     ImageView emptyStateImage;
     TextView emptyStateText;
     FloatingActionButton addTripFab;
-    private ArrayList<Trip> trips=new ArrayList<Trip>();
+    private List<Trip> trips=new ArrayList<Trip>();
     private UpcomingFragmentPresenter upcomingFragmentPresenter;
     public UpcomingFragmentView() {
         // Required empty public constructor
@@ -79,7 +80,7 @@ public class UpcomingFragmentView extends Fragment implements UpcomingFragmentCo
     }
 
     @Override
-    public void onDataReceived(ArrayList<Trip> trips) {
+    public void onDataReceived(List<Trip> trips) {
         this.trips=trips;
     }
 }
