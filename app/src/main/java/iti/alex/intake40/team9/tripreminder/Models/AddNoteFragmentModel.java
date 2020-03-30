@@ -1,6 +1,7 @@
 package iti.alex.intake40.team9.tripreminder.Models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import iti.alex.intake40.team9.tripreminder.Contracts.IAddNoteFragment.AddNoteFragmentContract;
 import iti.alex.intake40.team9.tripreminder.POJO.Trip;
@@ -8,7 +9,7 @@ import iti.alex.intake40.team9.tripreminder.POJO.Trip;
 public class AddNoteFragmentModel implements AddNoteFragmentContract.IAddNoteFragmentModel {
 
     @Override
-    public ArrayList<Trip> getTripsFromFireBase() {
+    public List<Trip> getTripsFromFireBase() {
         ArrayList<Trip> trips=new ArrayList<Trip>();
         ArrayList<String>notes=new ArrayList<>();
         notes.add("Do not forget to do that");
