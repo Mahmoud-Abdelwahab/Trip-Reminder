@@ -50,6 +50,8 @@
                 android:id="@+id/fromAuto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:dropDownHeight="300dp"
+
                 android:layout_column="2"
                 android:textColorHint="#040404" />
 

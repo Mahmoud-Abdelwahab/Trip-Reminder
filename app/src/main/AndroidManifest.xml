@@ -12,6 +12,9 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.ACTION_MANAGE_OVERLAY_PERMISSION" />
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logo"
@@ -73,8 +76,8 @@
             android:enabled="true"
             android:exported="true"></service>
 
-
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="API_KEY "/>
+        <meta-data android:name="com.here.sdk.access_key_id" android:value="KMcfSyloALKw3axIf_r1dQ" />
+        <meta-data android:name="com.here.sdk.access_key_secret" android:value="I6LRB5jrQboc7SFNqP59ZWjq5KNJ9MFQcUKXWIcOmapaobTS_dj3FS-iDbM7YDoB6Catwq-IouWTTwy6fNutvQ" />
     </application>
 
 </manifest>
