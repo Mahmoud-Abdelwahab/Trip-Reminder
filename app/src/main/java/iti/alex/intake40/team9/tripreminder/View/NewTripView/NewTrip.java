@@ -31,6 +31,7 @@ import butterknife.ButterKnife;
 import iti.alex.intake40.team9.tripreminder.Presenter.NewTripPresenter.BaseAlarm;
 import iti.alex.intake40.team9.tripreminder.Presenter.NewTripPresenter.NewTripPresnter;
 import iti.alex.intake40.team9.tripreminder.R;
+import iti.alex.intake40.team9.tripreminder.Room.DbModel;
 import iti.alex.intake40.team9.tripreminder.Room.TripModel;
 import iti.alex.intake40.team9.tripreminder.autocomplete.PlaceAutoSuggestAdapter;
 
@@ -53,9 +54,8 @@ public class NewTrip extends AppCompatActivity {
     ImageView date_time;
     @BindView(R.id.addBtn)
     Button addBtn;
-
+public  static  int OBJ_ID;
     private NewTripPresnter newTripPresnter;
-    private static final int MY_PERMISSIONS_REQUEST_WRITE_SETTINGS = 1001;
     public static Boolean isRepeated = false;
 
     TimePickerDialog timePickerDialog;
@@ -113,7 +113,8 @@ public class NewTrip extends AppCompatActivity {
                  +" end point " + tripe.getEndPoint());
 
                 baseAlarm.setAlarm(tripe);
-
+                DbModel db = new DbModel(getApplicationContext());
+                 List<TripModel> trips =  db.getAllTripDb();
 
                newTripPresnter.addNewTrip(tripe);
             }

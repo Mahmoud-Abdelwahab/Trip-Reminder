@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
+import iti.alex.intake40.team9.tripreminder.View.NewTripView.NewTrip;
+
 public class AlarmReciever  extends BroadcastReceiver
         {
     Context context;
@@ -24,6 +26,10 @@ public class AlarmReciever  extends BroadcastReceiver
         Intent alarmServiceIntent = new Intent(context, AlarmServiceDialog.class);
 //        AlarmServiceDialog.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
        String  action = intent.getAction();
+
+
+        NewTrip.OBJ_ID = intent.getIntExtra("intent_ID",777);
+
 
         if(action !=null){
           if(action.equals("iti.alex.intake40.team9.AlarmReciever"))

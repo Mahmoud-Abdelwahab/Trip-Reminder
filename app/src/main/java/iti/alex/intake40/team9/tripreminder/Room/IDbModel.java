@@ -10,8 +10,10 @@ public interface IDbModel {
 
     public void updateTripDb(TripModel contactModel);
 
-    public TripModel getTripDb(int contact_id);
+    public TripModel getTripByID(int contact_id);
 
+
+    public void deleteByTripId(long trip_id);
     public void deleteTripDb(TripModel contactModel);
-
+    public List<TripModel> getHistory(Boolean trip_history);
 }

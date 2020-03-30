@@ -21,6 +21,9 @@ import iti.alex.intake40.team9.tripreminder.Presenter.NewTripPresenter.AlarmReci
 import iti.alex.intake40.team9.tripreminder.Presenter.NewTripPresenter.AlarmServiceDialog;
 import iti.alex.intake40.team9.tripreminder.Presenter.NewTripPresenter.BaseAlarm;
 import iti.alex.intake40.team9.tripreminder.R;
+import iti.alex.intake40.team9.tripreminder.Room.DbModel;
+import iti.alex.intake40.team9.tripreminder.Room.TripModel;
+import iti.alex.intake40.team9.tripreminder.View.NewTripView.NewTrip;
 
 public class MyDialogeActivity extends AppCompatActivity {
     AlarmReciever alarmReciever;
@@ -100,6 +103,14 @@ BaseAlarm baseAlarm ;
 //                broadCastIntent.putExtra("Action", "stop");
 //                broadCastIntent.setAction("iti.alex.intake40.team9.AlarmReciever");
 //                sendBroadcast(broadCastIntent);
+
+                DbModel dbModel = new DbModel(getApplicationContext());
+             //   dbModel.deleteByTripId(NewTrip.OBJ_ID);
+                      TripModel trip = dbModel.getTripByID(NewTrip.OBJ_ID);
+                      trip.setHistory(true);
+                     BaseAlarm baseAlarm = new BaseAlarm(getApplicationContext());
+                     baseAlarm.cancelAlarm(trip);
+
                 Intent myService = new Intent(getApplicationContext(), AlarmServiceDialog.class);
                 stopService(myService);
 
@@ -118,17 +129,7 @@ BaseAlarm baseAlarm ;
     }
 
 
-    public void cancelAlarm() {
-        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent activate = new Intent(this, AlarmReciever.class);
-        activate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        activate.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,
-                777, activate,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        manager.cancel(pendingIntent);
-    }
 
 
     @Override

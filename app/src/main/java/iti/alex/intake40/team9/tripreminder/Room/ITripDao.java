@@ -16,6 +16,10 @@ public interface ITripDao {
     @Delete()
     public void deleteContact(TripModel tripModel);
 
+    @Query("DELETE FROM TripModel WHERE trip_id = :trip_id")
+    public void deleteByTripId(long trip_id);
+
+
     @Update()
     public void updateContact(TripModel tripModel);
 
@@ -28,6 +32,6 @@ public interface ITripDao {
 
 
     @Query("select * from TripModel where trip_history == :trip_history  ")
-    public TripModel getHistory(Boolean trip_history);
+    public List<TripModel> getHistory(Boolean trip_history);
 
 }
