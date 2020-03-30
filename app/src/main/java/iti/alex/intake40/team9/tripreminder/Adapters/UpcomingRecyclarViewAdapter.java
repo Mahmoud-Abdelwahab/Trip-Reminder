@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +47,7 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
         private TextView endPoint;
         private TextView date;
         private TextView time;
+        private ImageView priorityImage;
 
         Button popupMenu;
         Button start;
@@ -61,6 +63,7 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
             endPoint=v.findViewById(R.id.end_point_details);
             date=v.findViewById(R.id.date_details);
             time=v.findViewById(R.id.time_details);
+            priorityImage=v.findViewById(R.id.high_priority_image);
 
             start=v.findViewById(R.id.Start);
             showNotes=v.findViewById(R.id.showNotes);
@@ -99,6 +102,7 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
         holder.endPoint.setText(trips.get(position).getEndPoint());
         holder.date.setText(trips.get(position).getDate());
         holder.time.setText(trips.get(position).getTime());
+        holder.priorityImage.setImageResource(R.drawable.high_priority_img);
         holder.start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

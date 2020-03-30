@@ -47,7 +47,7 @@
             android:foreground="?selectableItemBackground" />
 
         <ImageView
-            android:id="@+id/item_image"
+            android:id="@+id/high_priority_image"
             android:layout_width="117dp"
             android:layout_height="117dp"
             android:layout_alignParentTop="true"
