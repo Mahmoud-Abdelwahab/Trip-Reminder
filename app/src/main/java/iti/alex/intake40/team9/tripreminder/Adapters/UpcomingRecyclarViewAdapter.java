@@ -24,6 +24,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import iti.alex.intake40.team9.tripreminder.Models.FloatingItem;
 import iti.alex.intake40.team9.tripreminder.POJO.Trip;
@@ -33,7 +34,7 @@ import iti.alex.intake40.team9.tripreminder.Views.NavigationDrawerView;
 import iti.alex.intake40.team9.tripreminder.Views.UpcomingFragmentView;
 
 public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRecyclarViewAdapter.MyViewHolder>  {
-    public ArrayList<Trip> trips=new ArrayList<Trip>();
+    public List<Trip> trips=new ArrayList<Trip>();
     Context context;
     MyViewHolder holder;
     private static final int CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084;
@@ -73,7 +74,7 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
     }
 
 
-    public UpcomingRecyclarViewAdapter(ArrayList<Trip> values, Context context) {
+    public UpcomingRecyclarViewAdapter(List<Trip> values, Context context) {
 
         this.trips = values;
         this.context=context;
