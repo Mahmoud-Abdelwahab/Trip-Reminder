@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import iti.alex.intake40.team9.tripreminder.Contracts.IAddNoteFragment.AddNoteFragmentContract;
 import iti.alex.intake40.team9.tripreminder.POJO.Trip;
@@ -27,7 +28,7 @@ import iti.alex.intake40.team9.tripreminder.R;
  */
 public class AddNoteFragmentView extends Fragment implements AddNoteFragmentContract.IAddNoteFragmentView {
 
-    private ArrayList<Trip> trips=new ArrayList<Trip>();
+    private List<Trip> trips=new ArrayList<Trip>();
     ArrayAdapter adapter;
     EditText note;
     AddNoteFragmentPresenter addNoteFragmentPresenter;
@@ -78,7 +79,7 @@ public class AddNoteFragmentView extends Fragment implements AddNoteFragmentCont
 
 
     @Override
-    public void onDataReceived(ArrayList<Trip> trips) {
+    public void onDataReceived(List<Trip> trips) {
         this.trips=trips;
     }
 }
