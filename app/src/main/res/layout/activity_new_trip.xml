@@ -1,169 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#858383"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
     tools:context=".View.NewTripView.NewTrip">
 
-    <AutoCompleteTextView
-        android:id="@+id/autoComp_From"
-        android:layout_width="218dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="81dp"
-        android:layout_marginLeft="81dp"
-        android:layout_marginTop="34dp"
-        android:layout_marginEnd="81dp"
-        android:layout_marginRight="81dp"
-        android:background="#807D7D"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/titleTxt" />
+    <TableLayout
+        android:id="@+id/_table"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Spinner
-        android:id="@+id/roundSpiner"
-        android:layout_width="223dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="170dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginRight="44dp"
-        android:layout_marginBottom="168dp"
-        app:layout_constraintBottom_toBottomOf="@+id/addBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView5" />
+        <TableRow
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF">
 
-    <AutoCompleteTextView
-        android:id="@+id/autoComp_To"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginTop="31dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/dateTime"
-        app:layout_constraintEnd_toEndOf="@+id/roundSpiner"
-        app:layout_constraintStart_toEndOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/autoComp_From" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:text="Title"
+                android:textColor="#BC1220" />
+
+            <EditText
+                android:id="@+id/titleTxt"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:textColorHint="#0B0B0B" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="35dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:text="From"
+                android:textColor="#BC1220" />
+
+
+            <AutoCompleteTextView
+                android:id="@+id/fromAuto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:textColorHint="#040404" />
+
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="35dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:text="@string/Loc_to"
+                android:textColor="#BC1220" />
+
+            <AutoCompleteTextView
+                android:id="@+id/toAuto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:textColorHighlight="#FFFFFF"
+                android:textColorHint="#050505" />
+
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="35dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:text="@string/repetition"
+                android:textColor="#BC1220" />
+
+            <Spinner
+                android:id="@+id/rep"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_column="2"
+                android:entries="@array/rep_array"
+                android:spinnerMode="dropdown"
+                android:theme="@style/ThemeOverlay.AppCompat.Light" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:text="@string/rounded"
+                android:textColor="#BC1220" />
+
+            <Spinner
+                android:id="@+id/_round"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_column="2"
+                android:entries="@array/ron_array"
+
+                android:spinnerMode="dropdown"
+                android:theme="@style/ThemeOverlay.AppCompat.Light" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:text="@string/importance"
+                android:textColor="#BC1220" />
+
+            <Spinner
+                android:id="@+id/_imp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_column="2"
+                android:entries="@array/imp_array"
+                android:spinnerMode="dropdown"
+
+                android:theme="@style/ThemeOverlay.AppCompat.Light" />
+
+        </TableRow>
+
+
+    </TableLayout>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/date"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="57dp"
-        android:text="Title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="33dp"
+        android:layout_column="1"
+        android:layout_below="@+id/_table"
+        android:layout_marginTop="67dp"
+        android:text="@string/date_time"
+        android:textColor="#BC1220" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:text="From"
-        app:layout_constraintBaseline_toBaselineOf="@+id/autoComp_From"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="31dp"
-        android:layout_marginLeft="31dp"
-        android:text="To"
-        app:layout_constraintBaseline_toBaselineOf="@+id/autoComp_To"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="285dp"
-        android:layout_marginBottom="286dp"
-        android:text="Data/Time"
-        app:layout_constraintBottom_toTopOf="@+id/addBtn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginBottom="53dp"
-        android:text="Repetition"
-        app:layout_constraintBottom_toTopOf="@+id/roundSpiner"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="53dp"
-        android:text="Rounded"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-    <Spinner
-        android:id="@+id/repeatSpinner"
-        android:layout_width="0dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="47dp"
-        android:layout_marginBottom="44dp"
-        app:layout_constraintBottom_toTopOf="@+id/roundSpiner"
-        app:layout_constraintEnd_toEndOf="@+id/roundSpiner"
-        app:layout_constraintStart_toStartOf="@+id/roundSpiner"
-        app:layout_constraintTop_toBottomOf="@+id/dateTime" />
+    <ImageView
+        android:id="@+id/datePicker"
+        android:layout_width="103dp"
+        android:layout_height="95dp"
+        android:layout_below="@+id/_table"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="88dp"
+        android:layout_marginTop="12dp"
+        android:layout_toRightOf="@+id/date"
+        android:background="#FFFFFF"
+      android:src="@drawable/ic_alarm_add_black_24dp"
+       />
 
     <Button
         android:id="@+id/addBtn"
-        android:layout_width="0dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="37dp"
-        android:layout_marginLeft="37dp"
-        android:layout_marginEnd="37dp"
-        android:layout_marginRight="37dp"
-        android:layout_marginBottom="79dp"
-        android:text="Add Trip"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/dateTime"
-        android:layout_width="96dp"
-        android:layout_height="77dp"
-        android:layout_marginStart="133dp"
-        android:layout_marginLeft="133dp"
-        android:layout_marginTop="140dp"
-        android:layout_marginEnd="134dp"
-        android:layout_marginRight="134dp"
-        android:layout_marginBottom="138dp"
-        android:src="@android:drawable/ic_lock_idle_alarm"
-        app:layout_constraintBottom_toBottomOf="@+id/textView7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toTopOf="@+id/autoComp_From" />
-
-    <EditText
-        android:id="@+id/titleTxt"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/autoComp_From"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_below="@+id/datePicker"
+        android:layout_marginTop="69dp"
+
+        android:background="#BC1220"
+        android:text="@string/add_trip" />
+</RelativeLayout>
+

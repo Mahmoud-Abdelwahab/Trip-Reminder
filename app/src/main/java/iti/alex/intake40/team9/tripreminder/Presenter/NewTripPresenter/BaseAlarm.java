@@ -15,29 +15,37 @@ import androidx.fragment.app.DialogFragment;
 
 import java.util.Calendar;
 
+import iti.alex.intake40.team9.tripreminder.Room.DbModel;
+import iti.alex.intake40.team9.tripreminder.Room.TripModel;
 import iti.alex.intake40.team9.tripreminder.View.NewTripView.NewTrip;
+
+import static iti.alex.intake40.team9.tripreminder.View.NewTripView.NewTrip.isRepeated;
 
 public class BaseAlarm   {
 
-
+    DbModel dbModel;
     Context context ;
 
      public BaseAlarm( Context context)
      {this.context = context;
+     dbModel = new DbModel(context);
      }
 
 
      //////***************  cancel   ***********
-    public  void cancelAlarm(int pendingIntent_ID){
+    public  void cancelAlarm( TripModel tripModel){
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent activate = new Intent(context, AlarmReciever.class);
 //        activate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //        activate.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
-         pendingIntent_ID, activate,
+         tripModel.getId(), activate,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         manager.cancel(pendingIntent);
+
+        dbModel.deleteTripDb(tripModel);
+
     }
 
 
@@ -45,8 +53,14 @@ public class BaseAlarm   {
 ////////////////// set alarm  ****************///
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressLint("ShortAlarm")
-    public void setAlarm(Calendar targetCal, int pendingIntent_ID ) {
+    public void setAlarm(TripModel trip) {
 
+
+        Calendar targetCal = Calendar.getInstance();
+        targetCal.setTimeInMillis(trip.getDateTime());
+        int pendingIntent_ID = (int) System.currentTimeMillis();
+
+        trip.setId(pendingIntent_ID);
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent activate = new Intent(context, AlarmReciever.class);
 
@@ -54,11 +68,11 @@ public class BaseAlarm   {
         //   activate.setAction("iti.alex.intake40.team9.AlarmReciever");
         //  activate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         //  activate.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-//        NewTrip.pendinIntentID = (int) System.currentTimeMillis();
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(context,  pendingIntent_ID, activate, PendingIntent.FLAG_UPDATE_CURRENT);
-      //  alaramID.add(_id);
+        int _id = (int) System.currentTimeMillis();
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, _id, activate, PendingIntent.FLAG_UPDATE_CURRENT);
+
         // create isRepeated in your code do your stufff mahoud hahahhahah
-        if (!NewTrip.isRepeated) {
+        if (!isRepeated) {
 
             if (Build.VERSION.SDK_INT < 23) {
                 if (Build.VERSION.SDK_INT >= 19) {
@@ -74,14 +88,10 @@ public class BaseAlarm   {
 //            Calendar today = Calendar.getInstance();
             Long difer = System.currentTimeMillis() + targetCal.getTimeInMillis();
             //   manager.setRepeating(AlarmManager.RTC_WAKEUP, today.getTimeInMillis(), daysBetween(today, targetCal), alarmIntent);
-         //   manager.setRepeating(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), difer, alarmIntent);
-            manager.setRepeating(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(),  24 * 7 * 60 * 60 * 1000, alarmIntent);
-
-
-
+            manager.setRepeating(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), difer, alarmIntent);
         }
 
-        Toast.makeText(context,
+        Toast.makeText(context.getApplicationContext(),
                 " setting Alarm" + targetCal.getTime(), Toast.LENGTH_LONG).show();
         ComponentName receiver = new ComponentName(context, AlarmReciever.class);
         PackageManager pm = context.getPackageManager();
@@ -89,6 +99,7 @@ public class BaseAlarm   {
         pm.setComponentEnabledSetting(receiver,
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                 PackageManager.DONT_KILL_APP);
+
 
 
     }
@@ -102,22 +113,30 @@ public class BaseAlarm   {
     /////////////////////////********** Edite ******************////
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public  void editeAlarm(Calendar calendar, int pendingIntent_ID_Old, int pendingIntent_ID_New )
+    public  void editeAlarm(TripModel tripModel)
     {
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-                Intent activate = new Intent(context, AlarmReciever.class);
-//                activate.setAction("es.monlau.smartschool.AlarmReceiver");
-//                activate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                activate.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+        Intent activate = new Intent(context, AlarmReciever.class);
+//        activate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        activate.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
+                tripModel.getId(), activate,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        manager.cancel(pendingIntent);
+
+//
+//                   cancelAlarm(tripModel);
 
 
-                   cancelAlarm(pendingIntent_ID_Old);
+
 
                  //   alaramID.remove(0);
 //
 //                    DialogFragment newFragment = new MyDatePicker(new_trip);
 //                    newFragment.show(new_trip.getSupportFragmentManager(), "datePicker");
-              setAlarm(calendar,pendingIntent_ID_New);
+//             tripModel.setId((int) System.currentTimeMillis());
+              setAlarm(tripModel);
 
     }
 
