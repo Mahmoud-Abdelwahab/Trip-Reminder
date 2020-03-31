@@ -1,5 +1,7 @@
 package iti.alex.intake40.team9.tripreminder.Presenters;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,16 +14,24 @@ public class AddNoteFragmentPresenter implements AddNoteFragmentContract.IAddNot
     AddNoteFragmentContract.IAddNoteFragmentModel iAddNoteFragmentModel;
     AddNoteFragmentContract.IAddNoteFragmentView iAddNoteFragmentView;
     List<Trip> trips=new ArrayList<Trip>();
+    int posistion;
+    Context context;
 
 
-    public AddNoteFragmentPresenter(AddNoteFragmentView addNoteFragmentView) {
+    public AddNoteFragmentPresenter(AddNoteFragmentView addNoteFragmentView , int position, Context context) {
+        this.context=context;
         this.iAddNoteFragmentView=addNoteFragmentView;
-        iAddNoteFragmentModel=new AddNoteFragmentModel();
+        iAddNoteFragmentModel=new AddNoteFragmentModel(this.context);
     }
 
     @Override
     public void getTrips() {
         trips=iAddNoteFragmentModel.getTripsFromFireBase();
         iAddNoteFragmentView.onDataReceived(trips);
+    }
+
+    public void addNotes(Trip trip)
+    {
+        iAddNoteFragmentModel.addNotestoDataBase(trip);
     }
 }
