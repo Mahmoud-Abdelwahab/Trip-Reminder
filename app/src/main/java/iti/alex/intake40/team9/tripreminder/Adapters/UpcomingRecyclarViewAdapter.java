@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -119,7 +121,10 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
                             Uri.parse("package:" +UpcomingRecyclarViewAdapter.this.holder.start.getContext().getPackageName()));
                     ((Activity)UpcomingRecyclarViewAdapter.this.holder.start.getContext()).startActivityForResult(intent, CODE_DRAW_OVER_OTHER_APP_PERMISSION);
                 } else {
-                    UpcomingRecyclarViewAdapter.this.holder.start.getContext().startService(new Intent(UpcomingRecyclarViewAdapter.this.holder.start.getContext(), FloatingItem.class));
+                    Intent intent = new Intent(UpcomingRecyclarViewAdapter.this.holder.start.getContext(), FloatingItem.class);
+                    String [] notes = trips.get(position).getNotes().toArray(new String[trips.get(position).getNotes().size()]);
+                    intent.putExtra("notes",notes);
+                    UpcomingRecyclarViewAdapter.this.holder.start.getContext().startService(intent);
                     ((Activity)UpcomingRecyclarViewAdapter.this.holder.start.getContext()).finish();
                 }
                 trips.remove(position);
