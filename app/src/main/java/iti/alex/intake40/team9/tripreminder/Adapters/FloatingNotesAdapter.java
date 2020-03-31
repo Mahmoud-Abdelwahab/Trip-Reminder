@@ -15,7 +15,7 @@ import iti.alex.intake40.team9.tripreminder.R;
 
 public class FloatingNotesAdapter extends ArrayAdapter<String> {
     Context context;
-    String[] notes={"hello","me","Ali"};
+    String[] notes;
     public FloatingNotesAdapter(@NonNull Context context, @NonNull String[] values) {
 
         super(context, R.layout.floating_item_note_cell,values);

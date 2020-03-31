@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -38,6 +40,10 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
     Context context;
     MyViewHolder holder;
     private static final int CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084;
+
+    public interface OnItemLongClickListener {
+        public boolean onItemLongClicked(int position);
+    }
 
 
 
@@ -115,7 +121,10 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
                             Uri.parse("package:" +UpcomingRecyclarViewAdapter.this.holder.start.getContext().getPackageName()));
                     ((Activity)UpcomingRecyclarViewAdapter.this.holder.start.getContext()).startActivityForResult(intent, CODE_DRAW_OVER_OTHER_APP_PERMISSION);
                 } else {
-                    UpcomingRecyclarViewAdapter.this.holder.start.getContext().startService(new Intent(UpcomingRecyclarViewAdapter.this.holder.start.getContext(), FloatingItem.class));
+                    Intent intent = new Intent(UpcomingRecyclarViewAdapter.this.holder.start.getContext(), FloatingItem.class);
+                    String [] notes = trips.get(position).getNotes().toArray(new String[trips.get(position).getNotes().size()]);
+                    intent.putExtra("notes",notes);
+                    UpcomingRecyclarViewAdapter.this.holder.start.getContext().startService(intent);
                     ((Activity)UpcomingRecyclarViewAdapter.this.holder.start.getContext()).finish();
                 }
                 trips.remove(position);
@@ -129,7 +138,7 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(UpcomingRecyclarViewAdapter.this.holder.start.getContext());
                 builder.setTitle("Notes");
-                ArrayList<String> notes = trips.get(position).getNotes();
+                List<String> notes = trips.get(position).getNotes();
                 //String[] notesArray = new String[notes.size()];
 
                 String [] notesArray = notes.toArray(new String[notes.size()]);
@@ -169,9 +178,11 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
                                 Toast.LENGTH_LONG).show();
                         return true;
                     case R.id.Delete:
-                        //Enter Delete Code Here;
-                        Toast.makeText(UpcomingRecyclarViewAdapter.this.holder.popupMenu.getContext(), "Delete",
-                                Toast.LENGTH_LONG).show();
+                        //delete from database
+                        //removie from alarmlist
+                        trips.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, trips.size());
                         return true;
                     case R.id.Cancel:
                         //Enter Cancel Code Here;
@@ -193,6 +204,26 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
 
                 popupMenu.show();
 
+            }
+        });
+
+
+        holder.layout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                AlertDialog.Builder adb=new AlertDialog.Builder(UpcomingRecyclarViewAdapter.this.holder.layout.getContext());
+                adb.setTitle("Delete this trip?");
+                adb.setMessage("Are you sure?");
+                adb.setNegativeButton("Cancel", null);
+                adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        trips.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, trips.size());
+                    }});
+                adb.show();
+
+                return true;
             }
         });
 

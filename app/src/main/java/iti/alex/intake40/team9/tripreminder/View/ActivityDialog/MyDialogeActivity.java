@@ -1,5 +1,6 @@
 package iti.alex.intake40.team9.tripreminder.View.ActivityDialog;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -8,7 +9,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -17,6 +20,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import iti.alex.intake40.team9.tripreminder.Adapters.UpcomingRecyclarViewAdapter;
+import iti.alex.intake40.team9.tripreminder.Models.FloatingItem;
 import iti.alex.intake40.team9.tripreminder.Presenter.NewTripPresenter.AlarmReciever;
 import iti.alex.intake40.team9.tripreminder.Presenter.NewTripPresenter.AlarmServiceDialog;
 import iti.alex.intake40.team9.tripreminder.Presenter.NewTripPresenter.BaseAlarm;
@@ -26,6 +31,7 @@ import iti.alex.intake40.team9.tripreminder.Room.TripModel;
 import iti.alex.intake40.team9.tripreminder.View.NewTripView.NewTrip;
 
 public class MyDialogeActivity extends AppCompatActivity {
+    private static final int CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084;
     AlarmReciever alarmReciever;
     MediaPlayer myPlayer;
     @BindView(R.id.snoozeBtn)
@@ -69,6 +75,22 @@ BaseAlarm baseAlarm ;
                 Intent myService = new Intent(getApplicationContext(), AlarmServiceDialog.class);
                 stopService(myService);
                 finish();
+
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(MyDialogeActivity.this)) {
+
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                            Uri.parse("package:" +  getPackageName()));
+                    startActivityForResult(intent, CODE_DRAW_OVER_OTHER_APP_PERMISSION);
+                } else {
+                    DbModel dbModel = new DbModel(getApplicationContext());
+                    TripModel trip = dbModel.getTripByID(NewTrip.OBJ_ID);
+                    Intent intent = new Intent(MyDialogeActivity.this, FloatingItem.class);
+                    String [] notes = trip.getNotes().toArray(new String[trip.getNotes().size()]);
+                    intent.putExtra("notes",notes);
+                    startService(intent);
+                    finish();
+                }
 
             }
         });

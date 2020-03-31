@@ -72,7 +72,7 @@
 
         <TextView
             android:id="@+id/start_point_details"
-            android:layout_width="112dp"
+            android:layout_width="350dp"
             android:layout_height="20dp"
             android:layout_below="@+id/item_title"
             android:layout_marginLeft="3dp"
@@ -94,15 +94,15 @@
             android:textColor="#FF000000"
             android:textStyle="bold" /><![CDATA[/>
 
+        
 
-
-
+        
 
         ]]>
 
         <TextView
             android:id="@+id/end_point_details"
-            android:layout_width="121dp"
+            android:layout_width="350dp"
             android:layout_height="20dp"
             android:layout_below="@id/start_point_details"
             android:layout_marginLeft="3dp"

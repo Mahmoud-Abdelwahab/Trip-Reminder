@@ -10,17 +10,19 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import iti.alex.intake40.team9.tripreminder.Adapters.FloatingNotesAdapter;
 import iti.alex.intake40.team9.tripreminder.R;
-import iti.alex.intake40.team9.tripreminder.Views.UpcomingFragmentView;
 
 public class FloatingItem extends Service {
     private WindowManager mWindowManager;
     private View mFloatingView;
+    String []notes= new String[20];
+    FloatingNotesAdapter adapter;
+    ListView mylist;
+
 
     public FloatingItem() {
     }
@@ -32,7 +34,8 @@ public class FloatingItem extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        String [] weekends={"Saturday","Mobday"};
+
+
 
         //Inflate the floating view layout we created
         int LAYOUT_FLAG;
@@ -64,9 +67,8 @@ public class FloatingItem extends Service {
         final View collapsedView = mFloatingView.findViewById(R.id.collapse_view);
         //The root element of the expanded view layout
         final View expandedView = mFloatingView.findViewById(R.id.expanded_container);
-        ListView mylist= mFloatingView.findViewById(R.id.listView);
-        FloatingNotesAdapter adapter = new FloatingNotesAdapter(this,weekends);
-        mylist.setAdapter(adapter);
+        mylist= mFloatingView.findViewById(R.id.listView);
+
 
         //Set the close button
         ImageView closeButtonCollapsed = (ImageView) mFloatingView.findViewById(R.id.close_btn);
@@ -152,4 +154,16 @@ public class FloatingItem extends Service {
         super.onDestroy();
         if (mFloatingView != null) mWindowManager.removeView(mFloatingView);
     }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Intent myintent;
+        myintent=intent;
+        this.notes = (String[]) myintent.getExtras().get("notes");
+        adapter = new FloatingNotesAdapter(this,notes);
+        mylist.setAdapter(adapter);
+        return super.onStartCommand(myintent, flags, startId);
+
+    }
+
 }
