@@ -33,11 +33,7 @@
 
         <activity android:name=".View.ActivityDialog.MyDialogeActivity" android:theme="@style/Theme.AppCompat.Dialog.Alert"></activity>
         <activity android:name=".View.NewTripView.NewTrip" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <service
@@ -49,6 +45,11 @@
             android:name=".Views.NavigationDrawerView"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
 	</activity>
 
