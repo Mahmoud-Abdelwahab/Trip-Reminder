@@ -14,5 +14,6 @@ public interface AddNoteFragmentContract {
     }
     public interface IAddNoteFragmentModel{
         public List<Trip> getTripsFromFireBase();
+        public void addNotestoDataBase(Trip trip);
     }
 }
