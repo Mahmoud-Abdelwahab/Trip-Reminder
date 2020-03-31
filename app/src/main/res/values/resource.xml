@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="rep_array">
+        <item></item>
+        <item>Weakly</item>
+        <item>Monthly</item>
+
+    </string-array>
+
+    <string-array name="ron_array">
+        <item></item>
+        <item>One Way</item>
+        <item>Two Way </item>
+
+    </string-array>
+
+    <string-array name="imp_array">
+        <item></item>
+        <item>Normal</item>
+        <item>Important</item>
+        <item>Very important</item>
+    </string-array>
+
+</resources>

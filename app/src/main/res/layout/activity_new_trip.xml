@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    tools:context=".View.NewTripView.NewTrip">
+
+    <TableLayout
+        android:id="@+id/_table"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:text="Title"
+                android:textColor="#BC1220" />
+
+            <EditText
+                android:id="@+id/titleTxt"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:textColorHint="#0B0B0B" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="35dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:text="From"
+                android:textColor="#BC1220" />
+
+
+            <AutoCompleteTextView
+                android:id="@+id/fromAuto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:dropDownHeight="300dp"
+
+                android:layout_column="2"
+                android:textColorHint="#040404" />
+
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="35dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:text="@string/Loc_to"
+                android:textColor="#BC1220" />
+
+            <AutoCompleteTextView
+                android:id="@+id/toAuto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:textColorHighlight="#FFFFFF"
+                android:textColorHint="#050505" />
+
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="35dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:text="@string/repetition"
+                android:textColor="#BC1220" />
+
+            <Spinner
+                android:id="@+id/rep"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_column="2"
+                android:entries="@array/rep_array"
+                android:spinnerMode="dropdown"
+                android:theme="@style/ThemeOverlay.AppCompat.Light" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:text="@string/rounded"
+                android:textColor="#BC1220" />
+
+            <Spinner
+                android:id="@+id/_round"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_column="2"
+                android:entries="@array/ron_array"
+
+                android:spinnerMode="dropdown"
+                android:theme="@style/ThemeOverlay.AppCompat.Light" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:text="@string/importance"
+                android:textColor="#BC1220" />
+
+            <Spinner
+                android:id="@+id/_imp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_column="2"
+                android:entries="@array/imp_array"
+                android:spinnerMode="dropdown"
+
+                android:theme="@style/ThemeOverlay.AppCompat.Light" />
+
+        </TableRow>
+
+
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="33dp"
+        android:layout_column="1"
+        android:layout_below="@+id/_table"
+        android:layout_marginTop="67dp"
+        android:text="@string/date_time"
+        android:textColor="#BC1220" />
+
+    <ImageView
+        android:id="@+id/datePicker"
+        android:layout_width="103dp"
+        android:layout_height="95dp"
+        android:layout_below="@+id/_table"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="88dp"
+        android:layout_marginTop="12dp"
+        android:layout_toRightOf="@+id/date"
+        android:background="#FFFFFF"
+      android:src="@drawable/ic_alarm_add_black_24dp"
+       />
+
+    <Button
+        android:id="@+id/addBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/datePicker"
+        android:layout_marginTop="69dp"
+
+        android:background="#BC1220"
+        android:text="@string/add_trip" />
+</RelativeLayout>
+

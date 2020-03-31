@@ -47,7 +47,7 @@
             android:foreground="?selectableItemBackground" />
 
         <ImageView
-            android:id="@+id/item_image"
+            android:id="@+id/high_priority_image"
             android:layout_width="117dp"
             android:layout_height="117dp"
             android:layout_alignParentTop="true"
@@ -72,13 +72,12 @@
 
         <TextView
             android:id="@+id/start_point_details"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="112dp"
+            android:layout_height="20dp"
             android:layout_below="@+id/item_title"
             android:layout_marginLeft="3dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-
 
 
             android:layout_toRightOf="@id/start_point_label" />
@@ -93,13 +92,21 @@
             android:layout_marginBottom="5dp"
             android:text="Start Point:"
             android:textColor="#FF000000"
-            android:textStyle="bold" />/>
+            android:textStyle="bold" /><![CDATA[/>
+
+
+
+
+
+        ]]>
+
         <TextView
             android:id="@+id/end_point_details"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="121dp"
+            android:layout_height="20dp"
             android:layout_below="@id/start_point_details"
             android:layout_marginLeft="3dp"
+            android:layout_marginTop="-2dp"
             android:layout_marginBottom="5dp"
             android:layout_toRightOf="@id/end_point_label" />
 

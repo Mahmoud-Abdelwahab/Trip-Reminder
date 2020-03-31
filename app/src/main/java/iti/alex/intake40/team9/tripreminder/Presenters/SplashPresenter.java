@@ -2,7 +2,6 @@ package iti.alex.intake40.team9.tripreminder.Presenters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
