@@ -28,7 +28,7 @@ import iti.alex.intake40.team9.tripreminder.R;
  */
 public class AddNoteFragmentView extends Fragment implements AddNoteFragmentContract.IAddNoteFragmentView {
 
-    private List<Trip> trips=new ArrayList<Trip>();
+    public List<Trip> trips=new ArrayList<Trip>();
     ArrayAdapter adapter;
     EditText note;
     AddNoteFragmentPresenter addNoteFragmentPresenter;
@@ -42,7 +42,7 @@ public class AddNoteFragmentView extends Fragment implements AddNoteFragmentCont
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        addNoteFragmentPresenter=new AddNoteFragmentPresenter(this);
+        addNoteFragmentPresenter=new AddNoteFragmentPresenter(this,position,getContext());
         addNoteFragmentPresenter.getTrips();
         View v= inflater.inflate(R.layout.fragment_add_note_view, container, false);
         final ListView lstview=v.findViewById(R.id.list);
@@ -52,7 +52,9 @@ public class AddNoteFragmentView extends Fragment implements AddNoteFragmentCont
         addNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                trips.get(position).getNotes().add(String.valueOf(AddNoteFragmentView.this.note.getText()));
+                addNoteFragmentPresenter=new AddNoteFragmentPresenter(AddNoteFragmentView.this,position,getContext());
+                AddNoteFragmentView.this.trips.get(position).getNotes().add(String.valueOf(AddNoteFragmentView.this.note.getText()));
+                addNoteFragmentPresenter.addNotes(trips.get(position));
               adapter= new ArrayAdapter(AddNoteFragmentView.this.getContext(),android.R.layout.simple_list_item_1,trips.get(position).getNotes());
               lstview.setAdapter(adapter);
             }
