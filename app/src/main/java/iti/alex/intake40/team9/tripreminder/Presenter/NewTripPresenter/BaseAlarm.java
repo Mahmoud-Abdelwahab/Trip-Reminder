@@ -46,10 +46,10 @@ public class BaseAlarm   {
 
 
         Calendar targetCal = Calendar.getInstance();
-      //  targetCal.setTimeInMillis(trip.getDateTime());
-        int pendingIntent_ID = (int)targetCal.getTimeInMillis();
+        targetCal.setTimeInMillis(trip.getDateTime());
+        int pendingIntent_ID = trip.getId();
 
-        trip.setId(pendingIntent_ID);
+//        trip.setId(pendingIntent_ID);
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent activate = new Intent(context, AlarmReciever.class);
 
@@ -67,14 +67,21 @@ public class BaseAlarm   {
 
         if (rep.equals("")) {
 
-            if (Build.VERSION.SDK_INT < 23) {
-                if (Build.VERSION.SDK_INT >= 19) {
-                    manager.setExact(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), alarmIntent);
-                } else {
-                    manager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), alarmIntent);
-                }
-            } else {
+//            if (Build.VERSION.SDK_INT < 23) {
+//                if (Build.VERSION.SDK_INT >= 19) {
+//                    manager.setExact(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), alarmIntent);
+//                } else {
+//                    manager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), alarmIntent);
+//                }
+//            } else {
+//                manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), alarmIntent);
+//            }
+            if (Build.VERSION.SDK_INT >= 23) {
                 manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), alarmIntent);
+            } else if (Build.VERSION.SDK_INT >= 19) {
+                manager.setExact(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), alarmIntent);
+            } else {
+                manager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), alarmIntent);
             }
 
         } else  if(rep.equals("Weakly"))
@@ -97,12 +104,12 @@ public class BaseAlarm   {
 
         Toast.makeText(context.getApplicationContext(),
                 " setting Alarm" + targetCal.getTime(), Toast.LENGTH_LONG).show();
-        ComponentName receiver = new ComponentName(context, AlarmReciever.class);
-        PackageManager pm = context.getPackageManager();
-
-        pm.setComponentEnabledSetting(receiver,
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP);
+//        ComponentName receiver = new ComponentName(context, AlarmReciever.class);
+//        PackageManager pm = context.getPackageManager();
+//
+//        pm.setComponentEnabledSetting(receiver,
+//                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+//                PackageManager.DONT_KILL_APP);
 
 
 
@@ -130,20 +137,10 @@ public class BaseAlarm   {
                 PendingIntent.FLAG_UPDATE_CURRENT);
         manager.cancel(pendingIntent);
 
-        DbModel dbModel = new DbModel(context);
-
-        dbModel.updateTripDb(tripModel);
+//        DbModel dbModel = new DbModel(context);
 //
-//                   cancelAlarm(tripModel);
+//        dbModel.updateTripDb(tripModel);
 
-
-
-
-                 //   alaramID.remove(0);
-//
-//                    DialogFragment newFragment = new MyDatePicker(new_trip);
-//                    newFragment.show(new_trip.getSupportFragmentManager(), "datePicker");
-//             tripModel.setId((int) System.currentTimeMillis());
               setAlarm(tripModel);
 
     }
@@ -151,6 +148,7 @@ public class BaseAlarm   {
 
     //////***************  cancel   ***********
     public  void cancelAlarm( TripModel tripModel){
+         tripModel.setHistory(true); /// add it to history
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent activate = new Intent(context, AlarmReciever.class);
 //        activate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

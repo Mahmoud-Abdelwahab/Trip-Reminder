@@ -3,6 +3,7 @@ package iti.alex.intake40.team9.tripreminder.View.NewTripView;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Build;
@@ -36,8 +37,7 @@ import iti.alex.intake40.team9.tripreminder.Room.TripModel;
 import iti.alex.intake40.team9.tripreminder.autocomplete.PlaceAutoSuggestAdapter;
 
 public class NewTrip extends AppCompatActivity {
-    String rep;
-    String roun;
+
     @BindView(R.id.titleTxt)
     EditText titleTxt;
     @BindView(R.id.fromAuto)
@@ -54,79 +54,30 @@ public class NewTrip extends AppCompatActivity {
     ImageView date_time;
     @BindView(R.id.addBtn)
     Button addBtn;
-public  static  int OBJ_ID;
+    public static int OBJ_ID;
     private NewTripPresnter newTripPresnter;
     public static Boolean isRepeated = false;
 
     TimePickerDialog timePickerDialog;
     DatePickerDialog datePickerDialog;
     Context context;
-    BaseAlarm baseAlarm ;
-
+    BaseAlarm baseAlarm;
+   private   TripModel tripE;
     public static Calendar myCalendar;
-    //    public static  int pendinIntentID ;
-    List<Integer> alaramID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_trip);
         ButterKnife.bind(this);
- baseAlarm = new BaseAlarm(getApplicationContext());
-        setFromAutoComplete();
-        setToAutoComplete();
-
-
-
-
-
-
 
         newTripPresnter = new NewTripPresnter(this);
-        alaramID = new ArrayList<Integer>();
 
         context = getBaseContext();
         myCalendar = Calendar.getInstance();
-
-
-
-        // ///////////////////// data time    /////////
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-            @Override
-            public void onClick(View v) {
-                TripModel tripe = new TripModel();
-                tripe.setTitle(titleTxt.getText().toString());
-
-                tripe.setStartPoint(fromAuto.getText().toString());
-                tripe.setEndPoint(toAuto.getText().toString());
-                tripe.setNotes(null); // add note ----------->>>>
-                tripe.setRepetition(repetiton.getSelectedItem().toString());
-
-                List<String>mylist = new ArrayList<>();
-                mylist.add("helllp all");
-                mylist.add("hello world ");
-                mylist.add("Hello mahmoud ");
-                tripe.setNotes(mylist);
-                tripe.setRounded(Round.getSelectedItem().toString());
-                tripe.setImportance(Imp.getSelectedItem().toString());
-                tripe.setHistory(false);
-                long millis = myCalendar.getTimeInMillis() ;
-                tripe.setDateTime(millis);
-
-                Log.i("object " , "datatime "+tripe.getDateTime() +" state " + tripe.getStartPoint()
-                 +" end point " + tripe.getEndPoint());
-
-                baseAlarm.setAlarm(tripe);
-                DbModel db = new DbModel(getApplicationContext());
-                 List<TripModel> trips =  db.getAllTripDb();
-
-
-               newTripPresnter.addNewTrip(tripe);
-            }
-        });
-
-
+        baseAlarm = new BaseAlarm(getApplicationContext());
+        setFromAutoComplete();
+        setToAutoComplete();
         // ///////////////////// data time    /////////
         date_time.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,6 +85,78 @@ public  static  int OBJ_ID;
                 newTripPresnter.showDateTimePicker();
             }
         });
+
+
+        Intent intent = getIntent();
+        String action = intent.getStringExtra("ACTION");
+         tripE =(TripModel) intent.getSerializableExtra("TRIP");
+//        tripE= (TripModel) getIntent().getParcelableExtra("TRIP");
+
+
+        if (action==null||action.equals("")) {
+
+            // ///////////////////// data time    /////////
+            addBtn.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                @Override
+                public void onClick(View v) {
+                    TripModel tripe = new TripModel();
+                    tripe.setTitle(titleTxt.getText().toString());
+
+                    Calendar targetCal = Calendar.getInstance();
+                    int id = (int)targetCal.getTimeInMillis();
+                    tripe.setId(id);
+
+                    tripe.setStartPoint(fromAuto.getText().toString());
+                    tripe.setEndPoint(toAuto.getText().toString());
+                    tripe.setNotes(null); // add note ----------->>>>
+                    tripe.setRepetition(repetiton.getSelectedItem().toString());
+
+                    List<String> mylist = new ArrayList<>();
+                    mylist.add("helllp all");
+                    mylist.add("hello world ");
+                    mylist.add("Hello mahmoud ");
+                    tripe.setNotes(mylist);
+                    tripe.setRounded(Round.getSelectedItem().toString());
+                    tripe.setImportance(Imp.getSelectedItem().toString());
+                    tripe.setHistory(false);
+                    long millis = myCalendar.getTimeInMillis();
+                    tripe.setDateTime(millis);
+
+                    Log.i("object ", "datatime " + tripe.getDateTime() + " state " + tripe.getStartPoint()
+                            + " end point " + tripe.getEndPoint());
+
+                    baseAlarm.setAlarm(tripe);
+                    DbModel db = new DbModel(getApplicationContext());
+                    List<TripModel> trips = db.getAllTripDb();
+
+
+                    newTripPresnter.addNewTrip(tripe);
+                }
+            });
+
+
+
+        } else if (action.equals("edit")) {
+           // 1- change button name to edite
+            // 2 - setting all fields with object data
+            // 3 - update object in database
+            //4 - reset alarm
+            addBtn.setText(" Edit ");
+            titleTxt.setText(tripE.getTitle());
+            fromAuto.setText(tripE.getStartPoint());
+            toAuto.setText(tripE.getEndPoint());
+
+            addBtn.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                @Override
+                public void onClick(View v) {
+                    editTrip();
+                }
+            });
+
+
+        }
 
 
 ////////////////////// edit   /////////////////////////
@@ -241,7 +264,6 @@ public  static  int OBJ_ID;
 //
 //
 //    }
-
 
 
 //    @Override
@@ -356,6 +378,43 @@ public  static  int OBJ_ID;
             return null;
         }
 
+    }
+
+
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    void editTrip()
+    {
+//        if(!titleTxt.getText().equals("") &&!fromAuto.getText().equals("") &&!toAuto.getText().equals("")&&&&!c.getText().equals(""))
+
+        tripE.setTitle(titleTxt.getText().toString());
+
+        tripE.setStartPoint(fromAuto.getText().toString());
+        tripE.setEndPoint(toAuto.getText().toString());
+        tripE.setNotes(null); // add note ----------->>>>
+        tripE.setRepetition(repetiton.getSelectedItem().toString());
+
+        List<String> mylist = new ArrayList<>();
+        mylist.add("helllp all");
+        mylist.add("hello world ");
+        mylist.add("Hello mahmoud ");
+        tripE.setNotes(mylist);
+        tripE.setRounded(Round.getSelectedItem().toString());
+        tripE.setImportance(Imp.getSelectedItem().toString());
+        tripE.setHistory(false);
+        long millis = myCalendar.getTimeInMillis();
+        tripE.setDateTime(millis);
+
+        Log.i("object ", "datatime " + tripE.getDateTime() + " state " + tripE.getStartPoint()
+                + " end point " + tripE.getEndPoint());
+
+        baseAlarm.cancelAlarm(tripE);
+        DbModel db = new DbModel(getApplicationContext());
+        List<TripModel> trips = db.getAllTripDb();
+
+         db.updateTripDb(tripE);
+
+//        newTripPresnter.addNewTrip(tripe);
     }
 
 }
