@@ -39,6 +39,10 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
     MyViewHolder holder;
     private static final int CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084;
 
+    public interface OnItemLongClickListener {
+        public boolean onItemLongClicked(int position);
+    }
+
 
 
 
@@ -129,7 +133,7 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(UpcomingRecyclarViewAdapter.this.holder.start.getContext());
                 builder.setTitle("Notes");
-                ArrayList<String> notes = trips.get(position).getNotes();
+                List<String> notes = trips.get(position).getNotes();
                 //String[] notesArray = new String[notes.size()];
 
                 String [] notesArray = notes.toArray(new String[notes.size()]);
@@ -169,9 +173,11 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
                                 Toast.LENGTH_LONG).show();
                         return true;
                     case R.id.Delete:
-                        //Enter Delete Code Here;
-                        Toast.makeText(UpcomingRecyclarViewAdapter.this.holder.popupMenu.getContext(), "Delete",
-                                Toast.LENGTH_LONG).show();
+                        //delete from database
+                        //removie from alarmlist
+                        trips.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, trips.size());
                         return true;
                     case R.id.Cancel:
                         //Enter Cancel Code Here;
@@ -193,6 +199,26 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
 
                 popupMenu.show();
 
+            }
+        });
+
+
+        holder.layout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                AlertDialog.Builder adb=new AlertDialog.Builder(UpcomingRecyclarViewAdapter.this.holder.layout.getContext());
+                adb.setTitle("Delete this trip?");
+                adb.setMessage("Are you sure?");
+                adb.setNegativeButton("Cancel", null);
+                adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        trips.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, trips.size());
+                    }});
+                adb.show();
+
+                return true;
             }
         });
 
