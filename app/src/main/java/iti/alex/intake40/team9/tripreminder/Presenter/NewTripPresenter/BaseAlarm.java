@@ -165,7 +165,7 @@ public class BaseAlarm   {
 
     }
 
-   String getDate(Long dateTime ){
+   String getTimeAndDate(Long dateTime ){
        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy   hh:mm:ss.SSS");
 
        Calendar calendar = Calendar.getInstance();
