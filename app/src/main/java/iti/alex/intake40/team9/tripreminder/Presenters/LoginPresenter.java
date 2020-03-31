@@ -24,9 +24,7 @@ import java.util.List;
 
 import iti.alex.intake40.team9.tripreminder.Models.FireBaseModel;
 import iti.alex.intake40.team9.tripreminder.POJO.Trip;
-import iti.alex.intake40.team9.tripreminder.POJO.TripDate;
 import iti.alex.intake40.team9.tripreminder.POJO.TripLocation;
-import iti.alex.intake40.team9.tripreminder.POJO.TripTime;
 import iti.alex.intake40.team9.tripreminder.Views.NavigationDrawerView;
 import iti.alex.intake40.team9.tripreminder.Views.RegisterationView;
 
