@@ -8,13 +8,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.text.format.DateFormat;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import iti.alex.intake40.team9.tripreminder.Room.DbModel;
 import iti.alex.intake40.team9.tripreminder.Room.TripModel;
@@ -49,7 +54,7 @@ public class BaseAlarm   {
         Intent activate = new Intent(context, AlarmReciever.class);
 
 
-        activate.putExtra("intent_ID",pendingIntent_ID);
+      //  activate.putExtra("intent_ID",pendingIntent_ID);
 
         //   activate.setAction("iti.alex.intake40.team9.AlarmReciever");
         //  activate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -160,7 +165,13 @@ public class BaseAlarm   {
 
     }
 
+   String getDate(Long dateTime ){
+       SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy   hh:mm:ss.SSS");
 
+       Calendar calendar = Calendar.getInstance();
+       calendar.setTimeInMillis(dateTime);
+       return formatter.format(calendar.getTime());
+   }
 
 
 

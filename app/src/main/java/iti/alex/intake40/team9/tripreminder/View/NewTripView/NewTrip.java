@@ -103,6 +103,11 @@ public  static  int OBJ_ID;
                 tripe.setNotes(null); // add note ----------->>>>
                 tripe.setRepetition(repetiton.getSelectedItem().toString());
 
+                List<String>mylist = new ArrayList<>();
+                mylist.add("helllp all");
+                mylist.add("hello world ");
+                mylist.add("Hello mahmoud ");
+                tripe.setNotes(mylist);
                 tripe.setRounded(Round.getSelectedItem().toString());
                 tripe.setImportance(Imp.getSelectedItem().toString());
                 tripe.setHistory(false);
@@ -115,6 +120,7 @@ public  static  int OBJ_ID;
                 baseAlarm.setAlarm(tripe);
                 DbModel db = new DbModel(getApplicationContext());
                  List<TripModel> trips =  db.getAllTripDb();
+
 
                newTripPresnter.addNewTrip(tripe);
             }

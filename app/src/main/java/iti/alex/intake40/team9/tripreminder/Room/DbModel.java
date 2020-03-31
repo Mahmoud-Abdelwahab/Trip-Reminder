@@ -10,7 +10,7 @@ public class DbModel implements IDbModel  {
 
 
     AppDataBase dataBase;
-            ITripDao iContactDao;
+            ITripDao iTripDao;
 
 public DbModel(Context con) {
 
@@ -19,44 +19,44 @@ public DbModel(Context con) {
         .allowMainThreadQueries()   //Allows room to do operation on main thread
         .build();
 
-        iContactDao = dataBase.getContactDAO();
+        iTripDao = dataBase.getContactDAO();
         }
 
 
         @Override
-        public void addTripDb(TripModel contactModel) {
-                iContactDao.addContact(contactModel);
+        public void addTripDb(TripModel tripModel) {
+                iTripDao.addContact(tripModel);
         }
 
         @Override
         public List<TripModel> getAllTripDb() {
-                return iContactDao.getTripList();
+                return iTripDao.getTripList();
         }
 
         @Override
-        public void updateTripDb(TripModel contactModel) {
-                iContactDao.updateContact(contactModel);
+        public void updateTripDb(TripModel tripModel) {
+                iTripDao.updateContact(tripModel);
         }
 
         @Override
-        public TripModel getTripByID(int contact_id) {
-                return iContactDao.getContact(contact_id);
+        public TripModel getTripByID(int tripModel) {
+                return iTripDao.getContact(tripModel);
         }
 
         @Override
         public void deleteByTripId(long trip_id) {
-                iContactDao.deleteByTripId(trip_id);
+                iTripDao.deleteByTripId(trip_id);
         }
 
         @Override
-        public void deleteTripDb(TripModel contactModel) {
-                iContactDao.deleteContact(contactModel);
+        public void deleteTripDb(TripModel tripModel) {
+                iTripDao.deleteContact(tripModel);
         }
 
         @Override
         public List<TripModel> getHistory(Boolean trip_history)
         {
-               return iContactDao.getHistory(trip_history);
+               return iTripDao.getHistory(trip_history);
         }
 }
 

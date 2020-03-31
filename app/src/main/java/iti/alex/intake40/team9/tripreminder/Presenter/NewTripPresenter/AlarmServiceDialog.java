@@ -86,7 +86,8 @@ public class AlarmServiceDialog extends Service {
 //
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 //          createNotificationChannel();
-//        } else {
+//        }
+//        else {
 //            addNotification();
 //
 //        }
