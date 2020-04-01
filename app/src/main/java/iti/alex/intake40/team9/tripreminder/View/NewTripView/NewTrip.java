@@ -1,6 +1,8 @@
 package iti.alex.intake40.team9.tripreminder.View.NewTripView;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +32,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import iti.alex.intake40.team9.tripreminder.Presenter.NewTripPresenter.AlarmReciever;
 import iti.alex.intake40.team9.tripreminder.Presenter.NewTripPresenter.BaseAlarm;
 import iti.alex.intake40.team9.tripreminder.Presenter.NewTripPresenter.NewTripPresnter;
 import iti.alex.intake40.team9.tripreminder.R;
@@ -92,8 +96,9 @@ public class NewTrip extends AppCompatActivity {
          tripE =(TripModel) intent.getSerializableExtra("TRIP");
 //        tripE= (TripModel) getIntent().getParcelableExtra("TRIP");
 
+     
 
-        if (action==null||action.equals("")) {
+        if (action!=null&&action.equals("add")) {
 
             // ///////////////////// data time    /////////
             addBtn.setOnClickListener(new View.OnClickListener() {
@@ -135,7 +140,7 @@ public class NewTrip extends AppCompatActivity {
 
 
 
-        } else if (action.equals("edit")) {
+        } else if (action!=null&&action.equals("edit")) {
            // 1- change button name to edite
             // 2 - setting all fields with object data
             // 3 - update object in database
@@ -157,118 +162,8 @@ public class NewTrip extends AppCompatActivity {
         }
 
 
-////////////////////// edit   /////////////////////////
-//
-//        findViewById(R.id.editBtn).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-//                Intent activate = new Intent(context, AlarmReciever.class);
-////                activate.setAction("es.monlau.smartschool.AlarmReceiver");
-////                activate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-////                activate.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-//
-//                if( alaramID.get(0) != null) {
-//                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
-//                            alaramID.get(0), activate,
-//                            PendingIntent.FLAG_UPDATE_CURRENT);
-//                    manager.cancel(pendingIntent);
-//                    alaramID.remove(0);
-//                    DialogFragment newFragment = new MyDatePicker(MainActivity.this);
-//                    newFragment.show(getSupportFragmentManager(), "datePicker");
-//            }
-//        }
-//    });
-
-
-        ////////////////////////  Cancel   /////////////
-//    findViewById(R.id.cancelBtn).
-//
-//    setOnClickListener(new View.OnClickListener() {
-//        @Override
-//        public void onClick (View v){
-//            cancelAlarm( int pendingIntent_ID);
-//        }
-//    });
-
 
     }
-
-
-//    public  void cancelAlarm(){
-//        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-//        Intent activate = new Intent(context, AlarmReciever.class);
-////        activate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-////        activate.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-//
-//        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
-//                777, activate,
-//                PendingIntent.FLAG_UPDATE_CURRENT);
-//        manager.cancel(pendingIntent);
-//    }
-
-
-//
-//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-//    @Override
-//    public void getCalendar(Calendar calendar) {
-//
-//
-//        setAlarm(calendar);
-//    }
-
-//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-//    @SuppressLint("ShortAlarm")
-//    private void setAlarm(Calendar targetCal ) {
-//
-//        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-//        Intent activate = new Intent(context, AlarmReciever.class);
-//
-//
-//        //   activate.setAction("iti.alex.intake40.team9.AlarmReciever");
-//        //  activate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        //  activate.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-//        int _id = (int) System.currentTimeMillis();
-//        PendingIntent alarmIntent = PendingIntent.getBroadcast(this, _id, activate, PendingIntent.FLAG_UPDATE_CURRENT);
-//        alaramID.add(_id);
-//        // create isRepeated in your code do your stufff mahoud hahahhahah
-//        if (!isRepeated) {
-//
-//            if (Build.VERSION.SDK_INT < 23) {
-//                if (Build.VERSION.SDK_INT >= 19) {
-//                    manager.setExact(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), alarmIntent);
-//                } else {
-//                    manager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), alarmIntent);
-//                }
-//            } else {
-//                manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), alarmIntent);
-//            }
-//
-//        } else {
-////            Calendar today = Calendar.getInstance();
-//            Long difer = System.currentTimeMillis() + targetCal.getTimeInMillis();
-//            //   manager.setRepeating(AlarmManager.RTC_WAKEUP, today.getTimeInMillis(), daysBetween(today, targetCal), alarmIntent);
-//            manager.setRepeating(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), difer, alarmIntent);
-//        }
-//
-//        Toast.makeText(getApplicationContext(),
-//                " setting Alarm" + targetCal.getTime(), Toast.LENGTH_LONG).show();
-//        ComponentName receiver = new ComponentName(context, AlarmReciever.class);
-//        PackageManager pm = context.getPackageManager();
-//
-//        pm.setComponentEnabledSetting(receiver,
-//                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-//                PackageManager.DONT_KILL_APP);
-//
-//
-//    }
-
-
-//    @Override
-//    public void getCalendar(Calendar calendar) {
-//
-//
-//    }
 
 
     public void setFromAutoComplete() {
@@ -383,36 +278,44 @@ public class NewTrip extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     void editTrip()
     {
-//        if(!titleTxt.getText().equals("") &&!fromAuto.getText().equals("") &&!toAuto.getText().equals("")&&&&!c.getText().equals(""))
+        if(!titleTxt.getText().equals("") &&!fromAuto.getText().equals("") &&!toAuto.getText().equals("")&&tripE.getDateTime()!=0)
+        {
+            AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            Intent activate = new Intent(context, AlarmReciever.class);
+//        activate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        activate.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
 
-        tripE.setTitle(titleTxt.getText().toString());
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
+                    tripE.getId(), activate,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+            manager.cancel(pendingIntent);
 
-        tripE.setStartPoint(fromAuto.getText().toString());
-        tripE.setEndPoint(toAuto.getText().toString());
-        tripE.setNotes(null); // add note ----------->>>>
-        tripE.setRepetition(repetiton.getSelectedItem().toString());
+            tripE.setTitle(titleTxt.getText().toString());
 
-        List<String> mylist = new ArrayList<>();
-        mylist.add("helllp all");
-        mylist.add("hello world ");
-        mylist.add("Hello mahmoud ");
-        tripE.setNotes(mylist);
-        tripE.setRounded(Round.getSelectedItem().toString());
-        tripE.setImportance(Imp.getSelectedItem().toString());
-        tripE.setHistory(false);
-        long millis = myCalendar.getTimeInMillis();
-        tripE.setDateTime(millis);
+            tripE.setStartPoint(fromAuto.getText().toString());
+            tripE.setEndPoint(toAuto.getText().toString());
+            tripE.setNotes(null); // add note ----------->>>>
+            tripE.setRepetition(repetiton.getSelectedItem().toString());
 
-        Log.i("object ", "datatime " + tripE.getDateTime() + " state " + tripE.getStartPoint()
-                + " end point " + tripE.getEndPoint());
+            tripE.setRounded(Round.getSelectedItem().toString());
+            tripE.setImportance(Imp.getSelectedItem().toString());
+            tripE.setHistory(false);
+            long millis = myCalendar.getTimeInMillis();
+            tripE.setDateTime(millis);
 
-        baseAlarm.cancelAlarm(tripE);
-        DbModel db = new DbModel(getApplicationContext());
-        List<TripModel> trips = db.getAllTripDb();
+            Log.i("object ", "datatime " + tripE.getDateTime() + " state " + tripE.getStartPoint()
+                    + " end point " + tripE.getEndPoint());
 
-         db.updateTripDb(tripE);
+            baseAlarm.setAlarm(tripE);
+            DbModel db = new DbModel(getApplicationContext());
+            db.updateTripDb(tripE);
+        } else{
+        Toast.makeText(context.getApplicationContext(),
+                " Fill Empty Fields " , Toast.LENGTH_LONG).show();
+    }
 
-//        newTripPresnter.addNewTrip(tripe);
+
+
     }
 
 }

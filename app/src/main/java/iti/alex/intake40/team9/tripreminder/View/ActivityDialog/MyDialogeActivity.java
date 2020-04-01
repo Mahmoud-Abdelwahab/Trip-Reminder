@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import butterknife.BindView;
@@ -51,15 +52,32 @@ int OBJ_ID;
         ButterKnife.bind(this);
         alarmReciever = new AlarmReciever();
         myPlayer = MediaPlayer.create(this, R.raw.media);
+        myPlayer.setLooping(true);
         myPlayer.start();
 
-        OBJ_ID = getIntent().getIntExtra("intent_ID",4);
+        OBJ_ID=getIntent().getIntExtra("intent_ID",4);
 
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(),
                         " start", Toast.LENGTH_LONG).show();
+
+
+//                Uri gmmIntentUri = Uri.parse("google.navigation:q=Mahta Al Raml SQ.");
+//                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+//                mapIntent.setPackage("com.google.android.apps.maps");
+//                if (mapIntent.resolveActivity(getPackageManager()) != null) {
+//                    startActivity(mapIntent);
+//                }
+
+
+//                IntentFilter filter = new IntentFilter("iti.alex.intake40.team9.AlarmReciever");
+//                registerReceiver(alarmReciever, filter);
+//                Intent broadCastIntent = new Intent("iti.alex.intake40.team9.AlarmReciever");
+//                broadCastIntent.putExtra("Action", "stop");
+//                broadCastIntent.setAction("iti.alex.intake40.team9.AlarmReciever");
+//                sendBroadcast(broadCastIntent);
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(MyDialogeActivity.this)) {
 
@@ -105,19 +123,37 @@ int OBJ_ID;
         });
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(),
                         " Canceling ...", Toast.LENGTH_LONG).show();
 
+//                IntentFilter filter = new IntentFilter("iti.alex.intake40.team9.AlarmReciever");
+//                registerReceiver(alarmReciever, filter);
+//                Intent broadCastIntent = new Intent("iti.alex.intake40.team9.AlarmReciever");
+//                broadCastIntent.putExtra("Action", "stop");
+//                broadCastIntent.setAction("iti.alex.intake40.team9.AlarmReciever");
+//                sendBroadcast(broadCastIntent);
 
     DbModel dbModel = new DbModel(getApplicationContext());
     //   dbModel.deleteByTripId(NewTrip.OBJ_ID);
 //   int  id  = getIntent().getIntExtra("intent_ID",4);
     TripModel trip = dbModel.getTripByID(OBJ_ID);
                       trip.setHistory(true);
+
+                AlarmManager manager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+                Intent activate = new Intent(getApplicationContext(), AlarmReciever.class);
+//        activate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        activate.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),
+                        trip.getId(), activate,
+                        PendingIntent.FLAG_UPDATE_CURRENT);
+                manager.cancel(pendingIntent);
+
     BaseAlarm baseAlarm = new BaseAlarm(getApplicationContext());
-                     baseAlarm.cancelAlarm(trip);
+                baseAlarm.setAlarm(trip);
 
     Intent myService = new Intent(getApplicationContext(), AlarmServiceDialog.class);
     stopService(myService);
