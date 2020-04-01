@@ -139,7 +139,7 @@ public class NewTrip extends AppCompatActivity {
 
                     newTripPresnter.addNewTrip(tripe);
 
-                    FireBaseModel.sharedInstance.addTrip(convert.fromTripModelTotrip(tripe));
+//                    FireBaseModel.sharedInstance.addTrip(convert.fromTripModelTotrip(tripe));
 
 
                     Intent upcomming = new Intent(getApplicationContext() , UpcomingFragmentView.class);
@@ -297,12 +297,9 @@ public class NewTrip extends AppCompatActivity {
 //        activate.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
-                    tripE.getId(), activate,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
+                    tripE.getId(), activate, PendingIntent.FLAG_UPDATE_CURRENT);
             manager.cancel(pendingIntent);
-
             tripE.setTitle(titleTxt.getText().toString());
-
             tripE.setStartPoint(fromAuto.getText().toString());
             tripE.setEndPoint(toAuto.getText().toString());
             tripE.setNotes(null); // add note ----------->>>>
@@ -320,7 +317,7 @@ public class NewTrip extends AppCompatActivity {
             baseAlarm.setAlarm(tripE);
             DbModel db = new DbModel(getApplicationContext());
             db.updateTripDb(tripE);
-            FireBaseModel.sharedInstance.addTrip(convert.fromTripModelTotrip(tripE));
+//            FireBaseModel.sharedInstance.addTrip(convert.fromTripModelTotrip(tripE));
         } else{
         Toast.makeText(context.getApplicationContext(),
                 " Fill Empty Fields " , Toast.LENGTH_LONG).show();
