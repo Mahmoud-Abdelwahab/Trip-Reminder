@@ -82,7 +82,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/start_point"
             android:visibility="gone"
             android:textColor="#c81e2f"
             android:textSize="30sp"
