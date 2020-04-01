@@ -319,13 +319,11 @@ public class NewTrip extends AppCompatActivity {
             baseAlarm.setAlarm(tripE);
             DbModel db = new DbModel(getApplicationContext());
             db.updateTripDb(tripE);
-            FireBaseModel.sharedInstance.updateTrip(convert.fromTripModelTotrip(tripE));
+            FireBaseModel.sharedInstance.addTrip(convert.fromTripModelTotrip(tripE));
         } else{
         Toast.makeText(context.getApplicationContext(),
                 " Fill Empty Fields " , Toast.LENGTH_LONG).show();
     }
-
-
 
     }
 
