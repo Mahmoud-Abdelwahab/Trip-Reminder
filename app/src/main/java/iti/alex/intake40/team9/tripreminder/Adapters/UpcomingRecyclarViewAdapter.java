@@ -31,6 +31,7 @@ import java.util.List;
 import iti.alex.intake40.team9.tripreminder.Models.FloatingItem;
 import iti.alex.intake40.team9.tripreminder.POJO.Trip;
 import iti.alex.intake40.team9.tripreminder.POJO.TripConverter;
+import iti.alex.intake40.team9.tripreminder.Presenter.NewTripPresenter.BaseAlarm;
 import iti.alex.intake40.team9.tripreminder.R;
 import iti.alex.intake40.team9.tripreminder.Room.TripModel;
 import iti.alex.intake40.team9.tripreminder.View.NewTripView.NewTrip;
@@ -135,8 +136,14 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
                 mapIntent.setPackage("com.google.android.apps.maps");
                 UpcomingRecyclarViewAdapter.this.holder.start.getContext().startActivity(mapIntent);
                 Log.d("ay7aga",trips.get(position).getStartPoint());
+
+                BaseAlarm baseAlarm = new BaseAlarm(UpcomingRecyclarViewAdapter.this.holder.start.getContext());
+                TripConverter tripConverter = new TripConverter();
+                TripModel tripModel=tripConverter.fromTripToTripModel(trips.get(position));
+                baseAlarm.cancelAlarm(tripModel);
                 trips.remove(position);
                 UpcomingRecyclarViewAdapter.this.notifyDataSetChanged();
+
             }
         });
 
