@@ -26,7 +26,7 @@ public class AddNoteFragmentPresenter implements AddNoteFragmentContract.IAddNot
 
     @Override
     public void getTrips() {
-        trips=iAddNoteFragmentModel.getTripsFromFireBase();
+        trips=iAddNoteFragmentModel.getTripsFromRoom();
         iAddNoteFragmentView.onDataReceived(trips);
     }
 
@@ -34,4 +34,5 @@ public class AddNoteFragmentPresenter implements AddNoteFragmentContract.IAddNot
     {
         iAddNoteFragmentModel.addNotestoDataBase(trip);
     }
+
 }
