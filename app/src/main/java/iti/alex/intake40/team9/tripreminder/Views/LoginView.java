@@ -30,7 +30,7 @@ public class LoginView extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText email = findViewById(R.id.email);
+                EditText email = findViewById(R.id.useremail);
                 EditText pass = findViewById(R.id.pass);
                 lp.onLoginClicked(email.getText().toString(), pass.getText().toString());
             }
