@@ -42,11 +42,14 @@ public class SplashPresenter implements Delegate {
         {
             fireBaseModel = FireBaseModel.sharedInstance;
             fireBaseModel.setDelegate(this);
+            //fireBaseModel.getProfileImage();
         }
     }
 
     @Override
     public void done() {
+        //Log.i("ANE", fireBaseModel.getProfileImage().toString());
+        //fireBaseModel.deleteAll();
         Intent i = new Intent(activity, NavigationDrawerView.class);
         activity.startActivity(i);
         activity.finish();

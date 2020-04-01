@@ -45,6 +45,7 @@ public class RegisterationView extends AppCompatActivity {
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.i("ANE", "onclick" + bitmap.toString());
                 rp.onRegisterClicked(bitmap, email.getText().toString(), pass.getText().toString(), confirm.getText().toString());
             }
         });
@@ -59,7 +60,8 @@ public class RegisterationView extends AppCompatActivity {
             iv.setImageURI(fullPhotoUri);
             iv.setDrawingCacheEnabled(true);
             iv.buildDrawingCache();
-            Bitmap bitmap = ((BitmapDrawable) iv.getDrawable()).getBitmap();
+            bitmap = ((BitmapDrawable) iv.getDrawable()).getBitmap();
+            Log.i("ANE", bitmap.toString());
         }
     }
 }
