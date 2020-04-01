@@ -1,4 +1,5 @@
 package iti.alex.intake40.team9.tripreminder.Models;
 
-public class RegestrationModel {
+public interface Delegate {
+    public void done();
 }

@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 
-@Database(entities = {TripModel.class},version = 1)
+@Database(entities = {TripModel.class},version = 2)
 @TypeConverters({Converter.class})
 public abstract class AppDataBase extends RoomDatabase {
     public abstract ITripDao getContactDAO();

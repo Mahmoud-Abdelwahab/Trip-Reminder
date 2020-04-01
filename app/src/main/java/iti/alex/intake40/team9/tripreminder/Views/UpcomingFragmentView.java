@@ -51,6 +51,7 @@ public class UpcomingFragmentView extends Fragment implements UpcomingFragmentCo
         View v = inflater.inflate(R.layout.fragment_upcoming, container, false);
         rv=v.findViewById(R.id.Upcoming_RecyclarView);
         addTripFab=v.findViewById(R.id.fab_add_trip);
+
         addTripFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

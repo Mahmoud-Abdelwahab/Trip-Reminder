@@ -38,6 +38,13 @@ public class TripModel {
         @TypeConverters({Converter.class})
         private List<String> notes;
 
+        @Nullable
+        @ColumnInfo(name = "status")
+        private String status;
+
+        @Nullable
+        @ColumnInfo(name = "firebaseID")
+        private String firebaseID;
 
         @Nullable
         @ColumnInfo(name = "trip_importance")
@@ -140,5 +147,21 @@ public class TripModel {
                 this.notes = notes;
                 this.importance = importance;
                 this.history = history;
+        }
+
+        public String getFirebaseID() {
+                return firebaseID;
+        }
+
+        public void setFirebaseID(String firebaseID) {
+                this.firebaseID = firebaseID;
+        }
+
+        public String getStatus() {
+                return status;
+        }
+
+        public void setStatus(String status) {
+                this.status = status;
         }
 }
