@@ -80,7 +80,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
                     holder.time.setVisibility(View.GONE);
                 else
                     holder.time.setVisibility(View.VISIBLE);
-                
+
                 if (holder.notes.getVisibility() == View.VISIBLE)
                     holder.notes.setVisibility(View.GONE);
                 else

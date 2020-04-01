@@ -73,5 +73,9 @@ public class FireBaseModel {
         myRef.child(getUser().getUid()).child("" + trip.getFirebaseID()).removeValue();
     }
 
+    public void updateTrip(Trip trip) {
+        myRef.child(getUser().getUid()).child("" + trip.getFirebaseID()).setValue(trip);
+    }
+
     public void signOut() { auth.signOut(); }
 }
