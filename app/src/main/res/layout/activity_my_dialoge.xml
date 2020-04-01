@@ -1,51 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="150dp"
+    android:orientation="vertical"
     tools:context=".View.ActivityDialog.MyDialogeActivity">
 
-    <Button
-        android:id="@+id/snoozeBtn"
-        android:layout_width="98dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="28dp"
-        android:text="Snoozing"
-        app:layout_constraintEnd_toStartOf="@+id/startBtn"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+    <LinearLayout
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginLeft="80dp"
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:text="Remember Your Trip ...! "
+            android:textColor="#FBFBFB"
+
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="Remember Your Trip "
-        android:textColor="#040404"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.465"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/startBtn"
-        android:layout_width="87dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginRight="44dp"
-        android:text="Start"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        <Button
+            android:layout_marginLeft="20dp"
+            android:id="@+id/snoozeBtn"
+            android:layout_width="98dp"
+            android:layout_height="49dp"
 
-    <Button
-        android:id="@+id/cancelBtn"
-        android:layout_width="87dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="28dp"
-        android:text="Cancel"
-        app:layout_constraintEnd_toStartOf="@+id/snoozeBtn"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:text="Snoozing" />
+
+
+        <Button
+            android:id="@+id/startBtn"
+            android:layout_width="87dp"
+            android:layout_height="48dp"
+
+            android:text="Start" />
+
+        <Button
+            android:id="@+id/cancelBtn"
+            android:layout_width="87dp"
+            android:layout_height="49dp"
+
+            android:text="Cancel" />
+    </LinearLayout>
+
+</LinearLayout>

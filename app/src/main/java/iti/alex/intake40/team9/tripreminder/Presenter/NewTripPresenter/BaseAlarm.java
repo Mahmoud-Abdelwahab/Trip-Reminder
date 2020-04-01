@@ -52,9 +52,7 @@ public class BaseAlarm   {
 //        trip.setId(pendingIntent_ID);
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent activate = new Intent(context, AlarmReciever.class);
-
-
-      //  activate.putExtra("intent_ID",pendingIntent_ID);
+        activate.putExtra("intent_ID",pendingIntent_ID); // to  get object
 
         //   activate.setAction("iti.alex.intake40.team9.AlarmReciever");
         //  activate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

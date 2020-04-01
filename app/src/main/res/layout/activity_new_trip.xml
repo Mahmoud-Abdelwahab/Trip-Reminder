@@ -179,8 +179,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/datePicker"
-        android:layout_marginTop="69dp"
-
+        android:layout_marginTop="100dp"
         android:background="#BC1220"
         android:text="@string/add_trip" />
 </RelativeLayout>
