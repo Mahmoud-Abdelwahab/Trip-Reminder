@@ -54,7 +54,7 @@ public class NewTrip extends AppCompatActivity {
     ImageView date_time;
     @BindView(R.id.addBtn)
     Button addBtn;
-    public static int OBJ_ID;
+    public static long OBJ_ID;
     private NewTripPresnter newTripPresnter;
     public static Boolean isRepeated = false;
 
@@ -113,9 +113,7 @@ public class NewTrip extends AppCompatActivity {
                     tripe.setRepetition(repetiton.getSelectedItem().toString());
 
                     List<String> mylist = new ArrayList<>();
-                    mylist.add("helllp all");
-                    mylist.add("hello world ");
-                    mylist.add("Hello mahmoud ");
+
                     tripe.setNotes(mylist);
                     tripe.setRounded(Round.getSelectedItem().toString());
                     tripe.setImportance(Imp.getSelectedItem().toString());

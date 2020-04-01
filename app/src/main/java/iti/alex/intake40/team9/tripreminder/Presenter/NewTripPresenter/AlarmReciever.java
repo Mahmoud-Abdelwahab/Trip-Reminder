@@ -11,8 +11,7 @@ import androidx.annotation.RequiresApi;
 
 import iti.alex.intake40.team9.tripreminder.View.NewTripView.NewTrip;
 
-public class AlarmReciever  extends BroadcastReceiver
-        {
+public class AlarmReciever extends BroadcastReceiver {
     Context context;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -22,33 +21,30 @@ public class AlarmReciever  extends BroadcastReceiver
 
         Toast.makeText(context, "Alarm received!", Toast.LENGTH_LONG).show();
         IntentFilter filter = new IntentFilter("iti.alex.intake40.team9.AlarmReciever");
-
         Intent alarmServiceIntent = new Intent(context, AlarmServiceDialog.class);
-//        AlarmServiceDialog.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-       String  action = intent.getAction();
+        String action = intent.getAction();
 
 
-        NewTrip.OBJ_ID = intent.getIntExtra("intent_ID",777);
+        /*String s = intent.getIntExtra("intent_ID",0);
+        NewTrip.OBJ_ID = Integer.parseInt(s);*/
+//        NewTrip.OBJ_ID = intent.getLongExtra("intent_ID",0);
 
+        alarmServiceIntent.putExtra("intent_ID", intent.getIntExtra("intent_ID",777));
 
-        if(action !=null){
-          if(action.equals("iti.alex.intake40.team9.AlarmReciever"))
-          {
-              String receivedAction = intent.getStringExtra("Action");
+        if (action != null) {
+            if (action.equals("iti.alex.intake40.team9.AlarmReciever")) {
+                String receivedAction = intent.getStringExtra("Action");
 
-              if( receivedAction.equals("run"))
-              {
-                  alarmServiceIntent.putExtra("Action","run");
+                if (receivedAction.equals("run")) {
+                    alarmServiceIntent.putExtra("Action", "run");
 
-              }else if( receivedAction.equals("wait"))
-              {
-                  alarmServiceIntent.putExtra("Action","wait");
+                } else if (receivedAction.equals("wait")) {
+                    alarmServiceIntent.putExtra("Action", "wait");
 
-              } else  if( receivedAction.equals("stop"))
-              {
-                  alarmServiceIntent.putExtra("Action","stop");
-              }
-          }
+                } else if (receivedAction.equals("stop")) {
+                    alarmServiceIntent.putExtra("Action", "stop");
+                }
+            }
         }
 
 
@@ -56,7 +52,7 @@ public class AlarmReciever  extends BroadcastReceiver
             //createNotificationChannel();
             context.startForegroundService(alarmServiceIntent);
         } else {
-           // addNotification();
+            // addNotification();
             context.startService(alarmServiceIntent);
 
         }

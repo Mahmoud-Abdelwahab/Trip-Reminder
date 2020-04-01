@@ -65,15 +65,7 @@ public class BaseAlarm   {
 
         if (rep.equals("")) {
 
-//            if (Build.VERSION.SDK_INT < 23) {
-//                if (Build.VERSION.SDK_INT >= 19) {
-//                    manager.setExact(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), alarmIntent);
-//                } else {
-//                    manager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), alarmIntent);
-//                }
-//            } else {
-//                manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), alarmIntent);
-//            }
+//
             if (Build.VERSION.SDK_INT >= 23) {
                 manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), alarmIntent);
             } else if (Build.VERSION.SDK_INT >= 19) {
@@ -102,12 +94,12 @@ public class BaseAlarm   {
 
         Toast.makeText(context.getApplicationContext(),
                 " setting Alarm" + targetCal.getTime(), Toast.LENGTH_LONG).show();
-//        ComponentName receiver = new ComponentName(context, AlarmReciever.class);
-//        PackageManager pm = context.getPackageManager();
-//
-//        pm.setComponentEnabledSetting(receiver,
-//                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-//                PackageManager.DONT_KILL_APP);
+        ComponentName receiver = new ComponentName(context, AlarmReciever.class);
+        PackageManager pm = context.getPackageManager();
+
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP);
 
 
 

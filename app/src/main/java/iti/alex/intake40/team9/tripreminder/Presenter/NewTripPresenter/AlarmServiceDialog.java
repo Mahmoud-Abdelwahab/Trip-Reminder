@@ -69,6 +69,7 @@ public class AlarmServiceDialog extends Service {
 
 
             Intent dialogIntent = new Intent(this, MyDialogeActivity.class);
+            dialogIntent.putExtra("intent_ID",intent.getIntExtra("intent_ID",0));
             dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(dialogIntent);
 

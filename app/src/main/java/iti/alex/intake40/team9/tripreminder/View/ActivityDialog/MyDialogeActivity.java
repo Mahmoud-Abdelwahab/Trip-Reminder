@@ -41,6 +41,8 @@ public class MyDialogeActivity extends AppCompatActivity {
     @BindView(R.id.cancelBtn)
     Button cancelBtn;
 BaseAlarm baseAlarm ;
+
+int OBJ_ID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,31 +53,13 @@ BaseAlarm baseAlarm ;
         myPlayer = MediaPlayer.create(this, R.raw.media);
         myPlayer.start();
 
+        OBJ_ID = getIntent().getIntExtra("intent_ID",4);
+
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(),
                         " start", Toast.LENGTH_LONG).show();
-
-                Uri gmmIntentUri = Uri.parse("google.navigation:q=Mahta Al Raml SQ.");
-                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                mapIntent.setPackage("com.google.android.apps.maps");
-                if (mapIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(mapIntent);
-                }
-
-
-                IntentFilter filter = new IntentFilter("iti.alex.intake40.team9.AlarmReciever");
-                registerReceiver(alarmReciever, filter);
-                Intent broadCastIntent = new Intent("iti.alex.intake40.team9.AlarmReciever");
-                broadCastIntent.putExtra("Action", "stop");
-                broadCastIntent.setAction("iti.alex.intake40.team9.AlarmReciever");
-                sendBroadcast(broadCastIntent);
-                myPlayer.stop();
-                Intent myService = new Intent(getApplicationContext(), AlarmServiceDialog.class);
-                stopService(myService);
-                finish();
-
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(MyDialogeActivity.this)) {
 
@@ -84,13 +68,20 @@ BaseAlarm baseAlarm ;
                     startActivityForResult(intent, CODE_DRAW_OVER_OTHER_APP_PERMISSION);
                 } else {
                     DbModel dbModel = new DbModel(getApplicationContext());
-                    TripModel trip = dbModel.getTripByID(NewTrip.OBJ_ID);
+                    TripModel trip = dbModel.getTripByID(OBJ_ID);
                     Intent intent = new Intent(MyDialogeActivity.this, FloatingItem.class);
                     String [] notes = trip.getNotes().toArray(new String[trip.getNotes().size()]);
                     intent.putExtra("notes",notes);
                     startService(intent);
                     finish();
                 }
+
+                myPlayer.stop();
+                Intent myService = new Intent(getApplicationContext(), AlarmServiceDialog.class);
+                stopService(myService);
+                finish();
+
+
 
             }
         });
@@ -101,12 +92,12 @@ BaseAlarm baseAlarm ;
                 Toast.makeText(getApplicationContext(),
                         " snoozing", Toast.LENGTH_LONG).show();
 
-                IntentFilter filter = new IntentFilter("iti.alex.intake40.team9.AlarmReciever");
-                registerReceiver(alarmReciever, filter);
-                Intent broadCastIntent = new Intent("iti.alex.intake40.team9.AlarmReciever");
-                broadCastIntent.putExtra("Action", "wait");
-                broadCastIntent.setAction("iti.alex.intake40.team9.AlarmReciever");
-                sendBroadcast(broadCastIntent);
+//                IntentFilter filter = new IntentFilter("iti.alex.intake40.team9.AlarmReciever");
+//                registerReceiver(alarmReciever, filter);
+//                Intent broadCastIntent = new Intent("iti.alex.intake40.team9.AlarmReciever");
+//                broadCastIntent.putExtra("Action", "wait");
+//                broadCastIntent.setAction("iti.alex.intake40.team9.AlarmReciever");
+//                sendBroadcast(broadCastIntent);
 
                 myPlayer.stop();
                 finish();
@@ -119,42 +110,33 @@ BaseAlarm baseAlarm ;
                 Toast.makeText(getApplicationContext(),
                         " Canceling ...", Toast.LENGTH_LONG).show();
 
-//                IntentFilter filter = new IntentFilter("iti.alex.intake40.team9.AlarmReciever");
-//                registerReceiver(alarmReciever, filter);
-//                Intent broadCastIntent = new Intent("iti.alex.intake40.team9.AlarmReciever");
-//                broadCastIntent.putExtra("Action", "stop");
-//                broadCastIntent.setAction("iti.alex.intake40.team9.AlarmReciever");
-//                sendBroadcast(broadCastIntent);
 
-                DbModel dbModel = new DbModel(getApplicationContext());
-             //   dbModel.deleteByTripId(NewTrip.OBJ_ID);
-                      TripModel trip = dbModel.getTripByID(NewTrip.OBJ_ID);
+    DbModel dbModel = new DbModel(getApplicationContext());
+    //   dbModel.deleteByTripId(NewTrip.OBJ_ID);
+//   int  id  = getIntent().getIntExtra("intent_ID",4);
+    TripModel trip = dbModel.getTripByID(OBJ_ID);
                       trip.setHistory(true);
-                     BaseAlarm baseAlarm = new BaseAlarm(getApplicationContext());
+    BaseAlarm baseAlarm = new BaseAlarm(getApplicationContext());
                      baseAlarm.cancelAlarm(trip);
 
-                Intent myService = new Intent(getApplicationContext(), AlarmServiceDialog.class);
-                stopService(myService);
+    Intent myService = new Intent(getApplicationContext(), AlarmServiceDialog.class);
+    stopService(myService);
 
-
-//                String ns = Context.NOTIFICATION_SERVICE;
-//                NotificationManager nMgr = (NotificationManager) getBaseContext().getSystemService(ns);
-//                nMgr.cancel(0);
                 myPlayer.stop();
 
 
-                finish();
-            }
+    finish();
+}
         });
 
 
-    }
+                }
 
 
 
 
 
-    @Override
+@Override
     protected void onDestroy() {
         super.onDestroy();
     }

@@ -45,7 +45,6 @@ public class TripModel {
 
         @ColumnInfo(name = "trip_history")
         private Boolean history;
-
         @NonNull
         public int getId() {
                 return id;
