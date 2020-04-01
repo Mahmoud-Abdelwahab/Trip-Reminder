@@ -17,9 +17,9 @@
 
     <string-array name="imp_array">
         <item></item>
+        <item>Not Important</item>
         <item>Normal</item>
         <item>Important</item>
-        <item>Very important</item>
     </string-array>
 
 </resources>
