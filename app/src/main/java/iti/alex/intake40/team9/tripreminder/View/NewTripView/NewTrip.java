@@ -96,7 +96,7 @@ public class NewTrip extends AppCompatActivity {
          tripE =(TripModel) intent.getSerializableExtra("TRIP");
 //        tripE= (TripModel) getIntent().getParcelableExtra("TRIP");
 
-     
+
 
         if (action!=null&&action.equals("add")) {
 
