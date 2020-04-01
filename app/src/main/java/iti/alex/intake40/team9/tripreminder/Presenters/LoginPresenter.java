@@ -42,7 +42,7 @@ public class LoginPresenter {
                     Toast.makeText(context, "Login succeeded", Toast.LENGTH_LONG).show();
                 }
                 else
-                    Toast.makeText(context, "Login failed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Login failed.\nPlease check your internet connection", Toast.LENGTH_LONG).show();
             }
         });
     }

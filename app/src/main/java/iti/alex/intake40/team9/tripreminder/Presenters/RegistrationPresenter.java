@@ -72,7 +72,7 @@ public class RegistrationPresenter {
                         }
                     }
                     else
-                        Toast.makeText(context, "Register failed", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Register failed.\nPlease check your internet connection.", Toast.LENGTH_LONG).show();
                 }
             });
         }

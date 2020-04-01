@@ -56,6 +56,8 @@ public class FireBaseModel {
         });
     }
 
+    public String getUserEmail() { return auth.getCurrentUser().getEmail(); }
+
     public FirebaseUser getUser() {
         return auth.getCurrentUser();
     }
