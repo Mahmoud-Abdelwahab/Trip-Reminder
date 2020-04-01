@@ -25,7 +25,7 @@ public class UpcomingFragmentPresenter implements UpcomingFragmentContract.IUpco
 
     @Override
     public void getTrips() {
-        trips =iUpcomingFragmentModel.getTripsFromFireBase();
+        trips =iUpcomingFragmentModel.getTripsFromRoom();
         iUpcomingFragmentView.onDataReceived(trips);
     }
 }
