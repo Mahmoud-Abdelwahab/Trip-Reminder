@@ -1,5 +1,7 @@
 package iti.alex.intake40.team9.tripreminder.Contracts.IUpcomingFragment;
 
+import android.text.Layout;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +15,9 @@ public interface UpcomingFragmentContract {
        public void getTrips();
     }
     public interface IUpcomingFragmentModel{
-        public List<Trip> getTripsFromFireBase();
+        public List<Trip> getTripsFromRoom();
+
+
     }
 
 }
