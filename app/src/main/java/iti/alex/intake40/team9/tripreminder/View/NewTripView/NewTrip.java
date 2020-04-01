@@ -111,6 +111,7 @@ public class NewTrip extends AppCompatActivity {
                     Calendar targetCal = Calendar.getInstance();
                     int id = (int)targetCal.getTimeInMillis();
                     tripe.setId(id);
+                    Log.d("abdelwahab",""+tripe.getId());
 
                     tripe.setStartPoint(fromAuto.getText().toString());
                     tripe.setEndPoint(toAuto.getText().toString());
