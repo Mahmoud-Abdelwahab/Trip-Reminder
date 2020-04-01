@@ -10,10 +10,14 @@ public interface AddNoteFragmentContract {
         public void onDataReceived(List<Trip> trips);
     }
     public interface IAddNoteFragmentPresenter{
+
         public void getTrips();
     }
     public interface IAddNoteFragmentModel{
-        public List<Trip> getTripsFromFireBase();
+        public List<Trip> getTripsFromRoom();
+//        public List<Trip> getTripsFromRoom();
+//        public void addNottoFireBase(Trip trip);
         public void addNotestoDataBase(Trip trip);
+
     }
 }
