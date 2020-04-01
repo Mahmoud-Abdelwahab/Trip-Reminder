@@ -12,6 +12,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Arrays;
+import java.util.List;
+
+import iti.alex.intake40.team9.tripreminder.Models.FireBaseModel;
+import iti.alex.intake40.team9.tripreminder.POJO.Trip;
 import iti.alex.intake40.team9.tripreminder.Views.NavigationDrawerView;
 import iti.alex.intake40.team9.tripreminder.Views.RegisterationView;
 
@@ -37,7 +42,7 @@ public class LoginPresenter {
                     Toast.makeText(context, "Login succeeded", Toast.LENGTH_LONG).show();
                 }
                 else
-                    Toast.makeText(context, "Login failed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Login failed.\nPlease check your internet connection", Toast.LENGTH_LONG).show();
             }
         });
     }

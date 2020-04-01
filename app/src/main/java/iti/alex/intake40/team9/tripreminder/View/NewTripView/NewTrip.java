@@ -126,7 +126,7 @@ public class NewTrip extends AppCompatActivity {
                     long millis = myCalendar.getTimeInMillis();
                     tripe.setDateTime(millis);
 
-                    Log.i("object ", "datatime " + tripe.getDateTime() + " state " + tripe.getStartPoint()
+                    Log.i("myobject ", "datatime " + tripe.getDateTime() + " state " + tripe.getStartPoint()
                             + " end point " + tripe.getEndPoint());
 
                     baseAlarm.setAlarm(tripe);

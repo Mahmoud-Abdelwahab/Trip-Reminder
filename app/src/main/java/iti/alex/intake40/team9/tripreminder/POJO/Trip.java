@@ -9,13 +9,8 @@ public class Trip {
     private int id;
     private String tripName;
     private String startPoint;
-
-
-
     private String endPoint;
     private List<String> notes;
-
-
     private String date;
     private String time;
     private String priorityImage;
@@ -23,6 +18,8 @@ public class Trip {
     private String rounded;
     private boolean history;
     private long dateAndTime;
+    private String firebaseID;
+    private String status;
 
     public Trip(String tripName, String startPoint, String endPoint, List<String> notes,String date, String time, String priorityImage) {
         this.tripName = tripName;
@@ -134,5 +131,21 @@ public class Trip {
 
     public long getDateAndTime() {
         return dateAndTime;
+    }
+
+    public String getFirebaseID() {
+        return firebaseID;
+    }
+
+    public void setFirebaseID(String firebaseID) {
+        this.firebaseID = firebaseID;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

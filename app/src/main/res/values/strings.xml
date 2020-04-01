@@ -23,4 +23,10 @@
     <string name="note">Note</string>
     <string name="add_trip"> Add Trip </string>
     <string name="api_key">changeme</string>
+    <string name="no_history_trips">No trips in history.</string>
+    <string name="start_point">Start Point:</string>
+    <string name="end_point">End Point:</string>
+    <string name="date">Date:</string>
+    <string name="time">Time:</string>
+    <string name="rounded_history">Rounded:</string>
 </resources>

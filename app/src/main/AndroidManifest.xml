@@ -23,21 +23,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBkJoVKo_O__LHrIylZj5uauyubmDr9h0c"/>
+
 
         <activity android:name=".Views.RegisterationView" />
         <activity android:name=".Views.LoginView" />
         <activity
             android:name=".Views.SplashView"
-            android:theme="@style/AppTheme.Launcher"/>
-
-
-        <activity android:name=".View.ActivityDialog.MyDialogeActivity" android:theme="@style/Theme.AppCompat.Dialog.Alert"></activity>
-        <activity android:name=".View.NewTripView.NewTrip" >
+            android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".View.ActivityDialog.MyDialogeActivity" android:theme="@style/Theme.AppCompat.Dialog.Alert"></activity>
+        <activity android:name=".View.NewTripView.NewTrip" >
+
         </activity>
 
         <service

@@ -22,6 +22,8 @@ public class TripConverter {
         String dateTime=getTimeAndDate(tripModel.getDateTime());
         trip.setTime(dateTime.substring(13,18));
         trip.setDate(dateTime.substring(0,10));
+        trip.setFirebaseID(tripModel.getFirebaseID());
+        trip.setStatus(tripModel.getStatus());
         return trip;
     }
 
@@ -38,6 +40,8 @@ public class TripConverter {
         tripModel.setRepetition(trip.getRepetition());
         tripModel.setNotes(trip.getNotes());
         tripModel.setRounded(trip.getRounded());
+        tripModel.setStatus(trip.getStatus());
+        tripModel.setFirebaseID(trip.getFirebaseID());
         return tripModel;
     }
 

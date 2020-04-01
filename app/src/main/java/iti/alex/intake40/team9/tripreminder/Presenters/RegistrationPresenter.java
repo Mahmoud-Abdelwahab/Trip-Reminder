@@ -58,6 +58,7 @@ public class RegistrationPresenter {
                             }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    Toast.makeText(context, "Registered successfully.", Toast.LENGTH_LONG).show();
                                     Intent i = new Intent(context, NavigationDrawerView.class);
                                     context.startActivity(i);
                                 }
@@ -71,7 +72,7 @@ public class RegistrationPresenter {
                         }
                     }
                     else
-                        Toast.makeText(context, "Register failed", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Register failed.\nPlease check your internet connection.", Toast.LENGTH_LONG).show();
                 }
             });
         }

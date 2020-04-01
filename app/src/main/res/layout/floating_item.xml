@@ -67,6 +67,14 @@
 
             </RelativeLayout>
 
+            <TextView
+                android:id="@+id/notes"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:text="There is no notes to show"
+                android:textSize="17dp" />
             <ListView
                 android:id="@+id/listView"
                 android:layout_width="wrap_content"

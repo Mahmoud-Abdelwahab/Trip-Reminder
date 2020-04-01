@@ -15,7 +15,7 @@ public class DbModel implements IDbModel  {
 public DbModel(Context con) {
 
 
-        dataBase = Room.databaseBuilder(con, AppDataBase.class, "db-contacts")
+        dataBase = Room.databaseBuilder(con, AppDataBase.class, "db-contacts-2")
         .allowMainThreadQueries()   //Allows room to do operation on main thread
         .build();
 
@@ -30,6 +30,7 @@ public DbModel(Context con) {
 
         @Override
         public List<TripModel> getAllTripDb() {
+
                 return iTripDao.getTripList();
         }
 
