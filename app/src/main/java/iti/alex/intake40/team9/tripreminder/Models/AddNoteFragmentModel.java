@@ -23,7 +23,7 @@ public class AddNoteFragmentModel implements AddNoteFragmentContract.IAddNoteFra
     }
 
     @Override
-    public List<Trip> getTripsFromFireBase() {
+    public List<Trip> getTripsFromRoom() {
 
         DbModel dbModel = new DbModel(context);
         tripModels=dbModel.getAllTripDb();
@@ -43,7 +43,6 @@ public class AddNoteFragmentModel implements AddNoteFragmentContract.IAddNoteFra
         DbModel dbModel = new DbModel(context);
         dbModel.updateTripDb(tripConverter.fromTripToTripModel(trip));
     }
-
 
 
 }

@@ -70,6 +70,7 @@ public class AddNoteFragmentView extends Fragment implements AddNoteFragmentCont
                 adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         trips.get(position).getNotes().remove(position);
+                        addNoteFragmentPresenter.addNotes(trips.get(position));
                         adapter.notifyDataSetChanged();
                     }});
                 adb.show();

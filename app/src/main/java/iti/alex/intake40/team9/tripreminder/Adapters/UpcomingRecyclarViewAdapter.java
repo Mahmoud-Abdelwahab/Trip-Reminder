@@ -28,11 +28,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import iti.alex.intake40.team9.tripreminder.Models.FireBaseModel;
 import iti.alex.intake40.team9.tripreminder.Models.FloatingItem;
 import iti.alex.intake40.team9.tripreminder.POJO.Trip;
 import iti.alex.intake40.team9.tripreminder.POJO.TripConverter;
 import iti.alex.intake40.team9.tripreminder.Presenter.NewTripPresenter.BaseAlarm;
 import iti.alex.intake40.team9.tripreminder.R;
+import iti.alex.intake40.team9.tripreminder.Room.DbModel;
 import iti.alex.intake40.team9.tripreminder.Room.TripModel;
 import iti.alex.intake40.team9.tripreminder.View.NewTripView.NewTrip;
 import iti.alex.intake40.team9.tripreminder.Views.AddNoteFragmentView;
@@ -139,6 +141,7 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
 
                 BaseAlarm baseAlarm = new BaseAlarm(UpcomingRecyclarViewAdapter.this.holder.start.getContext());
                 TripConverter tripConverter = new TripConverter();
+
                 TripModel tripModel=tripConverter.fromTripToTripModel(trips.get(position));
                 baseAlarm.cancelAlarm(tripModel);
                 trips.remove(position);
@@ -203,9 +206,14 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
                         adb.setNegativeButton("Cancel", null);
                         adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
+                                FireBaseModel.sharedInstance.deleteTrip(trips.get(position));
+                                DbModel dbModel = new DbModel(context);
+                                TripConverter tripConverter = new TripConverter();
+                                dbModel.deleteTripDb(tripConverter.fromTripToTripModel(trips.get(position)));
                                 trips.remove(position);
                                 notifyItemRemoved(position);
                                 notifyItemRangeChanged(position, trips.size());
+
                             }});
                         adb.show();
                         return true;
@@ -240,6 +248,10 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
                 adb.setNegativeButton("Cancel", null);
                 adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        FireBaseModel.sharedInstance.deleteTrip(trips.get(position));
+                        DbModel dbModel = new DbModel(context);
+                        TripConverter tripConverter = new TripConverter();
+                        dbModel.deleteTripDb(tripConverter.fromTripToTripModel(trips.get(position)));
                         trips.remove(position);
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position, trips.size());
