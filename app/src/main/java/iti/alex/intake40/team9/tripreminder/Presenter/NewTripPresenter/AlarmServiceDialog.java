@@ -15,6 +15,7 @@ import android.os.IBinder;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
+import iti.alex.intake40.team9.tripreminder.NotificationHelper.NotificationHelper;
 import iti.alex.intake40.team9.tripreminder.R;
 import iti.alex.intake40.team9.tripreminder.View.ActivityDialog.MyDialogeActivity;
 
@@ -27,13 +28,11 @@ public class AlarmServiceDialog extends Service {
         return null;
     }
 
-    private static final String CHANNEL_ID ="myCannel" ;
-//    MediaPlayer myPlayer;
+    private static final String CHANNEL_ID = "myCannel";
+
     @Override
     public void onCreate() {
         super.onCreate();
-
-
     }
 
     @Override
@@ -41,27 +40,13 @@ public class AlarmServiceDialog extends Service {
 
         String recvivedAction = intent.getStringExtra("Action");
 
-//
-        //   if(recvivedAction != null)
-        //  {
-//             if (recvivedAction.equals("run"))
-//             {
-//                 myPlayer.start();
-//                 myPlayer.setLooping(true);
-//
-//              //   myPlayer.setLooping(true); // Set looping
-//             } else if (recvivedAction.equals("wait") )
-//             {
-//                 myPlayer.stop();
-//             }else  if (recvivedAction.equals("stop"))
-//             {
-//                 myPlayer.stop();
-//                 stopSelf();
-//             }
+        if (recvivedAction == null) {
 
-//    }
-          if(recvivedAction == null)
-            {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationHelper notificationHelper = new NotificationHelper(this);
+                notificationHelper.createNotification("Fakarny ", "Remember your Trip..... !");
+            } else {
                 Intent notificationIntent = new Intent(this, MyDialogeActivity.class);
 
                 notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -69,25 +54,31 @@ public class AlarmServiceDialog extends Service {
                 PendingIntent pIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
                 Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                        .setContentTitle("Fakarny")
-                        .setContentText("Remember Your Trip ! ")
+                        .setContentTitle("  Fakarny ")
+                        .setContentText("Remember your Trip..... !")
                         .setSmallIcon(R.drawable.ic_notifications_active_black_24dp)
                         .setContentIntent(pIntent)
+                        .setAutoCancel(false)
+                        .setOngoing(true)
                         .build();
 
-
                 startForeground(1, notification);
-                Intent dialogIntent = new Intent(this, MyDialogeActivity.class);
-                dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(dialogIntent);
+
 
             }
+
+
+            Intent dialogIntent = new Intent(this, MyDialogeActivity.class);
+            dialogIntent.putExtra("intent_ID",intent.getIntExtra("intent_ID",0));
+            dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(dialogIntent);
+
+        }
 
 //
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 //          createNotificationChannel();
-//        }
-//        else {
+//        } else {
 //            addNotification();
 //
 //        }
@@ -97,40 +88,23 @@ public class AlarmServiceDialog extends Service {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @Override
     public void onDestroy() {
 //        myPlayer.stop();
     }
 
-    private  void ChannedNotification(){
+    private void ChannedNotification() {
 
-        Intent notificationIntent = new Intent(this , MyDialogeActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this ,0,notificationIntent,0);
-        Notification notification = new NotificationCompat.Builder(this,"CHANNEL_ID")
+        Intent notificationIntent = new Intent(this, MyDialogeActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+        Notification notification = new NotificationCompat.Builder(this, "CHANNEL_ID")
                 .setContentTitle("Trip Reminder ")
                 .setContentText("Remember your Tripe")
                 .setSmallIcon(R.drawable.ic_notifications_active_black_24dp)
-                .setLights(1,5,10)
+                .setLights(1, 5, 10)
                 .setContentIntent(pendingIntent)
                 .build();
-        startForeground(1,notification);
+        startForeground(1, notification);
     }
 
 
@@ -149,8 +123,6 @@ public class AlarmServiceDialog extends Service {
         // Add as notification
         NotificationManager manager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(1, builder.build());
-
-
 
 
     }

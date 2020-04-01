@@ -23,6 +23,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBkJoVKo_O__LHrIylZj5uauyubmDr9h0c"/>
+
 
         <activity android:name=".Views.RegisterationView" />
         <activity android:name=".Views.LoginView" />
@@ -49,6 +53,7 @@
             android:name=".Views.NavigationDrawerView"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan">
+
 
 	</activity>
 

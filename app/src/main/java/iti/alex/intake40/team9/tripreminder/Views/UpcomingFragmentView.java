@@ -56,6 +56,7 @@ public class UpcomingFragmentView extends Fragment implements UpcomingFragmentCo
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(UpcomingFragmentView.this.getContext(), NewTrip.class);
+                i.putExtra("ACTION","add");
                 startActivity(i);
             }
         });

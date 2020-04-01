@@ -8,10 +8,11 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity(tableName = "TripModel")
-public class TripModel {
+public class TripModel implements Serializable {
          public TripModel(){}
 //        @PrimaryKey(autoGenerate = true)
         @PrimaryKey
@@ -52,7 +53,6 @@ public class TripModel {
 
         @ColumnInfo(name = "trip_history")
         private Boolean history;
-
         @NonNull
         public int getId() {
                 return id;

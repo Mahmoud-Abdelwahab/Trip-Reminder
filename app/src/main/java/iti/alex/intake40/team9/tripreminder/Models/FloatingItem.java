@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import iti.alex.intake40.team9.tripreminder.Adapters.FloatingNotesAdapter;
 import iti.alex.intake40.team9.tripreminder.R;
@@ -22,6 +23,7 @@ public class FloatingItem extends Service {
     String []notes= new String[20];
     FloatingNotesAdapter adapter;
     ListView mylist;
+    TextView notesStatus;
 
 
     public FloatingItem() {
@@ -34,7 +36,6 @@ public class FloatingItem extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-
 
 
         //Inflate the floating view layout we created
@@ -68,6 +69,10 @@ public class FloatingItem extends Service {
         //The root element of the expanded view layout
         final View expandedView = mFloatingView.findViewById(R.id.expanded_container);
         mylist= mFloatingView.findViewById(R.id.listView);
+        notesStatus = mFloatingView.findViewById(R.id.notes);
+        notesStatus.setVisibility(View.GONE);
+
+
 
 
         //Set the close button
@@ -157,12 +162,19 @@ public class FloatingItem extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Intent myintent;
+        Intent myintent = new Intent();
         myintent=intent;
         this.notes = (String[]) myintent.getExtras().get("notes");
+        if(this.notes.length==0)
+        {
+            this.notesStatus.setVisibility(View.VISIBLE);
+        }
+        else {
+            this.notesStatus.setVisibility(View.GONE);
+        }
         adapter = new FloatingNotesAdapter(this,notes);
         mylist.setAdapter(adapter);
-        return super.onStartCommand(myintent, flags, startId);
+        return START_REDELIVER_INTENT;
 
     }
 

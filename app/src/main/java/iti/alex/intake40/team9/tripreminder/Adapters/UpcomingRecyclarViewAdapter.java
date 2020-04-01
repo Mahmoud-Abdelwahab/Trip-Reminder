@@ -7,9 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -25,12 +24,16 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import iti.alex.intake40.team9.tripreminder.Models.FloatingItem;
 import iti.alex.intake40.team9.tripreminder.POJO.Trip;
+import iti.alex.intake40.team9.tripreminder.POJO.TripConverter;
 import iti.alex.intake40.team9.tripreminder.R;
+import iti.alex.intake40.team9.tripreminder.Room.TripModel;
+import iti.alex.intake40.team9.tripreminder.View.NewTripView.NewTrip;
 import iti.alex.intake40.team9.tripreminder.Views.AddNoteFragmentView;
 import iti.alex.intake40.team9.tripreminder.Views.NavigationDrawerView;
 import iti.alex.intake40.team9.tripreminder.Views.UpcomingFragmentView;
@@ -127,6 +130,11 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
                     UpcomingRecyclarViewAdapter.this.holder.start.getContext().startService(intent);
                     ((Activity)UpcomingRecyclarViewAdapter.this.holder.start.getContext()).finish();
                 }
+                Uri gmmIntentUri = Uri.parse("google.navigation:q="+trips.get(position).getStartPoint());
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                UpcomingRecyclarViewAdapter.this.holder.start.getContext().startActivity(mapIntent);
+                Log.d("ay7aga",trips.get(position).getStartPoint());
                 trips.remove(position);
                 UpcomingRecyclarViewAdapter.this.notifyDataSetChanged();
             }
@@ -174,20 +182,28 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
                         return true;
                     case R.id.Edit:
                         //Enter Edit Code Here;
-                        Toast.makeText(UpcomingRecyclarViewAdapter.this.holder.popupMenu.getContext(), "Edit",
-                                Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(UpcomingRecyclarViewAdapter.this.holder.popupMenu.getContext(), NewTrip.class);
+                        i.putExtra("ACTION","edit");
+                        TripConverter tripConverter = new TripConverter();
+                        TripModel tripModel=tripConverter.fromTripToTripModel(trips.get(position));
+                        i.putExtra("TRIP",tripModel);
+                        UpcomingRecyclarViewAdapter.this.holder.popupMenu.getContext().startActivity(i);
                         return true;
                     case R.id.Delete:
-                        //delete from database
-                        //removie from alarmlist
-                        trips.remove(position);
-                        notifyItemRemoved(position);
-                        notifyItemRangeChanged(position, trips.size());
+                        AlertDialog.Builder adb=new AlertDialog.Builder(UpcomingRecyclarViewAdapter.this.holder.layout.getContext());
+                        adb.setTitle("Delete this trip?");
+                        adb.setMessage("Are you sure?");
+                        adb.setNegativeButton("Cancel", null);
+                        adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                trips.remove(position);
+                                notifyItemRemoved(position);
+                                notifyItemRangeChanged(position, trips.size());
+                            }});
+                        adb.show();
                         return true;
                     case R.id.Cancel:
-                        //Enter Cancel Code Here;
-                        Toast.makeText(UpcomingRecyclarViewAdapter.this.holder.popupMenu.getContext(), "Cancel",
-                                Toast.LENGTH_LONG).show();
+                        trips.get(position).setHistory(true);
                         return true;
                     default:
                         return false;
