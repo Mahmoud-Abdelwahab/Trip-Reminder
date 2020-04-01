@@ -24,11 +24,12 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
 
     private List<Trip> list;
     private Context context;
+    private HistoryRecyclerViewAdapter adapter;
 
     public HistoryRecyclerViewAdapter(List<Trip> list, Context context) {
         this.list = list;
         this.context = context;
-        Log.i("ANE", "adapter constructor");
+        this.adapter = this;
     }
 
     @NonNull
@@ -43,22 +44,47 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.title.setText(list.get(position).getTripName());
         holder.status.setText(list.get(position).getStatus());
-        holder.start.append(list.get(position).getStartPoint());
-        holder.end.append(list.get(position).getEndPoint());
-        holder.round.append(list.get(position).getRounded());
-        holder.date.append(list.get(position).getDate());
-        holder.time.append(list.get(position).getTime());
+        holder.start.setText(String.format("%s%s", context.getString(R.string.start_point), list.get(position).getStartPoint()));
+        holder.end.setText(String.format("%s%s", context.getString(R.string.end_point), list.get(position).getEndPoint()));
+        if (list.get(position).getRounded() != null)
+            holder.round.setText(String.format("%s%s", context.getString(R.string.rounded_history), list.get(position).getRounded()));
+        else
+            holder.round.setText(String.format("%s%s", context.getString(R.string.rounded_history), "No"));
+        holder.date.setText(String.format("%s%s", context.getString(R.string.date), list.get(position).getDate()));
+        holder.time.setText(String.format("%s%s", context.getString(R.string.time), list.get(position).getTime()));
         //holder.image.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //hideAll();
-                holder.start.setVisibility(View.VISIBLE);
-                holder.end.setVisibility(View.VISIBLE);
-                holder.round.setVisibility(View.VISIBLE);
-                holder.date.setVisibility(View.VISIBLE);
-                holder.time.setVisibility(View.VISIBLE);
-                holder.notes.setVisibility(View.VISIBLE);
+                if (holder.start.getVisibility() == View.VISIBLE)
+                    holder.start.setVisibility(View.GONE);
+                else
+                    holder.start.setVisibility(View.VISIBLE);
+
+                if (holder.end.getVisibility() == View.VISIBLE)
+                    holder.end.setVisibility(View.GONE);
+                else
+                    holder.end.setVisibility(View.VISIBLE);
+
+                if (holder.round.getVisibility() == View.VISIBLE)
+                    holder.round.setVisibility(View.GONE);
+                else
+                    holder.round.setVisibility(View.VISIBLE);
+
+                if (holder.date.getVisibility() == View.VISIBLE)
+                    holder.date.setVisibility(View.GONE);
+                else
+                    holder.date.setVisibility(View.VISIBLE);
+
+                if (holder.time.getVisibility() == View.VISIBLE)
+                    holder.time.setVisibility(View.GONE);
+                else
+                    holder.time.setVisibility(View.VISIBLE);
+                
+                if (holder.notes.getVisibility() == View.VISIBLE)
+                    holder.notes.setVisibility(View.GONE);
+                else
+                    holder.notes.setVisibility(View.VISIBLE);
             }
         });
         holder.delete.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +92,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
             public void onClick(View view) {
                 FireBaseModel.sharedInstance.deleteTrip(list.get(position));
                 list.remove(position);
+                adapter.notifyDataSetChanged();
             }
         });
         holder.notes.setOnClickListener(new View.OnClickListener() {
@@ -119,32 +146,3 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         }
     }
 }
-
-/*
-        <TextView
-            android:id="@+id/history_trip_title" />
-
-        <TextView
-            android:id="@+id/history_trip_status" />
-
-        <ImageView
-            android:id="@+id/history_trip_image" />
-
-        <ImageButton
-            android:id="@+id/history_delete" />
-
-        <TextView
-            android:id="@+id/history_start_point" />
-
-        <TextView
-            android:id="@+id/history_end_point" />
-
-        <TextView
-            android:id="@+id/history_date" />
-
-        <TextView
-            android:id="@+id/history_time" />
-
-        <TextView
-            android:id="@+id/history_rounded" />
- */

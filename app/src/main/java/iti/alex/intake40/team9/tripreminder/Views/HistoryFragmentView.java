@@ -54,7 +54,6 @@ public class HistoryFragmentView extends Fragment implements HistoryDelegate {
 
     @Override
     public void fillRecycler(List<Trip> list) {
-        Log.i("ANE", "fill recycler");
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(manager);
         RecyclerView.Adapter adapter = new HistoryRecyclerViewAdapter(list, this.getContext());

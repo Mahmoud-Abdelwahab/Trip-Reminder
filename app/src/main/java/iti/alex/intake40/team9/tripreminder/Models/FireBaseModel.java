@@ -38,6 +38,7 @@ public class FireBaseModel {
         myRef.child(getUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                list = new ArrayList<>();
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     list.add(postSnapshot.getValue(Trip.class));
                     count = Integer.parseInt(postSnapshot.getKey());

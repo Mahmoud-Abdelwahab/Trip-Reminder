@@ -8,6 +8,9 @@ import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import iti.alex.intake40.team9.tripreminder.Models.Delegate;
 import iti.alex.intake40.team9.tripreminder.Models.FireBaseModel;
 import iti.alex.intake40.team9.tripreminder.POJO.Trip;
@@ -42,9 +45,16 @@ public class SplashPresenter implements Delegate {
         }
     }
 
-
     @Override
     public void done() {
+        Trip t = new Trip("name4", "start4", "end4", null, "date4", "time4","image4");
+        t.setHistory(true);
+        List<String> notes = new ArrayList<>();
+        notes.add("1");
+        notes.add("2");
+        notes.add("3");
+        t.setNotes(notes);
+        fireBaseModel.addTrip(t);
         Intent i = new Intent(activity, NavigationDrawerView.class);
         activity.startActivity(i);
         activity.finish();
