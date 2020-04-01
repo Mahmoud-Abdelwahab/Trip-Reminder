@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -40,11 +41,11 @@ public class RegistrationPresenter {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(context, "Registered successfully", Toast.LENGTH_LONG).show();
+
                         if (bitmap != null)
                         {
                             FirebaseStorage storage = FirebaseStorage.getInstance();
-                            StorageReference storageRef = storage.getReference().child(mAuth.getUid());
+                            StorageReference storageRef = storage.getReference().child(mAuth.getUid() + "/profile");
                             ByteArrayOutputStream baos = new ByteArrayOutputStream();
                             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                             byte[] data = baos.toByteArray();

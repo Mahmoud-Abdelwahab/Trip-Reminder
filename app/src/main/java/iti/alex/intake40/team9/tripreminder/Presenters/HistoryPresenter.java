@@ -32,11 +32,9 @@ public class HistoryPresenter {
         ConnectivityManager cm = (ConnectivityManager) fragment.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected()) {
             List<Trip> temp = FireBaseModel.sharedInstance.getTrips();
-            Log.i("ANE", "get list" + list.size());
             for (int i = 0; i < temp.size(); i++)
                 if (temp.get(i).isHistory())
                     list.add(temp.get(i));
-                Log.i("ANE", "" + list.size());
         }
         else {
             List<TripModel> dbModel = new DbModel(fragment.getContext()).getHistory(true);
