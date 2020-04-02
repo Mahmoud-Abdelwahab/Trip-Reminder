@@ -14,6 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import iti.alex.intake40.team9.tripreminder.Models.FireBaseModel;
@@ -25,6 +27,10 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
     private List<Trip> list;
     private Context context;
     private HistoryRecyclerViewAdapter adapter;
+    private String baseURL = "https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap\n" +
+            "&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318\n" +
+            "&markers=color:red%7Clabel:C%7C40.718217,-73.998284\n" +
+            "&key=";
 
     public HistoryRecyclerViewAdapter(List<Trip> list, Context context) {
         this.list = list;
@@ -52,6 +58,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
             holder.round.setText(String.format("%s%s", context.getString(R.string.rounded_history), "No"));
         holder.date.setText(String.format("%s%s", context.getString(R.string.date), list.get(position).getDate()));
         holder.time.setText(String.format("%s%s", context.getString(R.string.time), list.get(position).getTime()));
+        Glide.with(context).load(baseURL + context.getString(R.string.test_api_key)).into(holder.image);
         //holder.image.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
