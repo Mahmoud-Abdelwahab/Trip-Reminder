@@ -155,8 +155,11 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
 
                 TripModel tripModel=tripConverter.fromTripToTripModel(trips.get(position));
                 baseAlarm.cancelAlarm(tripModel);
-                trips.remove(position);
-                UpcomingRecyclarViewAdapter.this.notifyDataSetChanged();
+                trips.get(position).setHistory(true);
+                trips.get(position).setStatus("Completed");
+                tripConverter=new TripConverter();
+                DbModel dbModel = new DbModel(context);
+                dbModel.updateTripDb(tripConverter.fromTripToTripModel(trips.get(position)));
 
             }
         });
@@ -217,7 +220,6 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
                         adb.setNegativeButton("Cancel", null);
                         adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                FireBaseModel.sharedInstance.deleteTrip(trips.get(position));
                                 DbModel dbModel = new DbModel(context);
                                 TripConverter tripConverter = new TripConverter();
                                 dbModel.deleteTripDb(tripConverter.fromTripToTripModel(trips.get(position)));
@@ -230,6 +232,11 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
                         return true;
                     case R.id.Cancel:
                         trips.get(position).setHistory(true);
+                        trips.get(position).setStatus("Canceled");
+                        tripConverter=new TripConverter();
+                        DbModel dbModel = new DbModel(context);
+                        dbModel.updateTripDb(tripConverter.fromTripToTripModel(trips.get(position)));
+                        notifyItemRangeChanged(position, trips.size());
                         return true;
                     default:
                         return false;
@@ -259,7 +266,6 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
                 adb.setNegativeButton("Cancel", null);
                 adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        FireBaseModel.sharedInstance.deleteTrip(trips.get(position));
                         DbModel dbModel = new DbModel(context);
                         TripConverter tripConverter = new TripConverter();
                         dbModel.deleteTripDb(tripConverter.fromTripToTripModel(trips.get(position)));
