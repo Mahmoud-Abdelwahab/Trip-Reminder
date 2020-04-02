@@ -115,7 +115,18 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
         holder.endPoint.setText(trips.get(position).getEndPoint());
         holder.date.setText(trips.get(position).getDate());
         holder.time.setText(trips.get(position).getTime());
-        holder.priorityImage.setImageResource(R.drawable.high_priority_img);
+        if(trips.get(position).getPriorityImage().equals("Normal")) {
+            holder.priorityImage.setImageResource(R.drawable.normal);
+        }
+        else if(trips.get(position).getPriorityImage().equals("Important"))
+        {
+            holder.priorityImage.setImageResource(R.drawable.important);
+
+        }
+        else {
+            holder.priorityImage.setImageResource(R.drawable.notimportant);
+
+        }
         holder.start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
