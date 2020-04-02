@@ -120,6 +120,7 @@ int OBJ_ID;
 
                 TripModel trip = dbModel.getTripByID(OBJ_ID);
                 trip.setHistory(true);
+                trip.setStatus("Completed");
                 dbModel.updateTripDb(trip);
 
                 AlarmManager manager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
