@@ -119,7 +119,8 @@ public class NewTrip extends AppCompatActivity {
 
                     tripe.setStartPoint(fromAuto.getText().toString());
                     tripe.setEndPoint(toAuto.getText().toString());
-                    tripe.setNotes(null); // add note ----------->>>>
+
+                    tripe.setNotes(new ArrayList<>()); // add note ----------->>>>
                     tripe.setRepetition(repetiton.getSelectedItem().toString());
 
                     tripe.setRounded(Round.getSelectedItem().toString());
