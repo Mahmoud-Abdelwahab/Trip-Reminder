@@ -70,8 +70,11 @@ public class NewTrip extends AppCompatActivity {
     Context context;
     BaseAlarm baseAlarm;
    private   TripModel tripE;
+    private TripModel tripE;
     public static Calendar myCalendar;
     TripConverter convert ;
+    TripConverter convert;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,10 +100,12 @@ public class NewTrip extends AppCompatActivity {
         Intent intent = getIntent();
         String action = intent.getStringExtra("ACTION");
          tripE =(TripModel) intent.getSerializableExtra("TRIP");
+        tripE = (TripModel) intent.getSerializableExtra("TRIP");
 //        tripE= (TripModel) getIntent().getParcelableExtra("TRIP");
 
 
         if (action!=null&&action.equals("add")) {
+        if (action != null && action.equals("add")) {
 
             // ///////////////////// data time    /////////
             addBtn.setOnClickListener(new View.OnClickListener() {
@@ -112,8 +117,10 @@ public class NewTrip extends AppCompatActivity {
 
                     Calendar targetCal = Calendar.getInstance();
                     int id = (int)targetCal.getTimeInMillis();
+                    int id = (int) targetCal.getTimeInMillis();
                     tripe.setId(id);
                     Log.d("abdelwahab",""+tripe.getId());
+                    Log.d("abdelwahab", "" + tripe.getId());
 
                     tripe.setStartPoint(fromAuto.getText().toString());
                     tripe.setEndPoint(toAuto.getText().toString());
@@ -152,6 +159,8 @@ public class NewTrip extends AppCompatActivity {
 
         } else if (action!=null&&action.equals("edit")) {
            // 1- change button name to edite
+        } else if (action != null && action.equals("edit")) {
+            // 1- change button name to edite
             // 2 - setting all fields with object data
             // 3 - update object in database
             //4 - reset alarm
@@ -167,6 +176,7 @@ public class NewTrip extends AppCompatActivity {
                     editTrip();
                     Intent upcomming = new Intent(getApplicationContext() , UpcomingFragmentView.class);
                     startActivity(upcomming);
+
                 }
             });
 
@@ -175,6 +185,8 @@ public class NewTrip extends AppCompatActivity {
 
 
 
+        Intent upcomming = new Intent(getApplicationContext(), UpcomingFragmentView.class);
+        startActivity(upcomming);
     }
 
 
