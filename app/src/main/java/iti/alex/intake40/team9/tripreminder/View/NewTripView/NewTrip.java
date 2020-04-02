@@ -165,7 +165,7 @@ public class NewTrip extends AppCompatActivity {
 
         }
 
-        Intent upcomming = new Intent(getApplicationContext(), UpcomingFragmentView.class);
+        Intent upcomming = new Intent(getApplicationContext(), NavigationDrawerView.class);
         startActivity(upcomming);
     }
 
