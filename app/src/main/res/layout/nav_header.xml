@@ -9,6 +9,7 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
+        android:id="@+id/profile_image"
         android:layout_width="150dp"
         android:layout_height="86dp"
         android:src="@mipmap/logo" />
@@ -21,9 +22,9 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
-        android:id="@+id/useremail"
-        android:layout_width="wrap_content"
+        android:id="@+id/uemail"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="mahmoudfathy01010@gmail.com" />
+        android:text="TextView" />
 
 </LinearLayout>
