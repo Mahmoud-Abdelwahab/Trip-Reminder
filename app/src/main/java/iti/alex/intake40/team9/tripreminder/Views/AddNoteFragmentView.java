@@ -20,8 +20,10 @@ import java.util.List;
 
 import iti.alex.intake40.team9.tripreminder.Contracts.IAddNoteFragment.AddNoteFragmentContract;
 import iti.alex.intake40.team9.tripreminder.POJO.Trip;
+import iti.alex.intake40.team9.tripreminder.POJO.TripConverter;
 import iti.alex.intake40.team9.tripreminder.Presenters.AddNoteFragmentPresenter;
 import iti.alex.intake40.team9.tripreminder.R;
+import iti.alex.intake40.team9.tripreminder.Room.DbModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,12 +56,16 @@ public class AddNoteFragmentView extends Fragment implements AddNoteFragmentCont
             public void onClick(View v) {
                 addNoteFragmentPresenter=new AddNoteFragmentPresenter(AddNoteFragmentView.this,position,getContext());
                 AddNoteFragmentView.this.trips.get(position).getNotes().add(String.valueOf(AddNoteFragmentView.this.note.getText()));
+                DbModel dbModel = new DbModel(getContext());
+                TripConverter tripConverter=new TripConverter();
+
+                dbModel.updateTripDb(tripConverter.fromTripToTripModel(trips.get(position)));
                 addNoteFragmentPresenter.addNotes(trips.get(position));
               adapter= new ArrayAdapter(AddNoteFragmentView.this.getContext(),android.R.layout.simple_list_item_1,trips.get(position).getNotes());
               lstview.setAdapter(adapter);
             }
         });
-        lstview.setAdapter(adapter);
+       lstview.setAdapter(adapter);
         lstview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
