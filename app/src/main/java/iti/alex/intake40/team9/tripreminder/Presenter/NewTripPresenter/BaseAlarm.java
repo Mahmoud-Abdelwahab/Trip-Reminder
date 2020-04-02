@@ -125,9 +125,6 @@ public class BaseAlarm {
 
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent activate = new Intent(context, AlarmReciever.class);
-//        activate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        activate.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
                 tripModel.getId(), activate,
                 PendingIntent.FLAG_UPDATE_CURRENT);

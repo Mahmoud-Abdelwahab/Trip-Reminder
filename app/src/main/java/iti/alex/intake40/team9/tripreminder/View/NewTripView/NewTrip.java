@@ -32,12 +32,15 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import iti.alex.intake40.team9.tripreminder.Models.FireBaseModel;
+import iti.alex.intake40.team9.tripreminder.POJO.TripConverter;
 import iti.alex.intake40.team9.tripreminder.Presenter.NewTripPresenter.AlarmReciever;
 import iti.alex.intake40.team9.tripreminder.Presenter.NewTripPresenter.BaseAlarm;
 import iti.alex.intake40.team9.tripreminder.Presenter.NewTripPresenter.NewTripPresnter;
 import iti.alex.intake40.team9.tripreminder.R;
 import iti.alex.intake40.team9.tripreminder.Room.DbModel;
 import iti.alex.intake40.team9.tripreminder.Room.TripModel;
+import iti.alex.intake40.team9.tripreminder.Views.UpcomingFragmentView;
 import iti.alex.intake40.team9.tripreminder.autocomplete.PlaceAutoSuggestAdapter;
 
 public class NewTrip extends AppCompatActivity {
@@ -68,13 +71,13 @@ public class NewTrip extends AppCompatActivity {
     BaseAlarm baseAlarm;
    private   TripModel tripE;
     public static Calendar myCalendar;
-
+    TripConverter convert ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_trip);
         ButterKnife.bind(this);
-
+        convert = new TripConverter();
         newTripPresnter = new NewTripPresnter(this);
 
         context = getBaseContext();
@@ -134,8 +137,13 @@ public class NewTrip extends AppCompatActivity {
                     DbModel db = new DbModel(getApplicationContext());
                     List<TripModel> trips = db.getAllTripDb();
 
-
                     newTripPresnter.addNewTrip(tripe);
+
+//                    FireBaseModel.sharedInstance.addTrip(convert.fromTripModelTotrip(tripe));
+
+
+                    Intent upcomming = new Intent(getApplicationContext() , UpcomingFragmentView.class);
+                    startActivity(upcomming);
                 }
             });
 
@@ -156,6 +164,8 @@ public class NewTrip extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     editTrip();
+                    Intent upcomming = new Intent(getApplicationContext() , UpcomingFragmentView.class);
+                    startActivity(upcomming);
                 }
             });
 
@@ -287,12 +297,9 @@ public class NewTrip extends AppCompatActivity {
 //        activate.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
-                    tripE.getId(), activate,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
+                    tripE.getId(), activate, PendingIntent.FLAG_UPDATE_CURRENT);
             manager.cancel(pendingIntent);
-
             tripE.setTitle(titleTxt.getText().toString());
-
             tripE.setStartPoint(fromAuto.getText().toString());
             tripE.setEndPoint(toAuto.getText().toString());
             tripE.setNotes(null); // add note ----------->>>>
@@ -310,12 +317,11 @@ public class NewTrip extends AppCompatActivity {
             baseAlarm.setAlarm(tripE);
             DbModel db = new DbModel(getApplicationContext());
             db.updateTripDb(tripE);
+//            FireBaseModel.sharedInstance.addTrip(convert.fromTripModelTotrip(tripE));
         } else{
         Toast.makeText(context.getApplicationContext(),
                 " Fill Empty Fields " , Toast.LENGTH_LONG).show();
     }
-
-
 
     }
 
