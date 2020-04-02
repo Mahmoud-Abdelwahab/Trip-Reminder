@@ -15,9 +15,7 @@ import java.util.List;
 import iti.alex.intake40.team9.tripreminder.Contracts.IUpcomingFragment.UpcomingFragmentContract;
 import iti.alex.intake40.team9.tripreminder.POJO.Trip;
 import iti.alex.intake40.team9.tripreminder.POJO.TripConverter;
-import iti.alex.intake40.team9.tripreminder.Presenter.NewTripPresenter.BaseAlarm;
 import iti.alex.intake40.team9.tripreminder.Room.AppDataBase;
-import iti.alex.intake40.team9.tripreminder.Room.Converter;
 import iti.alex.intake40.team9.tripreminder.Room.DbModel;
 import iti.alex.intake40.team9.tripreminder.Room.TripModel;
 
