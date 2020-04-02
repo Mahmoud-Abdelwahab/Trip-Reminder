@@ -159,14 +159,14 @@ public class NewTrip extends AppCompatActivity {
                 public void onClick(View v) {
                     editTrip();
 
+                    Intent upcomming = new Intent(getApplicationContext(), UpcomingFragmentView.class);
+                    startActivity(upcomming);
                 }
             });
 
 
         }
 
-        Intent upcomming = new Intent(getApplicationContext(), UpcomingFragmentView.class);
-        startActivity(upcomming);
     }
 
 
