@@ -23,9 +23,20 @@ public class UpcomingFragmentPresenter implements UpcomingFragmentContract.IUpco
 
     }
 
+    public UpcomingFragmentPresenter( Context context) {
+        this.context=context;
+        iUpcomingFragmentModel=new UpcomingFragmentModel(this.context);
+
+    }
+
     @Override
     public void getTrips() {
         trips =iUpcomingFragmentModel.getTripsFromRoom();
         iUpcomingFragmentView.onDataReceived(trips);
+    }
+
+    public List<Trip> getTrips2() {
+        trips =iUpcomingFragmentModel.getTripsFromRoom();
+        return trips;
     }
 }
