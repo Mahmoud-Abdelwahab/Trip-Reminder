@@ -9,6 +9,7 @@ import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName = "TripModel")
@@ -37,7 +38,7 @@ public class TripModel implements Serializable {
         @Nullable
         @ColumnInfo(name = "trip_notes")
         @TypeConverters({Converter.class})
-        private List<String> notes;
+        private List<String> notes = new ArrayList<>();
 
         @Nullable
         @ColumnInfo(name = "status")
