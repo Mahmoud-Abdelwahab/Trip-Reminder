@@ -100,7 +100,6 @@ public class NewTrip extends AppCompatActivity {
 //        tripE= (TripModel) getIntent().getParcelableExtra("TRIP");
 
 
-
         if (action!=null&&action.equals("add")) {
 
             // ///////////////////// data time    /////////
@@ -144,6 +143,8 @@ public class NewTrip extends AppCompatActivity {
 
                     Intent upcomming = new Intent(getApplicationContext() , UpcomingFragmentView.class);
                     startActivity(upcomming);
+                    Intent upComming = new Intent(getApplicationContext() , UpcomingFragmentView.class);
+                    startActivity(upComming);
                 }
             });
 
