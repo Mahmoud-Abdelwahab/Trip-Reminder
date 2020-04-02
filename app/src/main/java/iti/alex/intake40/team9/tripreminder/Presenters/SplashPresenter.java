@@ -14,6 +14,8 @@ import java.util.List;
 import iti.alex.intake40.team9.tripreminder.Models.Delegate;
 import iti.alex.intake40.team9.tripreminder.Models.FireBaseModel;
 import iti.alex.intake40.team9.tripreminder.POJO.Trip;
+import iti.alex.intake40.team9.tripreminder.POJO.TripConverter;
+import iti.alex.intake40.team9.tripreminder.Room.DbModel;
 import iti.alex.intake40.team9.tripreminder.Views.LoginView;
 import iti.alex.intake40.team9.tripreminder.Views.NavigationDrawerView;
 
@@ -50,6 +52,13 @@ public class SplashPresenter implements Delegate {
     public void done() {
         //Log.i("ANE", fireBaseModel.getProfileImage().toString());
         //fireBaseModel.deleteAll();
+        DbModel dbModel = new DbModel(activity);
+        TripConverter tripConverter = new TripConverter();
+        List<Trip> list = fireBaseModel.getTrips();
+        for (int i = 0; i < list.size(); i++)
+        {
+            dbModel.addTripDb(tripConverter.fromTripToTripModel(list.get(i)));
+        }
         Intent i = new Intent(activity, NavigationDrawerView.class);
         activity.startActivity(i);
         activity.finish();
