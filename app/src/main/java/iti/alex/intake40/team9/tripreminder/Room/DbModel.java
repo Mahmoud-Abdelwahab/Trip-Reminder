@@ -15,7 +15,7 @@ public class DbModel implements IDbModel  {
 public DbModel(Context con) {
 
 
-        dataBase = Room.databaseBuilder(con, AppDataBase.class, "db-contacts")
+        dataBase = Room.databaseBuilder(con, AppDataBase.class, "db-trips")
         .allowMainThreadQueries()   //Allows room to do operation on main thread
         .build();
 
