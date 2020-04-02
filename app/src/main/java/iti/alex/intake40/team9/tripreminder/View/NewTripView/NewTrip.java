@@ -69,9 +69,10 @@ public class NewTrip extends AppCompatActivity {
     DatePickerDialog datePickerDialog;
     Context context;
     BaseAlarm baseAlarm;
-   private   TripModel tripE;
+    private TripModel tripE;
     public static Calendar myCalendar;
-    TripConverter convert ;
+    TripConverter convert;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,12 +97,11 @@ public class NewTrip extends AppCompatActivity {
 
         Intent intent = getIntent();
         String action = intent.getStringExtra("ACTION");
-         tripE =(TripModel) intent.getSerializableExtra("TRIP");
+        tripE = (TripModel) intent.getSerializableExtra("TRIP");
 //        tripE= (TripModel) getIntent().getParcelableExtra("TRIP");
 
 
-
-        if (action!=null&&action.equals("add")) {
+        if (action != null && action.equals("add")) {
 
             // ///////////////////// data time    /////////
             addBtn.setOnClickListener(new View.OnClickListener() {
@@ -112,45 +112,35 @@ public class NewTrip extends AppCompatActivity {
                     tripe.setTitle(titleTxt.getText().toString());
 
                     Calendar targetCal = Calendar.getInstance();
-                    int id = (int)targetCal.getTimeInMillis();
+                    int id = (int) targetCal.getTimeInMillis();
                     tripe.setId(id);
-                    Log.d("abdelwahab",""+tripe.getId());
+                    Log.d("abdelwahab", "" + tripe.getId());
 
                     tripe.setStartPoint(fromAuto.getText().toString());
                     tripe.setEndPoint(toAuto.getText().toString());
                     tripe.setNotes(null); // add note ----------->>>>
                     tripe.setRepetition(repetiton.getSelectedItem().toString());
 
-                    List<String> mylist = new ArrayList<>();
-
-                    tripe.setNotes(mylist);
                     tripe.setRounded(Round.getSelectedItem().toString());
                     tripe.setImportance(Imp.getSelectedItem().toString());
                     tripe.setHistory(false);
                     long millis = myCalendar.getTimeInMillis();
                     tripe.setDateTime(millis);
 
-                    Log.i("myobject ", "datatime " + tripe.getDateTime() + " state " + tripe.getStartPoint()
-                            + " end point " + tripe.getEndPoint());
-
                     baseAlarm.setAlarm(tripe);
-                    DbModel db = new DbModel(getApplicationContext());
-                    List<TripModel> trips = db.getAllTripDb();
 
                     newTripPresnter.addNewTrip(tripe);
 
 //                    FireBaseModel.sharedInstance.addTrip(convert.fromTripModelTotrip(tripe));
 
 
-                    Intent upcomming = new Intent(getApplicationContext() , UpcomingFragmentView.class);
-                    startActivity(upcomming);
+
                 }
             });
 
 
-
-        } else if (action!=null&&action.equals("edit")) {
-           // 1- change button name to edite
+        } else if (action != null && action.equals("edit")) {
+            // 1- change button name to edite
             // 2 - setting all fields with object data
             // 3 - update object in database
             //4 - reset alarm
@@ -164,16 +154,15 @@ public class NewTrip extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     editTrip();
-                    Intent upcomming = new Intent(getApplicationContext() , UpcomingFragmentView.class);
-                    startActivity(upcomming);
+
                 }
             });
 
 
         }
 
-
-
+        Intent upcomming = new Intent(getApplicationContext(), UpcomingFragmentView.class);
+        startActivity(upcomming);
     }
 
 
@@ -285,12 +274,9 @@ public class NewTrip extends AppCompatActivity {
     }
 
 
-
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    void editTrip()
-    {
-        if(!titleTxt.getText().equals("") &&!fromAuto.getText().equals("") &&!toAuto.getText().equals("")&&tripE.getDateTime()!=0)
-        {
+    void editTrip() {
+        if (!titleTxt.getText().equals("") && !fromAuto.getText().equals("") && !toAuto.getText().equals("") && tripE.getDateTime() != 0) {
             AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             Intent activate = new Intent(context, AlarmReciever.class);
 //        activate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -304,7 +290,6 @@ public class NewTrip extends AppCompatActivity {
             tripE.setEndPoint(toAuto.getText().toString());
             tripE.setNotes(null); // add note ----------->>>>
             tripE.setRepetition(repetiton.getSelectedItem().toString());
-
             tripE.setRounded(Round.getSelectedItem().toString());
             tripE.setImportance(Imp.getSelectedItem().toString());
             tripE.setHistory(false);
@@ -318,10 +303,10 @@ public class NewTrip extends AppCompatActivity {
             DbModel db = new DbModel(getApplicationContext());
             db.updateTripDb(tripE);
 //            FireBaseModel.sharedInstance.addTrip(convert.fromTripModelTotrip(tripE));
-        } else{
-        Toast.makeText(context.getApplicationContext(),
-                " Fill Empty Fields " , Toast.LENGTH_LONG).show();
-    }
+        } else {
+            Toast.makeText(context.getApplicationContext(),
+                    " Fill Empty Fields ", Toast.LENGTH_LONG).show();
+        }
 
     }
 

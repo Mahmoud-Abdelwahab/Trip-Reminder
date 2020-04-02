@@ -72,13 +72,6 @@ int OBJ_ID;
 //                }
 
 
-//                IntentFilter filter = new IntentFilter("iti.alex.intake40.team9.AlarmReciever");
-//                registerReceiver(alarmReciever, filter);
-//                Intent broadCastIntent = new Intent("iti.alex.intake40.team9.AlarmReciever");
-//                broadCastIntent.putExtra("Action", "stop");
-//                broadCastIntent.setAction("iti.alex.intake40.team9.AlarmReciever");
-//                sendBroadcast(broadCastIntent);
-
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(MyDialogeActivity.this)) {
 
                     Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
@@ -110,12 +103,6 @@ int OBJ_ID;
                 Toast.makeText(getApplicationContext(),
                         " snoozing", Toast.LENGTH_LONG).show();
 
-//                IntentFilter filter = new IntentFilter("iti.alex.intake40.team9.AlarmReciever");
-//                registerReceiver(alarmReciever, filter);
-//                Intent broadCastIntent = new Intent("iti.alex.intake40.team9.AlarmReciever");
-//                broadCastIntent.putExtra("Action", "wait");
-//                broadCastIntent.setAction("iti.alex.intake40.team9.AlarmReciever");
-//                sendBroadcast(broadCastIntent);
 
                 myPlayer.stop();
                 finish();
@@ -129,39 +116,28 @@ int OBJ_ID;
                 Toast.makeText(getApplicationContext(),
                         " Canceling ...", Toast.LENGTH_LONG).show();
 
-//                IntentFilter filter = new IntentFilter("iti.alex.intake40.team9.AlarmReciever");
-//                registerReceiver(alarmReciever, filter);
-//                Intent broadCastIntent = new Intent("iti.alex.intake40.team9.AlarmReciever");
-//                broadCastIntent.putExtra("Action", "stop");
-//                broadCastIntent.setAction("iti.alex.intake40.team9.AlarmReciever");
-//                sendBroadcast(broadCastIntent);
+                DbModel dbModel = new DbModel(getApplicationContext());
 
-    DbModel dbModel = new DbModel(getApplicationContext());
-    //   dbModel.deleteByTripId(NewTrip.OBJ_ID);
-//   int  id  = getIntent().getIntExtra("intent_ID",4);
-    TripModel trip = dbModel.getTripByID(OBJ_ID);
-                      trip.setHistory(true);
+                TripModel trip = dbModel.getTripByID(OBJ_ID);
+                trip.setHistory(true);
+                trip.setStatus("Completed");
+                dbModel.updateTripDb(trip);
 
                 AlarmManager manager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
                 Intent activate = new Intent(getApplicationContext(), AlarmReciever.class);
-//        activate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        activate.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),
                         trip.getId(), activate,
                         PendingIntent.FLAG_UPDATE_CURRENT);
                 manager.cancel(pendingIntent);
 
-    BaseAlarm baseAlarm = new BaseAlarm(getApplicationContext());
-                baseAlarm.setAlarm(trip);
 
-    Intent myService = new Intent(getApplicationContext(), AlarmServiceDialog.class);
-    stopService(myService);
+//                Intent myService = new Intent(getApplicationContext(), AlarmServiceDialog.class);
+//                stopService(myService);
 
                 myPlayer.stop();
 
 
-    finish();
+                finish();
 }
         });
 
