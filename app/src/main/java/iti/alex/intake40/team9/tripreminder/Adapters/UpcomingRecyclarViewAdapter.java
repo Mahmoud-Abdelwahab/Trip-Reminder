@@ -33,6 +33,8 @@ import iti.alex.intake40.team9.tripreminder.Models.FloatingItem;
 import iti.alex.intake40.team9.tripreminder.POJO.Trip;
 import iti.alex.intake40.team9.tripreminder.POJO.TripConverter;
 import iti.alex.intake40.team9.tripreminder.Presenter.NewTripPresenter.BaseAlarm;
+import iti.alex.intake40.team9.tripreminder.Presenters.AddNoteFragmentPresenter;
+import iti.alex.intake40.team9.tripreminder.Presenters.UpcomingFragmentPresenter;
 import iti.alex.intake40.team9.tripreminder.R;
 import iti.alex.intake40.team9.tripreminder.Room.DbModel;
 import iti.alex.intake40.team9.tripreminder.Room.TripModel;
@@ -170,6 +172,8 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(UpcomingRecyclarViewAdapter.this.holder.start.getContext());
                 builder.setTitle("Notes");
+               UpcomingFragmentPresenter upcomingFragmentPresenter=new UpcomingFragmentPresenter(UpcomingRecyclarViewAdapter.this.holder.showNotes.getContext());
+                trips=upcomingFragmentPresenter.getTrips2();
                 List<String> notes = trips.get(position).getNotes();
                 //String[] notesArray = new String[notes.size()];
 
@@ -223,6 +227,8 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
                                 DbModel dbModel = new DbModel(context);
                                 TripConverter tripConverter = new TripConverter();
                                 dbModel.deleteTripDb(tripConverter.fromTripToTripModel(trips.get(position)));
+                                BaseAlarm baseAlarm = new BaseAlarm(UpcomingRecyclarViewAdapter.this.holder.start.getContext());
+                                baseAlarm.cancelAlarm(tripConverter.fromTripToTripModel(trips.get(position)));
                                 trips.remove(position);
                                 notifyItemRemoved(position);
                                 notifyItemRangeChanged(position, trips.size());
@@ -231,12 +237,25 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
                         adb.show();
                         return true;
                     case R.id.Cancel:
+
                         trips.get(position).setHistory(true);
                         trips.get(position).setStatus("Canceled");
                         tripConverter=new TripConverter();
                         DbModel dbModel = new DbModel(context);
                         dbModel.updateTripDb(tripConverter.fromTripToTripModel(trips.get(position)));
-                        notifyItemRangeChanged(position, trips.size());
+                        BaseAlarm baseAlarm = new BaseAlarm(UpcomingRecyclarViewAdapter.this.holder.start.getContext());
+                        baseAlarm.cancelAlarm(tripConverter.fromTripToTripModel(trips.get(position)));
+                         List<Trip> trips2=new ArrayList<Trip>();
+
+                        for(int j =0; j<trips.size();j++)
+                        {
+                            if(!trips.get(j).isHistory())
+                            {
+                                trips2.add(trips.get(j));
+                            }
+                        }
+                        trips=trips2;
+                        notifyItemChanged(position);
                         return true;
                     default:
                         return false;
@@ -269,6 +288,8 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
                         DbModel dbModel = new DbModel(context);
                         TripConverter tripConverter = new TripConverter();
                         dbModel.deleteTripDb(tripConverter.fromTripToTripModel(trips.get(position)));
+                        BaseAlarm baseAlarm = new BaseAlarm(UpcomingRecyclarViewAdapter.this.holder.start.getContext());
+                        baseAlarm.cancelAlarm(tripConverter.fromTripToTripModel(trips.get(position)));
                         trips.remove(position);
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position, trips.size());
