@@ -127,6 +127,7 @@ public class FireBaseModel {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
+                bitmap = null;
                 imageLoaded = true;
                 if (dataLoaded)
                     if (delegate != null) {
@@ -135,7 +136,6 @@ public class FireBaseModel {
                         imageLoaded = false;
                         dataLoaded = false;
                     }
-                bitmap = null;
             }
         });
 
