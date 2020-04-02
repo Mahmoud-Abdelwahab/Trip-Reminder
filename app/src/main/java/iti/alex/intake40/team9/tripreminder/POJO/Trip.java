@@ -4,13 +4,14 @@ import android.location.Location;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class Trip {
     private int id;
     private String tripName;
     private String startPoint;
     private String endPoint;
-    private List<String> notes;
+    private List<String> notes = new ArrayList<>();
     private String date;
     private String time;
     private String priorityImage;
