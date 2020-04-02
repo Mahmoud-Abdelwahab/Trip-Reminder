@@ -36,7 +36,10 @@ public class UpcomingFragmentModel implements UpcomingFragmentContract.IUpcoming
         {
             Trip trip=new Trip();
             TripConverter tripConverter = new TripConverter();
-            trips.add(tripConverter.fromTripModelTotrip(tripModels.get(i)));
+            trip = tripConverter.fromTripModelTotrip(tripModels.get(i));
+            if(!trip.isHistory()){
+                trips.add(tripConverter.fromTripModelTotrip(tripModels.get(i)));
+            }
         }
 
         return trips;
