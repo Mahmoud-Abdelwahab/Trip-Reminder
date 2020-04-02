@@ -40,6 +40,7 @@ import iti.alex.intake40.team9.tripreminder.Presenter.NewTripPresenter.NewTripPr
 import iti.alex.intake40.team9.tripreminder.R;
 import iti.alex.intake40.team9.tripreminder.Room.DbModel;
 import iti.alex.intake40.team9.tripreminder.Room.TripModel;
+import iti.alex.intake40.team9.tripreminder.Views.NavigationDrawerView;
 import iti.alex.intake40.team9.tripreminder.Views.UpcomingFragmentView;
 import iti.alex.intake40.team9.tripreminder.autocomplete.PlaceAutoSuggestAdapter;
 
@@ -133,6 +134,9 @@ public class NewTrip extends AppCompatActivity {
 
 //                    FireBaseModel.sharedInstance.addTrip(convert.fromTripModelTotrip(tripe));
 
+
+                    Intent upcomming = new Intent(getApplicationContext() , NavigationDrawerView.class);
+                    startActivity(upcomming);
 
 
                 }

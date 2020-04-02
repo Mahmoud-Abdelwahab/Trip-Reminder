@@ -29,19 +29,10 @@ public class HistoryPresenter {
     private void getList() {
         List<Trip> list = new ArrayList<>();
 
-        ConnectivityManager cm = (ConnectivityManager) fragment.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected()) {
-            List<Trip> temp = FireBaseModel.sharedInstance.getTrips();
-            for (int i = 0; i < temp.size(); i++)
-                if (temp.get(i).isHistory())
-                    list.add(temp.get(i));
-        }
-        else {
-            List<TripModel> dbModel = new DbModel(fragment.getContext()).getHistory(true);
-            TripConverter tc = new TripConverter();
-            for (int i = 0; i < dbModel.size(); i++)
-                list.add(tc.fromTripModelTotrip(dbModel.get(i)));
-        }
+        List<TripModel> dbModel = new DbModel(fragment.getContext()).getHistory(true);
+        TripConverter tc = new TripConverter();
+        for (int i = 0; i < dbModel.size(); i++)
+            list.add(tc.fromTripModelTotrip(dbModel.get(i)));
         if (list.isEmpty()) {
             delegate.showImage();
         }
