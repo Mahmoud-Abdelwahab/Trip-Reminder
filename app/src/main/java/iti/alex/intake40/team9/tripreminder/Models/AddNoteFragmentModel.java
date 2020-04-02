@@ -32,7 +32,9 @@ public class AddNoteFragmentModel implements AddNoteFragmentContract.IAddNoteFra
         {
             TripModel tripModel = tripModels.get(i);
             Trip trip = tripConverter.fromTripModelTotrip(tripModel);
-            trips.add(trip);
+            if(!trip.isHistory()) {
+                trips.add(trip);
+            }
         }
     return trips;
 
