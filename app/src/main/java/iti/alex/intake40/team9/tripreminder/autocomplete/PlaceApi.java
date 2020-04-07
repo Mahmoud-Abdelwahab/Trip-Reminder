@@ -34,7 +34,7 @@ public class PlaceApi{
             jsonResult.append(buff,0,read);
         }
 
-        Log.d("JSon",jsonResult.toString());
+//        Log.d("JSon",jsonResult.toString());
     }
     catch (MalformedURLException e){
         e.printStackTrace();

@@ -58,6 +58,16 @@ public DbModel(Context con) {
         {
                return iTripDao.getHistory(trip_history);
         }
+
+
+        @Override
+        public List<TripModel> getUpCommingTrips(Boolean trip_history)
+        {
+                return iTripDao.getUpComming(trip_history);
+        }
+
+
+
 }
 
 

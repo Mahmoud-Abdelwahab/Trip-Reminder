@@ -10,6 +10,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -101,6 +102,9 @@ public class NewTrip extends AppCompatActivity {
         tripE = (TripModel) intent.getSerializableExtra("TRIP");
 //        tripE= (TripModel) getIntent().getParcelableExtra("TRIP");
 
+//           action="add";
+
+
 
         if (action != null && action.equals("add")) {
 
@@ -111,10 +115,11 @@ public class NewTrip extends AppCompatActivity {
                 public void onClick(View v) {
                     TripModel tripe = new TripModel();
                     tripe.setTitle(titleTxt.getText().toString());
-
-                    Calendar targetCal = Calendar.getInstance();
-                    int id = (int) targetCal.getTimeInMillis();
-                    tripe.setId(id);
+                    int oneTimeID = (int) SystemClock.uptimeMillis();
+//
+//                    Calendar targetCal = Calendar.getInstance();
+//                    int id = (int) targetCal.getTimeInMillis();
+                    tripe.setId(oneTimeID);
                     Log.d("abdelwahab", "" + tripe.getId());
 
                     tripe.setStartPoint(fromAuto.getText().toString());
@@ -122,7 +127,7 @@ public class NewTrip extends AppCompatActivity {
 
                     tripe.setNotes(new ArrayList<>()); // add note ----------->>>>
                     tripe.setRepetition(repetiton.getSelectedItem().toString());
-
+    List<TripModel> l =new DbModel(getApplicationContext()).getAllTripDb();
                     tripe.setRounded(Round.getSelectedItem().toString());
                     tripe.setImportance(Imp.getSelectedItem().toString());
                     tripe.setHistory(false);
@@ -130,10 +135,10 @@ public class NewTrip extends AppCompatActivity {
                     tripe.setDateTime(millis);
 
                     baseAlarm.setAlarm(tripe);
-
+                    List<TripModel> ll =new DbModel(getApplicationContext()).getAllTripDb();
                     newTripPresnter.addNewTrip(tripe);
 
-//                    FireBaseModel.sharedInstance.addTrip(convert.fromTripModelTotrip(tripe));
+                    FireBaseModel.sharedInstance.addTrip(convert.fromTripModelTotrip(tripe));
 
 
                     Intent upcomming = new Intent(getApplicationContext() , NavigationDrawerView.class);
@@ -160,8 +165,9 @@ public class NewTrip extends AppCompatActivity {
                 public void onClick(View v) {
                     editTrip();
 
-                    Intent upcomming = new Intent(getApplicationContext(), UpcomingFragmentView.class);
+                    Intent upcomming = new Intent(getApplicationContext() , NavigationDrawerView.class);
                     startActivity(upcomming);
+
                 }
             });
 

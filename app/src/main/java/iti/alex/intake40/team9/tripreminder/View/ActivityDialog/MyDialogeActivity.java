@@ -56,7 +56,7 @@ int OBJ_ID;
         myPlayer.start();
 
         OBJ_ID=getIntent().getIntExtra("intent_ID",4);
-
+//     OBJ_ID=AlarmReciever.shared_id;
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,8 +117,9 @@ int OBJ_ID;
                         " Canceling ...", Toast.LENGTH_LONG).show();
 
                 DbModel dbModel = new DbModel(getApplicationContext());
-
                 TripModel trip = dbModel.getTripByID(OBJ_ID);
+//                TripModel trip = dbModel.getTripByID(AlarmReciever.shared_id);
+
                 trip.setHistory(true);
                 trip.setStatus("Canceled");
                 dbModel.updateTripDb(trip);

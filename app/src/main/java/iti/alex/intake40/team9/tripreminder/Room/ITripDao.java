@@ -34,4 +34,6 @@ public interface ITripDao {
     @Query("select * from TripModel where trip_history == :trip_history  ")
     public List<TripModel> getHistory(Boolean trip_history);
 
+    @Query("select * from TripModel where trip_history == :trip_history  ")
+    public List<TripModel> getUpComming(Boolean trip_history);
 }

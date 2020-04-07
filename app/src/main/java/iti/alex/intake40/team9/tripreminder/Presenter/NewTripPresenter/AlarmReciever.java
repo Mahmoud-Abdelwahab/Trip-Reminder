@@ -13,7 +13,7 @@ import iti.alex.intake40.team9.tripreminder.View.NewTripView.NewTrip;
 
 public class AlarmReciever extends BroadcastReceiver {
     Context context;
-
+//public static int shared_id;
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -31,6 +31,10 @@ public class AlarmReciever extends BroadcastReceiver {
 
         alarmServiceIntent.putExtra("intent_ID", intent.getIntExtra("intent_ID",777));
 
+
+
+
+//        shared_id = intent.getIntExtra("intent_ID",777);
         if (action != null) {
             if (action.equals("iti.alex.intake40.team9.AlarmReciever")) {
                 String receivedAction = intent.getStringExtra("Action");
