@@ -8,6 +8,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
@@ -90,7 +91,9 @@ public class NavigationDrawerView extends AppCompatActivity implements Navigatio
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HistoryFragmentView()).commit();
                 break;
             case R.id.nav_sync:
-
+                SharedPreferences.Editor editor = getSharedPreferences("DATA_CHECK", MODE_PRIVATE).edit();
+                editor.putString("sync", "true");
+                editor.apply();
                 List<Trip> trips= new ArrayList<>();
                 trips =FireBaseModel.sharedInstance.getTrips();
                 for(int i=0; i<trips.size();i++)
