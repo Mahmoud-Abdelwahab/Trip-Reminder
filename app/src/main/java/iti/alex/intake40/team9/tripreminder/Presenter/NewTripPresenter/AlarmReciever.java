@@ -13,7 +13,7 @@ import iti.alex.intake40.team9.tripreminder.View.NewTripView.NewTrip;
 
 public class AlarmReciever extends BroadcastReceiver {
     Context context;
-//public static int shared_id;
+public static int shared_id;
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onReceive(Context context, Intent intent) {
