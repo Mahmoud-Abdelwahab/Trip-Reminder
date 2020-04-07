@@ -140,7 +140,7 @@ public class NewTrip extends AppCompatActivity {
                     List<TripModel> ll =new DbModel(getApplicationContext()).getAllTripDb();
                     newTripPresnter.addNewTrip(tripe);
 
-                    FireBaseModel.sharedInstance.addTrip(convert.fromTripModelTotrip(tripe));
+//                    FireBaseModel.sharedInstance.addTrip(convert.fromTripModelTotrip(tripe));
 
 
                     Intent upcomming = new Intent(getApplicationContext() , NavigationDrawerView.class);

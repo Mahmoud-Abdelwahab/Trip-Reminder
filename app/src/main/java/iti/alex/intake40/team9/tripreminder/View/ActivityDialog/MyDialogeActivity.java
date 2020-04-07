@@ -57,6 +57,10 @@ int OBJ_ID;
 
         OBJ_ID=getIntent().getIntExtra("intent_ID",4);
 //     OBJ_ID=AlarmReciever.shared_id;
+
+
+        OBJ_ID = AlarmServiceDialog.shared_I;
+
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
