@@ -3,6 +3,7 @@ package iti.alex.intake40.team9.tripreminder.Presenters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,17 +52,18 @@ public class SplashPresenter implements Delegate {
 
     @Override
     public void done() {
-        DbModel dbModel = new DbModel(activity);
-        List<TripModel> list2 = dbModel.getAllTripDb();
-        for (int i = 0; i < list2.size(); i++)
-        {
-            dbModel.deleteTripDb(list2.get(i));
-        }
-        TripConverter tripConverter = new TripConverter();
-        List<Trip> list = fireBaseModel.getTrips();
-        for (int i = 0; i < list.size(); i++)
-        {
-            dbModel.addTripDb(tripConverter.fromTripToTripModel(list.get(i)));
+        SharedPreferences sh = activity.getSharedPreferences("DATA_CHECK", Context.MODE_PRIVATE);
+        if (sh.getBoolean("sync", false)) {
+            DbModel dbModel = new DbModel(activity);
+            List<TripModel> list2 = dbModel.getAllTripDb();
+            for (int i = 0; i < list2.size(); i++) {
+                dbModel.deleteTripDb(list2.get(i));
+            }
+            TripConverter tripConverter = new TripConverter();
+            List<Trip> list = fireBaseModel.getTrips();
+            for (int i = 0; i < list.size(); i++) {
+                dbModel.addTripDb(tripConverter.fromTripToTripModel(list.get(i)));
+            }
         }
         Intent i = new Intent(activity, NavigationDrawerView.class);
         activity.startActivity(i);
