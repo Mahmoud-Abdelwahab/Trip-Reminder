@@ -20,7 +20,9 @@ import java.util.List;
 
 import iti.alex.intake40.team9.tripreminder.Models.FireBaseModel;
 import iti.alex.intake40.team9.tripreminder.POJO.Trip;
+import iti.alex.intake40.team9.tripreminder.POJO.TripConverter;
 import iti.alex.intake40.team9.tripreminder.R;
+import iti.alex.intake40.team9.tripreminder.Room.DbModel;
 
 public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecyclerViewAdapter.ViewHolder>{
 
@@ -94,7 +96,9 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FireBaseModel.sharedInstance.deleteTrip(list.get(position));
+//                FireBaseModel.sharedInstance.deleteTrip(list.get(position));
+                DbModel db = new DbModel(context);
+                db.deleteTripDb(new TripConverter().fromTripToTripModel(list.get(position)));
                 list.remove(position);
                 adapter.notifyDataSetChanged();
             }
