@@ -27,10 +27,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
     private List<Trip> list;
     private Context context;
     private HistoryRecyclerViewAdapter adapter;
-    private String baseURL = "https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap\n" +
-            "&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318\n" +
-            "&markers=color:red%7Clabel:C%7C40.718217,-73.998284\n" +
-            "&key=";
+    private String baseURL = "https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=200x100&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=AIzaSyB90jAwvUXgXL6sFT8C7j5BlCj4gWY5Saw";
 
     public HistoryRecyclerViewAdapter(List<Trip> list, Context context) {
         this.list = list;

@@ -45,7 +45,6 @@ public class RegisterationView extends AppCompatActivity {
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("ANE", "onclick" + bitmap.toString());
                 rp.onRegisterClicked(bitmap, email.getText().toString(), pass.getText().toString(), confirm.getText().toString());
             }
         });
