@@ -61,9 +61,9 @@ public DbModel(Context con) {
 
 
         @Override
-        public List<TripModel> getUpCommingTrips(Boolean trip_history)
+        public List<TripModel> getUpCommingTrips(String uuerEmail)
         {
-                return iTripDao.getUpComming(trip_history);
+                return iTripDao.getUpCommingWithUserEmail(uuerEmail);
         }
 
 

@@ -20,6 +20,11 @@ public class TripModel implements Serializable {
         @NonNull
         @ColumnInfo(name = "trip_id")
         private int id;
+
+
+        @ColumnInfo(name = "user_email")
+        private String userEmail;
+
         @ColumnInfo(name = "trip_title")
         private String title;
         @ColumnInfo(name = "trip_startPoint")
@@ -62,6 +67,15 @@ public class TripModel implements Serializable {
         public void setId(@NonNull int id) {
                 this.id = id;
         }
+
+        public String getUserEmail() {
+                return userEmail;
+        }
+
+        public void setUserEmail( String userEmail) {
+                this.userEmail = userEmail;
+        }
+
 
         public String getTitle() {
                 return title;
@@ -137,7 +151,7 @@ public class TripModel implements Serializable {
 
 
 
-        public TripModel(@NonNull int id, String title, String startPoint, String endPoint, Long dateTime, String repetition, String rounded,   @Nullable List<String> notes,   @Nullable String importance, Boolean history) {
+        public TripModel(@NonNull int id, String title, String startPoint, String endPoint, Long dateTime, String repetition, String rounded,   @Nullable List<String> notes,   @Nullable String importance, Boolean history ,String usrEmail) {
                 this.id = id;
                 this.title = title;
                 this.startPoint = startPoint;
@@ -148,6 +162,7 @@ public class TripModel implements Serializable {
                 this.notes = notes;
                 this.importance = importance;
                 this.history = history;
+                this.userEmail =usrEmail;
         }
 
         public String getFirebaseID() {

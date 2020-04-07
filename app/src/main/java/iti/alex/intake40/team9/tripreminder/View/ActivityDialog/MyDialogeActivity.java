@@ -132,15 +132,15 @@ int OBJ_ID;
                     manager.cancel(pendingIntent);
 
 
-                    Intent myService = new Intent(getApplicationContext(), AlarmServiceDialog.class);
-                    stopService(myService);
+
                 }else {
                     Toast.makeText(getApplicationContext(),
                             " OK!!!!!!!!!!!!!!!!", Toast.LENGTH_LONG).show();
                 }
 
 
-
+                Intent myService = new Intent(getApplicationContext(), AlarmServiceDialog.class);
+                stopService(myService);
 
 
                 myPlayer.stop();

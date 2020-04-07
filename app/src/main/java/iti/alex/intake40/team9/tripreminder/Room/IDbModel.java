@@ -16,5 +16,5 @@ public interface IDbModel {
     public void deleteByTripId(long trip_id);
     public void deleteTripDb(TripModel contactModel);
     public List<TripModel> getHistory(Boolean trip_history);
-    public List<TripModel> getUpCommingTrips(Boolean trip_history);
+    public List<TripModel> getUpCommingTrips(String userEmail);
 }

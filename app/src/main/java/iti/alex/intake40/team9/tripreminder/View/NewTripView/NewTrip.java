@@ -122,6 +122,7 @@ public class NewTrip extends AppCompatActivity {
                     tripe.setId(oneTimeID);
                     Log.d("abdelwahab", "" + tripe.getId());
 
+                    tripe.setUserEmail("");
                     tripe.setStartPoint(fromAuto.getText().toString());
                     tripe.setEndPoint(toAuto.getText().toString());
 
@@ -133,7 +134,7 @@ public class NewTrip extends AppCompatActivity {
                     tripe.setHistory(false);
                     long millis = myCalendar.getTimeInMillis();
                     tripe.setDateTime(millis);
-                    List<TripModel> fdsf =new DbModel(getApplicationContext()).getUpCommingTrips(false);
+                    List<TripModel> fdsf =new DbModel(getApplicationContext()).getUpCommingTrips(FireBaseModel.sharedInstance.getUserEmail());
 
                     baseAlarm.setAlarm(tripe);
                     List<TripModel> ll =new DbModel(getApplicationContext()).getAllTripDb();
