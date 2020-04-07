@@ -146,9 +146,17 @@ public class UpcomingRecyclarViewAdapter extends RecyclerView.Adapter<UpcomingRe
                     UpcomingRecyclarViewAdapter.this.holder.start.getContext().startService(intent);
                     ((Activity)UpcomingRecyclarViewAdapter.this.holder.start.getContext()).finish();
                 }
-                Uri gmmIntentUri = Uri.parse("google.navigation:q="+trips.get(position).getStartPoint());
+                Uri gmmIntentUri = Uri.parse("google.navigation:q="+trips.get(position).getEndPoint());
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
+
+                Log.i("mahmoud", "google.navigation:q="+trips.get(position).getStartPoint());
+
+//                Uri gmmIntentUri = Uri.parse("google.navigation:q=Taronga+Zoo,+Sydney+Australia");
+//                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+//                mapIntent.setPackage("com.google.android.apps.maps");
+
+
                 UpcomingRecyclarViewAdapter.this.holder.start.getContext().startActivity(mapIntent);
                 Log.d("ay7aga",trips.get(position).getStartPoint());
 

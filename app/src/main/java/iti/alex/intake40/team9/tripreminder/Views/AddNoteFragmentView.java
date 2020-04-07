@@ -55,14 +55,16 @@ public class AddNoteFragmentView extends Fragment implements AddNoteFragmentCont
             @Override
             public void onClick(View v) {
                 addNoteFragmentPresenter=new AddNoteFragmentPresenter(AddNoteFragmentView.this,position,getContext());
-                AddNoteFragmentView.this.trips.get(position).getNotes().add(String.valueOf(AddNoteFragmentView.this.note.getText()));
-                DbModel dbModel = new DbModel(getContext());
-                TripConverter tripConverter=new TripConverter();
+                if(!AddNoteFragmentView.this.note.getText().equals("")) {
+                    AddNoteFragmentView.this.trips.get(position).getNotes().add(String.valueOf(AddNoteFragmentView.this.note.getText()));
+                    DbModel dbModel = new DbModel(getContext());
+                    TripConverter tripConverter = new TripConverter();
 
-                dbModel.updateTripDb(tripConverter.fromTripToTripModel(trips.get(position)));
-                addNoteFragmentPresenter.addNotes(trips.get(position));
-              adapter= new ArrayAdapter(AddNoteFragmentView.this.getContext(),android.R.layout.simple_list_item_1,trips.get(position).getNotes());
-              lstview.setAdapter(adapter);
+                    dbModel.updateTripDb(tripConverter.fromTripToTripModel(trips.get(position)));
+                    addNoteFragmentPresenter.addNotes(trips.get(position));
+                    adapter = new ArrayAdapter(AddNoteFragmentView.this.getContext(), android.R.layout.simple_list_item_1, trips.get(position).getNotes());
+                    lstview.setAdapter(adapter);
+                }
             }
         });
        lstview.setAdapter(adapter);
