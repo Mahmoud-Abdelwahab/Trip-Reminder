@@ -127,12 +127,13 @@ public class NewTrip extends AppCompatActivity {
 
                     tripe.setNotes(new ArrayList<>()); // add note ----------->>>>
                     tripe.setRepetition(repetiton.getSelectedItem().toString());
-    List<TripModel> l =new DbModel(getApplicationContext()).getAllTripDb();
+    List<TripModel> lasd =new DbModel(getApplicationContext()).getAllTripDb();
                     tripe.setRounded(Round.getSelectedItem().toString());
                     tripe.setImportance(Imp.getSelectedItem().toString());
                     tripe.setHistory(false);
                     long millis = myCalendar.getTimeInMillis();
                     tripe.setDateTime(millis);
+                    List<TripModel> fdsf =new DbModel(getApplicationContext()).getUpCommingTrips(false);
 
                     baseAlarm.setAlarm(tripe);
                     List<TripModel> ll =new DbModel(getApplicationContext()).getAllTripDb();

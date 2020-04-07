@@ -119,21 +119,29 @@ int OBJ_ID;
                 DbModel dbModel = new DbModel(getApplicationContext());
                 TripModel trip = dbModel.getTripByID(OBJ_ID);
 //                TripModel trip = dbModel.getTripByID(AlarmReciever.shared_id);
+                if(trip !=null) {
+                    trip.setHistory(true);
+                    trip.setStatus("Canceled");
+                    dbModel.updateTripDb(trip);
 
-                trip.setHistory(true);
-                trip.setStatus("Canceled");
-                dbModel.updateTripDb(trip);
-
-                AlarmManager manager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-                Intent activate = new Intent(getApplicationContext(), AlarmReciever.class);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),
-                        trip.getId(), activate,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
-                manager.cancel(pendingIntent);
+                    AlarmManager manager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+                    Intent activate = new Intent(getApplicationContext(), AlarmReciever.class);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),
+                            trip.getId(), activate,
+                            PendingIntent.FLAG_UPDATE_CURRENT);
+                    manager.cancel(pendingIntent);
 
 
-                Intent myService = new Intent(getApplicationContext(), AlarmServiceDialog.class);
-                stopService(myService);
+                    Intent myService = new Intent(getApplicationContext(), AlarmServiceDialog.class);
+                    stopService(myService);
+                }else {
+                    Toast.makeText(getApplicationContext(),
+                            " OK!!!!!!!!!!!!!!!!", Toast.LENGTH_LONG).show();
+                }
+
+
+
+
 
                 myPlayer.stop();
 
