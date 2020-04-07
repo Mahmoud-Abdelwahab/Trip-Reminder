@@ -21,7 +21,7 @@ import iti.alex.intake40.team9.tripreminder.View.ActivityDialog.MyDialogeActivit
 
 public class AlarmServiceDialog extends Service {
 
-    public static int shared_I;
+//    public static int shared_I;
 
     //Used for Bound service,At this point let's keep it null
     @Nullable
@@ -68,7 +68,7 @@ public class AlarmServiceDialog extends Service {
 
 
             }
-            shared_I = intent.getIntExtra("intent_ID",0) ;
+//            shared_I = intent.getIntExtra("intent_ID",0) ;
 
             Intent dialogIntent = new Intent(this, MyDialogeActivity.class);
             dialogIntent.putExtra("intent_ID",intent.getIntExtra("intent_ID",0));

@@ -42,8 +42,8 @@ public class MyDialogeActivity extends AppCompatActivity {
     @BindView(R.id.cancelBtn)
     Button cancelBtn;
 BaseAlarm baseAlarm ;
-
-int OBJ_ID;
+ boolean flag = true ;
+    static int  OBJ_ID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,11 +55,14 @@ int OBJ_ID;
         myPlayer.setLooping(true);
         myPlayer.start();
 
-        OBJ_ID=getIntent().getIntExtra("intent_ID",4);
+        if(flag) {
+            OBJ_ID = getIntent().getIntExtra("intent_ID", 4);
+            flag =false;
+        }
 //     OBJ_ID=AlarmReciever.shared_id;
 
 
-        OBJ_ID = AlarmServiceDialog.shared_I;
+
 
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
